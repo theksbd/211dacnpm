@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
-import ReactDOM from 'react-dom';
+import Header from './Header'
+import Footer from './Footer'
 
 const productData = [
   {
@@ -36,15 +37,15 @@ const productData = [
     "oldPrice": 32990000
   },
   {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
+    "productName": "ASUS ROG Phone 5 Chính Hãng",
+    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/small_image/9df78eab33525d08d6e5fb8d27136e95/a/s/asus-rog-phone-5_0002_gsmarena_001.jpg",
     "specifications": {
-      "screen": 6.9,
-      "ram": 12,
+      "screen": 6.78,
+      "ram": 16,
       "rom": 256
     },
-    "newPrice": 20490009,
-    "oldPrice": 32990000
+    "newPrice": 18990000,
+    "oldPrice": 22990000
   },
   {
     "productName": "Samsung Galaxy Note 20 Ultra 5G",
@@ -404,14 +405,15 @@ function ProductItem(props) {
       <div class="card shadow"
         style={{
           width: '100%',
-          border: '0.5px solid #C4C4C4', borderRadius: '5%', cursor: 'pointer',
-          '&:hover': { transform: 'scale(1.1)' ,
+          border: '0.5px solid #C4C4C4', borderRadius: '12px', cursor: 'pointer',
+          '&:hover': {
+            transform: 'scale(1.1)',
           }
         }}
         onClick={() => 1}>
-        <img src={props.product.image} class="card-img-top " alt="..." style={{width: '90%', borderRadius: '10%'}}/>
+        <img src={props.product.image} class="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
         <div class="card-body">
-          <h5 class="card-title">{props.product.productName}</h5>
+          <h5 class="card-title" style={{minHeight:'48px'}}>{props.product.productName}</h5>
           <div class='row' style={{ paddingRight: '16px', paddingLeft: '4px' }}>
             <div class='col-md col-lg col-xl float-start m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4', width: '100%' }}>
               {props.product.specifications.screen} inches
@@ -444,15 +446,15 @@ export default function ProductList() {
 
   const [disabledButton, setDisabledButton] = useState(false)
 
-   // này là component 
+  // này là component 
   function Sort() {
     return <button type="button" class="btn btn-success" onClick={() => handleSort()}>Sắp xếp</button>
   }
 
-  
-  function handleSort(){
-    setData(productData.slice().sort((a,b) => {
-      if (!increase) return a.newPrice - b.newPrice  
+
+  function handleSort() {
+    setData(productData.slice().sort((a, b) => {
+      if (!increase) return a.newPrice - b.newPrice
       else return -(a.newPrice - b.newPrice)
     }))
 
@@ -464,8 +466,8 @@ export default function ProductList() {
       <div class='row mb-5 d-flex justify-content-center'>
         <button type="button" class="btn btn-secondary w-25"
           onClick={handleClickMore} disabled={disabledButton}>
-            <span> Xem thêm</span>
-          </button>
+          <span> Xem thêm</span>
+        </button>
       </div>
     )
   }
@@ -474,70 +476,35 @@ export default function ProductList() {
 
   function handleClickMore() {
 
-  setIndex(n => n + 8)
+    setIndex(n => n + 8)
 
-  if (index + 8 >= productData.length) {
-    // setIndex(index - 8)
-    setDisabledButton(!disabledButton)
-  }
-  // else setIndex(index + 8)
-  // console.log('Index : ' + index + ' and Len :' + productData.length)
+    if (index + 8 >= productData.length) {
+      // setIndex(index - 8)
+      setDisabledButton(!disabledButton)
+    }
+    // else setIndex(index + 8)
+    // console.log('Index : ' + index + ' and Len :' + productData.length)
     // console.log(nameBtnMore)
   }
 
 
   function RenderProduct() {
     // ReactDOM.render(<ProductItem product={productData[0]} />,listProduct)
-    return <Fragment>{data.slice(0, index ).map((product) => {
+    return <Fragment>{data.slice(0, index).map((product) => {
       return (
         <ProductItem product={product} />
       )
-    })} 
-    <ButtonMore />
+    })}
+      <ButtonMore />
     </Fragment>
   }
 
 
   return (
     <div class='container-fluid'>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <Header />
       <div class='row' style={{ marginLeft: '6rem', marginTop: '5rem' }}>
-        <div class='col-md-6'>
+        <div class='col-md-6 mt-5'>
           <Sort />
         </div>
       </div>
@@ -545,6 +512,7 @@ export default function ProductList() {
         <RenderProduct />
         {/* <ButtonMore /> */}
       </div>
+      <Footer />
     </div>
   );
 }
