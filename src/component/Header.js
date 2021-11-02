@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Header() {
     return (
         <div className="body">
-            <nav className="navbar navbar-expand-md navbar-light bg-primary sticky-top">
+            <nav className="navbar navbar-expand-md navbar-light sticky-top Header1">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#0">
                         Logo
@@ -36,7 +36,7 @@ export default function Header() {
                 </div>
             </nav>
             <p className="path"> Trang chủ <i class="fas fa-chevron-right"></i> Tra cứu đơn hàng</p>
-            <nav className="navbar navbar-expand-md navbar-light bg-primary sticky-top">
+            <nav className="navbar navbar-expand-md navbar-light sticky-top Header2">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#0">
                         <i className="fas fa-bars"></i> Danh mục sản phẩm <i className="fas fa-chevron-down"></i>
