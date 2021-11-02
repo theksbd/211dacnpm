@@ -1,7 +1,28 @@
-import ProductList from "./component/ProductList";
-import Login from "./component/Login"
+import React from "react";
+import ProductList from "./components/ProductList";
+import Login from "./components/Login";
+import Header from "./components/Header"
+import Footer from "./components/Footer";
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function App() {
-  return <ProductList /> 
-  // return <Login />
+function App() {
+  return (
+    <div className="container">
+      <div className="row">
+        <Header />
+      </div>
+      <div className="row">
+        <ProductList />
+      </div>
+      {/* <div className="row">
+        <Login />
+      </div> */}
+      <div className="row">
+        <Footer />
+      </div>
+    </div>
+  );
 }
+
+export default App;
