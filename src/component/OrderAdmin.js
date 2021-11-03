@@ -267,7 +267,6 @@ function OrderAdmin() {
                             display: true,
                             position: 'bottom',
                             labels: {
-                                // This more specific font property overrides the global property
                                 font: {
                                     size: 18
                                 }
