@@ -15,26 +15,26 @@ const productData = [
     "oldPrice": 32990000
   },
   {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
+    "productName": "Oppo Reno 6 5G",
+    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/small_image/9df78eab33525d08d6e5fb8d27136e95/r/e/reno6-1_1.jpg",
     "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
+      "screen": 6.43,
+      "ram": 8,
+      "rom": 128
     },
-    "newPrice": 20490005,
-    "oldPrice": 32990000
+    "newPrice": 12490000,
+    "oldPrice": 12990000
   },
   {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
+    "productName": "Xiaomi Redmi Note 10 Pro",
+    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/small_image/9df78eab33525d08d6e5fb8d27136e95/x/i/xiaomi-redmi-note-10-pro_2_.png",
     "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
+      "screen": 6.67,
+      "ram": 8,
+      "rom": 128
     },
-    "newPrice": 20490001,
-    "oldPrice": 32990000
+    "newPrice": 7300000,
+    "oldPrice": 7490000
   },
   {
     "productName": "ASUS ROG Phone 5 Chính Hãng",
@@ -272,126 +272,6 @@ const productData = [
     "oldPrice": 32990000
   },
 
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
-  {
-    "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    "specifications": {
-      "screen": 6.9,
-      "ram": 12,
-      "rom": 256
-    },
-    "newPrice": 20490000,
-    "oldPrice": 32990000
-  },
-
 
 ]
 
@@ -401,32 +281,33 @@ function ProductItem(props) {
 
 
   return (
-    <div class="col-md-3 col-lg col-xl my-5">
-      <div class="card shadow"
+    <div className="col-md-3 col-lg col-xl my-5">
+      <div className="card shadow"
         style={{
           width: '100%',
           border: '0.5px solid #C4C4C4', borderRadius: '12px', cursor: 'pointer',
           '&:hover': {
             transform: 'scale(1.1)',
-          }
+          },
+          maxWidth: '302px'
         }}
         onClick={() => 1}>
-        <img src={props.product.image} class="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
-        <div class="card-body">
-          <h5 class="card-title" style={{minHeight:'48px'}}>{props.product.productName}</h5>
-          <div class='row' style={{ paddingRight: '16px', paddingLeft: '4px' }}>
-            <div class='col-md col-lg col-xl float-start m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4', width: '100%' }}>
+        <img src={props.product.image} className="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%'}} />
+        <div className="card-body">
+          <h5 className="card-title" style={{minHeight:'48px'}}>{props.product.productName}</h5>
+          <div className='row' style={{ paddingRight: '4px', paddingLeft: '4px' }}>
+            <div className='col-md col-lg col-xl float-start m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4', maxWidth: '104px' }}>
               {props.product.specifications.screen} inches
             </div>
-            {/* <div class='col-md m-2 rounded' style={{ backgroundColor: '#C4C4C4' }}>
+            <div className='col-md col-lg col-xl m-2 rounded' style={{ backgroundColor: '#C4C4C4', maxWidth: '62px' }}>
               {props.product.specifications.ram}GB
-            </div> */}
-            <div class='col-md col-lg col-xl m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4' }}>
+            </div>
+            <div className='col-md col-lg col-xl m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4', maxWidth: '72px' }}>
               {props.product.specifications.rom}GB
             </div>
           </div>
-          <p class="text-danger h1">{props.product.newPrice}</p>
-          <p class="text-muted h3">{props.product.oldPrice}</p>
+          <p className="text-danger h1">{props.product.newPrice}</p>
+          <p className="text-muted h3 text-decoration-line-through">{props.product.oldPrice}</p>
         </div>
       </div>
     </div>
@@ -448,7 +329,7 @@ export default function ProductList() {
 
   // này là component 
   function Sort() {
-    return <button type="button" class="btn btn-success" onClick={() => handleSort()}>Sắp xếp</button>
+    return <button type="button" className="btn btn-success" onClick={() => handleSort()}>Sắp xếp</button>
   }
 
 
@@ -463,8 +344,8 @@ export default function ProductList() {
 
   function ButtonMore() {
     return (
-      <div class='row mb-5 d-flex justify-content-center'>
-        <button type="button" class="btn btn-secondary w-25"
+      <div className='row mb-5 d-flex justify-content-center'>
+        <button type="button" className="btn btn-secondary w-25"
           onClick={handleClickMore} disabled={disabledButton}>
           <span> Xem thêm</span>
         </button>
@@ -501,14 +382,14 @@ export default function ProductList() {
 
 
   return (
-    <div class='container-fluid'>
+    <div className='container-fluid'>
       <Header />
-      <div class='row' style={{ marginLeft: '6rem', marginTop: '5rem' }}>
-        <div class='col-md-6 mt-5'>
+      <div className='row' style={{ marginLeft: '3rem', marginTop: '5rem' }}>
+        <div className='col-md-6 mt-5'>
           <Sort />
         </div>
       </div>
-      <div class='row mx-5' id='product-list'>
+      <div className='row mx-5' id='product-list'>
         <RenderProduct />
         {/* <ButtonMore /> */}
       </div>
