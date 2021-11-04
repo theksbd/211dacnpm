@@ -1,5 +1,33 @@
+import productData from '../Data/Data'
+import { useState } from 'react'
+import ReactDOM from 'react-dom'
+import ProductList from './HomePage/ProductList'
+import ProductItem from './HomePage/ProductItem'
+
+
+
+
 
 export default function Header() {
+
+    const [searchTerm, setSearchTerm] = useState('')
+
+    function handleSearch() {
+        let resultSearch;
+        let productFound = productData.filter((product) => {
+            return product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+        })
+        if (productFound.length == 0) productFound = productData
+        resultSearch = (<div class='row ' style={{ marginTop: '10rem' }}>
+            {
+                productFound.map((product => {
+                    return <ProductItem product={product} />
+                }))
+            } </div>)
+        ReactDOM.render(resultSearch, document.getElementById('product-list'))
+    }
+
+
     return <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand " href="#" style={{ fontFamily: "Roboto", fontSize: "36px" }}>Logo</a>
@@ -35,7 +63,7 @@ export default function Header() {
                         <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
                         <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                     </svg>
-                    Log in
+                    Đăng nhập
                 </button>
                 <a class="nav-link text-primary" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
@@ -47,10 +75,18 @@ export default function Header() {
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                     </svg>
                 </a>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success me-2" type="submit">Search</button>
-                </form>
+                <div class='me-2'>
+                    <input class="form-control col-6" type="text" placeholder="Search" aria-label="text" onKeyUp={(even) => {
+                        if (even.key === "Enter") {
+                            even.preventDefault();
+                            document.getElementById('search').click()
+                        }
+                        else setSearchTerm(even.target.value)
+                    }}/>
+                </div>
+                <div>
+                    <button class="btn btn-outline-success me-2 " type="submit" onClick={handleSearch} id='search'>Search</button>
+                </div>
             </div>
         </div>
     </nav>

@@ -1,4 +1,4 @@
-import ProductList from "./component/ProductList";
+import ProductList from "./component/HomePage/ProductList";
 import Login from "./component/Login"
 
 export default function App() {
