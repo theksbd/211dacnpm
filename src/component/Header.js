@@ -24,6 +24,7 @@ export default function Header() {
                     return <ProductItem product={product} />
                 }))
             } </div>)
+        
         ReactDOM.render(resultSearch, document.getElementById('product-list'))
     }
 
