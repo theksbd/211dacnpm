@@ -1,6 +1,5 @@
 import React from "react";
 import ProductList from "./component/ProductList";
-<<<<<<< HEAD
 //import Login from "./component/Login";
 import Header from "./component/Header"
 import Footer from "./component/Footer";
@@ -32,16 +31,3 @@ function App() {
 }
 
 export default App;
-=======
-import Login from "./component/Login"
-import EditItem from "./pages/EditItem"
-import AddItem from "./pages/AddItem"
-
-export default function App() {
-  // return <ProductList /> 
-  // return <Login />
-  // return <EditItem /> 
-  return <AddItem /> 
-
-}
->>>>>>> quan
