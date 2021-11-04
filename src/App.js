@@ -1,9 +1,9 @@
 import React from "react";
-import ProductList from "./components/ProductList";
-//import Login from "./components/Login";
-import Header from "./components/Header"
-import Footer from "./components/Footer";
-import OrderAdmin from "./components/OrderAdmin";
+import ProductList from "./component/ProductList";
+//import Login from "./component/Login";
+import Header from "./component/Header"
+import Footer from "./component/Footer";
+import OrderAdmin from "./component/OrderAdmin";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
