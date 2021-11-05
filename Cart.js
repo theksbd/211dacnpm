@@ -1,34 +1,10 @@
 import React, { useState, Fragment } from 'react';
 import Header from './Header'
 import Footer from './Footer'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function Cart(props){
-
-    const [counter, setCounter] = useState(1)
-    const HandleIncrese = () => {
-        setCounter( counter + 1)
-    }
-    const HandleDecrese = () => {
-        if (counter >0){
-            setCounter( counter - 1)
-        }
-    }
-    function handleSubmit() {
-        toast.success('Đặt hàng thành công', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-    }
     return(
-        <div className="container mt-5" >
-            <ToastContainer />
+        <div className="container" >
             <div class="col-md-12 col-sm-12 d-flex">
                 <div class="col-md-6 col-sm-6 ">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true" style={{marginLeft: 'auto', width:'auto', color:'red'}}></span>
@@ -53,11 +29,11 @@ function Cart(props){
                     <h3>Khuyến mãi:</h3>
                     <h5>- Tặng mã giảm giá 1,000,000đ khi mua các sản phẩm khác tại cửa hàng</h5>
                     <h5>- Bảo hành 12 tháng</h5>
-                    <div  class="btn-group d-flex col-md-5 col-sm-12" role="group" aria-label="Basic example">
+                    <div style={{float:'right'}} class="btn-group d-flex col-md-5 col-sm-5" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-danger">Xóa khỏi giỏ</button>
-                        <button type="button" class="btn btn-outline-secondary" onClick={HandleDecrese}>-</button>
-                        <input style={{width: '40px'}} class="form-control" type="text" id="fname" name="fname" value={counter} required/>
-                        <button type="button" class="btn btn-outline-secondary" onClick={HandleIncrese}>+</button>
+                        <button type="button" class="btn btn-outline-secondary">-</button>
+                        <input style={{maxWidth: '40px'}} class="form-control" type="text" id="fname" name="fname" value="1" required/>
+                        <button type="button" class="btn btn-outline-secondary">+</button>
                     </div>
                 </div>
             </div>
@@ -86,12 +62,10 @@ function Cart(props){
                     <option>Chuyển khoản</option>
                 </select>
             </div>
-            <div class="col-md-12 col-sm-12 mb-5" style={{textAlign:"center"}}>
-                    <button style={{marginTop:"30px", borderRadius:"15px"}} type="button" class="btn btn-danger" onClick={handleSubmit}><h1>Xác nhận đặt hàng</h1></button>
+            <div class="col-md-12 col-sm-12" style={{textAlign:"center"}}>
+                    <button style={{marginTop:"30px", borderRadius:"15px"}} type="button" class="btn btn-danger"><h1>Xác nhận đặt hàng</h1></button>
             </div>
         </div>
     )
 }
-
-
 export default Cart;
