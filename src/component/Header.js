@@ -23,7 +23,7 @@ export default function Header() {
         if (productFound.length == 0) {
             toast.error('Không tìm thấy sản phẩm', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,

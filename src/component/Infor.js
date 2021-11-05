@@ -1,6 +1,7 @@
 import React, { useState, Fragment, Alert } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Comment from './Comment';
 
 
 function Infor(props) {
@@ -205,22 +206,20 @@ function Infor(props) {
                 </div>
 
             </div>
-            <div style={{ textAlign: "center" }}>
-                <h3>Đánh giá và nhận xét</h3>
-                <div class="d-flex justify-content-center">
-                    <div class="content text-center">
-                        <div class="ratings"> <h3><span class="product-rating">4.6</span><span>/5</span></h3>
-                            <div class="stars" style={{ fontSize: "18px", color: "#28a745" }}> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                            <div class="rating-text"> <span><h3>46 ratings & 15 reviews</h3></span> </div>
+            <div class="mt-5 text-center w-50 shadow" style={{ textAlign: "center", margin:"auto" }}>
+                    <h3 class="pt-2">Đánh giá và nhận xét</h3>
+                    <div class="d-flex justify-content-center">
+                        <div class="content text-center">
+                            <div class="ratings"> <h3><span class="product-rating">4.6</span><span>/5</span></h3>
+                                <div class="stars" style={{ fontSize: "18px", color: "#28a745" }}> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                <div class="rating-text pt-2"> <span><h3>46 ratings & 15 reviews</h3></span> </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div >
-                    <button style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', textAlign: "center", width: "500px" }} type="button" class="btn btn-outline-secondary mb-3"><h2> Xem tất cả đánh giá </h2>
-                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true" style={{ marginLeft: 'auto', width: 'auto' }}></span>
-                    </button>
-                </div>
-
+            </div>
+            <div class="mb-5">
+                {/* <button style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', textAlign: "center", width: "500px" }} type="button" class="btn btn-outline-secondary mb-3"><h2> Xem tất cả đánh giá </h2></button> */}
+                <Comment />
             </div>
         </div>
 
