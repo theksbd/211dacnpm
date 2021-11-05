@@ -420,7 +420,7 @@ export default function ManagerItem() {
             }
           }}
           onClick={()=>{
-            window.location.href('/editItem')
+            window.location.href = '/editItem'
           }}
           >
           <img src={props.product.image} class="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
@@ -447,7 +447,7 @@ export default function ManagerItem() {
   function AddItem(){
     return(
       <button type="button" class="btn btn-outline-success" onClick={()=>{
-        window.location.href('/addItem')
+        window.location.href='/addItem'
       }}>
         Thêm sản phẩm
       </button>
@@ -488,7 +488,7 @@ export default function ManagerItem() {
         </button>
         <ul class="dropdown-menu ">
           <li><a class="dropdown-item" href="managerItem">Quản lý sản phẩm</a></li>
-          <li><a class="dropdown-item" href="donhang">Quản lý đơn hàng</a></li>
+          <li><a class="dropdown-item" href="OrderAdmin">Quản lý đơn hàng</a></li>
         </ul>
       </div>
       )

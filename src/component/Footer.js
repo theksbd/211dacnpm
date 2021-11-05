@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <div className='row'>
+        <div className='row' id="footer">
             <footer style={{ backgroundColor: '#A1C6E0' }} className="container-fluid">
                 <div className="row text-center m-4">
                     <div className="col-sm-3">

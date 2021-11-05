@@ -1,6 +1,4 @@
 import React, { useState, Fragment } from 'react';
-import Header from '../Header'
-import Footer from '../Footer'
 import productData from '../../Data/Data'
 import ProductItem from './ProductItem'
 
@@ -72,16 +70,14 @@ export default function ProductList() {
 
   return (
     <div class='container-fluid'>
-      <Header />
       <div class='row mx-5' id='product-list'>
-        <div class='row' style={{ marginTop: '5rem' }}>
+        <div class='row' style={{ marginTop: '2rem' }}>
           <div class='col-md-6 mt-5'>
             <Sort />
           </div>
         </div>
-        <RenderProduct />
+          <RenderProduct />
       </div>
-      <Footer />
     </div>
   );
 }

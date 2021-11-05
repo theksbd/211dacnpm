@@ -418,9 +418,7 @@ export default function Admin() {
               transform: 'scale(1.1)',
             }
           }}
-        //   onClick={()=>{
-        //     navigate('/editItem')
-        //   }}
+          onClick={() => window.location.href= "/Infor"}
           >
           <img src={props.product.image} class="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
           <div class="card-body">
@@ -478,7 +476,7 @@ export default function Admin() {
         </button>
         <ul class="dropdown-menu ">
           <li><a class="dropdown-item" href="managerItem">Quản lý sản phẩm</a></li>
-          <li><a class="dropdown-item" href="donhang">Quản lý đơn hàng</a></li>
+          <li><a class="dropdown-item" href="OrderAdmin">Quản lý đơn hàng</a></li>
         </ul>
       </div>
       )

@@ -9,7 +9,7 @@ export default function ProductItem(props) {
                     border: '0.5px solid #C4C4C4', borderRadius: '12px', cursor: 'pointer',
                     maxWidth: '302px'
                 }}
-                onClick={() => 1}>
+                onClick={() => window.location.href= "/Infor"}>
                 <img src={props.product.image} className="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
                 <div className="card-body">
                     <h5 className="card-title" style={{ minHeight: '48px' }}>{props.product.productName}</h5>
