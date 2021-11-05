@@ -4,6 +4,7 @@ import { useState } from 'react'
 import ReactDOM from 'react-dom'
 import ProductList from './HomePage/ProductList'
 import ProductItem from './HomePage/ProductItem'
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export default function Header() {
@@ -11,11 +12,26 @@ export default function Header() {
     const [searchTerm, setSearchTerm] = useState('')
 
     function handleSearch(searchKey) {
+        if (searchKey == '') {
+            window.location.href= "/"
+            return
+        }
         let resultSearch;
         let productFound = productData.filter((product) => {
             return product.productName.toLowerCase().includes(searchKey.toLowerCase())
         })
-        if (productFound.length == 0) productFound = productData
+        if (productFound.length == 0) {
+            toast.error('Không tìm thấy sản phẩm', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return
+        }
         resultSearch = (<div class='row ' style={{ marginTop: '6rem' }}>
             {
                 productFound.map((product => {
@@ -89,6 +105,7 @@ export default function Header() {
                     </div>
                 </div>
             </div >
+            <ToastContainer />
         </nav >
     </div>)
 }
