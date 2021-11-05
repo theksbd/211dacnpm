@@ -1,5 +1,5 @@
-import Header from '../component/Header'
-import Footer from '../component/Footer'
+import Header from '../Header'
+import Footer from '../Footer'
 import './EditItem.css'
 import React, { useState,Component } from 'react'
 class EditItem extends Component{

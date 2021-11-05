@@ -52,7 +52,19 @@ export default function App() {
   return (
     <div className="container">
         <Header />
-        <Infor />
+        <Infor image= "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg"
+        productName= "Samsung Galaxy Note 20 Ultra 5G"
+        newPrice= "20490000"
+        rom1="128 GB"
+        rom2="256 GB"
+        rom3="512 GB"
+        rom4="1TB"
+        screen= "6.9"
+        chip= "Exynos 990"
+        ram= "12"
+        pin= "4500 mAh"
+        OS= "Android 10"
+        />
         {/* <Cart image= "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg"
         productName= "Samsung Galaxy Note 20 Ultra 5G"
         newPrice= "20490000"
