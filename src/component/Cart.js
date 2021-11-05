@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import Header from './Header'
 import Footer from './Footer'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Cart(props){
 
@@ -13,9 +15,20 @@ function Cart(props){
             setCounter( counter - 1)
         }
     }
-
+    function handleSubmit() {
+        toast.success('Đặt hàng thành công', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
     return(
         <div className="container" >
+            <ToastContainer />
             <div class="col-md-12 col-sm-12 d-flex">
                 <div class="col-md-6 col-sm-6 ">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true" style={{marginLeft: 'auto', width:'auto', color:'red'}}></span>
@@ -74,31 +87,11 @@ function Cart(props){
                 </select>
             </div>
             <div class="col-md-12 col-sm-12" style={{textAlign:"center"}}>
-                    <button style={{marginTop:"30px", borderRadius:"15px"}} type="button" class="btn btn-danger" ><h1>Xác nhận đặt hàng</h1></button>
+                    <button style={{marginTop:"30px", borderRadius:"15px"}} type="button" class="btn btn-danger" onClick={handleSubmit}><h1>Xác nhận đặt hàng</h1></button>
             </div>
         </div>
     )
-
-
-
-
 }
 
-    
-
-    
-
-    // function handleSub() {
-
-    //     setIndex(n => n - 1)
-    
-    //     if (n < 0) {
-    //       // setIndex(index - 8)
-    //       setIndex(n => 0)
-    //     }
-    //     // else setIndex(index + 8)
-    //     // console.log('Index : ' + index + ' and Len :' + productData.length)
-    //     // console.log(nameBtnMore)
-    // }
 
 export default Cart;
