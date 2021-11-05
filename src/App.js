@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+// import './App.css';
 import Infor from "./component/Infor";
 import Cart from "./component/Cart";
 import Header from "./component/Header";
