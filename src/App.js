@@ -28,7 +28,7 @@ export default function App() {
           */}
       <Header />
       <div class="row">
-        <Router>
+        {/* <Router>
           <Switch>
             <Route path="/login" exact component={Login} />
             <Route path="/cart" exact component={Cart} />
@@ -38,7 +38,8 @@ export default function App() {
             <Route path="/EditItem" exact component={EditItem} />
             <Route path="/" exact component={ProductList} />
           </Switch>
-        </Router>
+        </Router> */}
+        <AddItem />
       </div>
       <Footer />
     </div>
