@@ -2,27 +2,15 @@ import React, { useState, Fragment, Alert } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Comment from './Comment';
+import { useLocation } from "react-router-dom";
 
 
 function Infor(props) {
-    const productData =
-    {
-        "productName": "Samsung Galaxy Note 20 Ultra 5G",
-        "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-        "specifications": {
-            "screen": 6.9,
-            "ram": 12,
-            "rom1": "128 GB",
-            "rom2": "256 GB",
-            "rom3": "512 GB",
-            "rom4": "1 TB"
-        },
-        "newPrice": 20490000,
-        "oldPrice": 32990000,
-        "chip": "Exynos 990",
-        "pin": "4500 mAh",
-        "OS": "Android 10"
-    }
+    const location = useLocation();
+
+    
+
+    const productData = location.state
 
     const [show, setShow] = useState(true)
     const HandleShow = () => {
