@@ -383,7 +383,6 @@ export default function ProductList() {
 
   return (
     <div className='container-fluid'>
-      <Header />
       <div className='row' style={{ marginLeft: '3rem', marginTop: '5rem' }}>
         <div className='col-md-6 mt-5'>
           <Sort />
@@ -393,7 +392,6 @@ export default function ProductList() {
         <RenderProduct />
         {/* <ButtonMore /> */}
       </div>
-      <Footer />
     </div>
   );
 }

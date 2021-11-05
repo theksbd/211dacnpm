@@ -23,7 +23,25 @@ import 'react-toastify/dist/ReactToastify.css';
 // ]
 
 function Infor(props){
-
+    const productData = 
+        {
+          "productName": "Samsung Galaxy Note 20 Ultra 5G",
+          "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
+          "specifications": {
+            "screen": 6.9,
+            "ram": 12,
+            "rom1": "128 GB",
+            "rom2": "256 GB",
+            "rom3": "512 GB",
+            "rom4": "1 TB"
+          },
+          "newPrice": 20490000,
+          "oldPrice": 32990000,
+          "chip": "Exynos 990",
+          "pin": "4500 mAh",
+          "OS": "Android 10"
+        }
+    
     const [show,setShow]= useState(true)
     const HandleShow = () => {
         
@@ -55,7 +73,7 @@ function Infor(props){
                     <div  >
                         <img style={{marginLeft:"2px",display: 'block',maxWidth: '100%',height: 'auto', backgroundColor: 'blue'}}
                         //src="https://cdn.hoanghamobile.com/i/preview/Uploads/2021/09/15/image-removebg-preview-15.png"
-                        src={props.image}
+                        src={productData.image}
                         alt="new"
                         class="card-img-top "
                         />
@@ -80,27 +98,27 @@ function Infor(props){
                         <tbody>
                             <tr>
                             <th scope="row">Kích thước màn hình</th>
-                            <td>{props.screen} inches</td>
+                            <td>{productData.specifications.screen} inches</td>
                             </tr>
                             <tr>
                             <th scope="row">Chipset</th>
-                            <td>{props.chip}</td>
+                            <td>{productData.chip}</td>
                             </tr>
                             <tr>
                             <th scope="row">Dung lượng RAM</th>
-                            <td>{props.ram} GB</td>
+                            <td>{productData.specifications.ram} GB</td>
                             </tr>
                             <tr>
                             <th scope="row">Bộ nhớ trong</th>
-                            <td>{props.rom1} GB</td>
+                            <td>{productData.specifications.rom1} GB</td>
                             </tr>
                             <tr>
                             <th scope="row">Pin</th>
-                            <td>{props.pin}</td>
+                            <td>{productData.pin}</td>
                             </tr>
                             <tr>
                             <th scope="row">Hệ điều hành</th>
-                            <td>{props.OS}</td>
+                            <td>{productData.OS}</td>
                             </tr>
                         </tbody>
                             {
@@ -108,27 +126,27 @@ function Infor(props){
                                 <tbody>
                                     <tr>
                                     <th scope="row">Kích thước màn hình</th>
-                                    <td>{props.screen} inches</td>
+                                    <td>{productData.specifications.screen} inches</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">Chipset</th>
-                                    <td>{props.chip}</td>
+                                    <td>{productData.chip}</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">Dung lượng RAM</th>
-                                    <td>{props.ram} GB</td>
+                                    <td>{productData.specifications.ram} GB</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">Bộ nhớ trong</th>
-                                    <td>{props.rom1} GB</td>
+                                    <td>{productData.specifications.rom1} GB</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">Pin</th>
-                                    <td>{props.pin}</td>
+                                    <td>{productData.pin}</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">Hệ điều hành</th>
-                                    <td>{props.OS}</td>
+                                    <td>{productData.OS}</td>
                                     </tr>
                                 </tbody>
                                 :null
@@ -141,11 +159,11 @@ function Infor(props){
             </div>
             <div class="col-md-7 col-sm-12" >
                 <div style={{color:"blue",textAlign:"center"}}>
-                    <h1>{props.productName}</h1>
+                    <h1>{productData.productName}</h1>
                 </div>
                 <div class="d-flex" >
                     <div class="col-md-5 col-sm-5" style={{color:"red"}}>
-                        <h3>{props.newPrice} Đ</h3>
+                        <h3>{productData.newPrice} Đ</h3>
                     </div>
                     <div class="col-md-7 col-sm-7" style={{padding:"auto"}}>
                         <h5 style={{lineHeight:"20px"}}>(Giá đã bao gồm VAT) Giao hàng tận nơi trên toàn quốc, miễn phí vận chuyển.</h5>
@@ -164,7 +182,7 @@ function Infor(props){
                         <h3>Giá niêm yết:</h3>
                     </div>
                     <div class="col-md-7 col-sm-7" >
-                        <h4 style={{lineHeight:"50px"}}>{props.newPrice} * 1 = {props.newPrice}</h4>
+                        <h4 style={{lineHeight:"50px"}}>{productData.newPrice} * 1 = {productData.newPrice}</h4>
                     </div>
                 </div>
                 <div class="d-flex">
@@ -172,14 +190,14 @@ function Infor(props){
                         <h3>Thành tiền:</h3>
                     </div>
                     <div class="col-md-7 col-sm-7" >
-                        <h4 style={{lineHeight:"50px"}}>{props.newPrice}</h4>
+                        <h4 style={{lineHeight:"50px"}}>{productData.newPrice}</h4>
                     </div>
                 </div>
                 <div style={{textAlign:"center"}}>
-                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{props.rom1} <br/> {props.newPrice} Đ</button>
-                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{props.rom2} <br/> {props.newPrice} Đ</button>
-                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{props.rom3} <br/> {props.newPrice} Đ</button>
-                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{props.rom4} <br/> {props.newPrice} Đ</button>
+                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{productData.specifications.rom1} <br/> {productData.newPrice} Đ</button>
+                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{productData.specifications.rom2} <br/> {productData.newPrice} Đ</button>
+                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{productData.specifications.rom3} <br/> {productData.newPrice} Đ</button>
+                <button type="button" style={{border: '0.5px solid #C4C4C4', borderRadius: '12px',width: "100px", marginLeft:"20px"}} class="btn btn-outline-secondary">{productData.specifications.rom4} <br/> {productData.newPrice} Đ</button>
                 </div>
                 <div class="col-md-10 col-sm-12" style={{marginTop: "30px"}}>
                     <table >
