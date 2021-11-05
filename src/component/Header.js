@@ -12,10 +12,10 @@ export default function Header() {
 
     const [searchTerm, setSearchTerm] = useState('')
 
-    function handleSearch() {
+    function handleSearch(searchKey) {
         let resultSearch;
         let productFound = productData.filter((product) => {
-            return product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+            return product.productName.toLowerCase().includes(searchKey.toLowerCase())
         })
         if (productFound.length == 0) productFound = productData
         resultSearch = (<div class='row ' style={{ marginTop: '10rem' }}>
@@ -24,7 +24,7 @@ export default function Header() {
                     return <ProductItem product={product} />
                 }))
             } </div>)
-        
+
         ReactDOM.render(resultSearch, document.getElementById('product-list'))
     }
 
@@ -51,10 +51,12 @@ export default function Header() {
                             Danh Mục Sản Phẩm
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Điện Thoại</a></li>
-                            <li><a class="dropdown-item" href="#">Laptop</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" onClick={() => handleSearch('samsung')} style={{'cursor' : "pointer"}}>Samsung</a></li>
+                            <li><a class="dropdown-item" onClick={() => handleSearch('Oppo')} style={{'cursor' : "pointer"}}>Oppo</a></li>
+                            <li><a class="dropdown-item" onClick={() => handleSearch('Iphone')} style={{'cursor' : "pointer"}}>Iphone</a></li>
+                            <li><a class="dropdown-item" onClick={() => handleSearch('Xiaomi')} style={{'cursor' : "pointer"}}>Xiaomi</a></li>
+                            <li><a class="dropdown-item" onClick={() => handleSearch('ASUS')} style={{'cursor' : "pointer"}}>ASUS</a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -83,12 +85,12 @@ export default function Header() {
                             document.getElementById('search').click()
                         }
                         else setSearchTerm(even.target.value)
-                    }}/>
+                    }} />
                 </div>
                 <div>
-                    <button class="btn btn-outline-success me-2 " type="submit" onClick={handleSearch} id='search'>Search</button>
+                    <button class="btn btn-outline-success me-2 " type="submit" onClick={() => handleSearch(searchTerm)} id='search'>Search</button>
                 </div>
             </div>
-        </div>
-    </nav>
+        </div >
+    </nav >
 }
