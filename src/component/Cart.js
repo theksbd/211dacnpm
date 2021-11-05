@@ -3,6 +3,17 @@ import Header from './Header'
 import Footer from './Footer'
 
 function Cart(props){
+
+    const [counter, setCounter] = useState(1)
+    const HandleIncrese = () => {
+        setCounter( counter + 1)
+    }
+    const HandleDecrese = () => {
+        if (counter >0){
+            setCounter( counter - 1)
+        }
+    }
+
     return(
         <div className="container" >
             <div class="col-md-12 col-sm-12 d-flex">
@@ -29,11 +40,11 @@ function Cart(props){
                     <h3>Khuyến mãi:</h3>
                     <h5>- Tặng mã giảm giá 1,000,000đ khi mua các sản phẩm khác tại cửa hàng</h5>
                     <h5>- Bảo hành 12 tháng</h5>
-                    <div style={{float:'right'}} class="btn-group d-flex col-md-5 col-sm-5" role="group" aria-label="Basic example">
+                    <div  class="btn-group d-flex col-md-5 col-sm-12" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-outline-danger">Xóa khỏi giỏ</button>
-                        <button type="button" class="btn btn-outline-secondary">-</button>
-                        <input style={{maxWidth: '40px'}} class="form-control" type="text" id="fname" name="fname" value="1" required/>
-                        <button type="button" class="btn btn-outline-secondary">+</button>
+                        <button type="button" class="btn btn-outline-secondary" onClick={HandleDecrese}>-</button>
+                        <input style={{width: '40px'}} class="form-control" type="text" id="fname" name="fname" value={counter} required/>
+                        <button type="button" class="btn btn-outline-secondary" onClick={HandleIncrese}>+</button>
                     </div>
                 </div>
             </div>
@@ -63,9 +74,31 @@ function Cart(props){
                 </select>
             </div>
             <div class="col-md-12 col-sm-12" style={{textAlign:"center"}}>
-                    <button style={{marginTop:"30px", borderRadius:"15px"}} type="button" class="btn btn-danger"><h1>Xác nhận đặt hàng</h1></button>
+                    <button style={{marginTop:"30px", borderRadius:"15px"}} type="button" class="btn btn-danger" ><h1>Xác nhận đặt hàng</h1></button>
             </div>
         </div>
     )
+
+
+
+
 }
+
+    
+
+    
+
+    // function handleSub() {
+
+    //     setIndex(n => n - 1)
+    
+    //     if (n < 0) {
+    //       // setIndex(index - 8)
+    //       setIndex(n => 0)
+    //     }
+    //     // else setIndex(index + 8)
+    //     // console.log('Index : ' + index + ' and Len :' + productData.length)
+    //     // console.log(nameBtnMore)
+    // }
+
 export default Cart;
