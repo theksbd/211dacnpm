@@ -1,5 +1,3 @@
-import Header from '../../component//Header'
-import Footer from '../../component/Footer'
 import './EditItem.css'
 import React, {Component } from 'react'
 import {Form, Button } from 'react-bootstrap'
@@ -50,11 +48,15 @@ class AddItem extends Component{
 			});
 	     	 };
 		imageHandler = (e) => {
-			var indexImage =this.index; 
-			const reader = URL.createObjectURL(e.target.files[0])
-			console.log("click")
-			this.setState({[indexImage] : reader})
-			console.log(e.target.files[0])
+			var indexImage =this.index;
+			let reader = new FileReader();
+			let file = e.target.files[0];
+			reader.onloadend = () => {
+			this.setState({
+				[indexImage]: reader.result
+			});
+			}
+			reader.readAsDataURL(file)
 		  };
 		indexImage=(e)=>{
 			  const target = e.target;
@@ -176,7 +178,7 @@ class AddItem extends Component{
 		</div>
 		<div class="d-flex justify-content-end container mt-3">
 		<Button type="submit" variant="success">Thêm sản phẩm</Button>
-		<button type="button" class="btn btn-success" name='remove'>Hủy</button>
+		<button type="button" class="btn btn-success"  onClick={()=>{window.location.href = "/managerItem"}}>Hủy</button>
 		</div>
 		</Form>
 		</div>
