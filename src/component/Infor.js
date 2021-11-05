@@ -1,10 +1,31 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment,Alert } from 'react';
 import Header from './Header'
 import Footer from './Footer'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Infor(props){
+
+    const [show,setShow]= useState(true)
+    const HandleShow = () => {
+        
+        setShow(!show);
+    }
+    function handleSubmit() {
+        toast.success('Sản phẩm đã thêm vào giỏ hàng', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
     return(
+
         <div className="container" >
+            <ToastContainer />
             {/* <div class="col-md-5 col-sm-5 d-flex" > */}
             <div class="col-md-5 col-sm-12 " >
                 <div class="d-flex" style={{height: 'auto',width:'auto'}}>
@@ -64,8 +85,38 @@ function Infor(props){
                             <td>{props.OS}</td>
                             </tr>
                         </tbody>
+                            {
+                                show?
+                                <tbody>
+                                    <tr>
+                                    <th scope="row">Kích thước màn hình</th>
+                                    <td>{props.screen} inches</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Chipset</th>
+                                    <td>{props.chip}</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Dung lượng RAM</th>
+                                    <td>{props.ram} GB</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Bộ nhớ trong</th>
+                                    <td>{props.rom1} GB</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Pin</th>
+                                    <td>{props.pin}</td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Hệ điều hành</th>
+                                    <td>{props.OS}</td>
+                                    </tr>
+                                </tbody>
+                                :null
+                            }
                     </table>
-                    <button type="button" class="btn btn-outline-secondary" >Xem thêm
+                    <button type="button" onClick={HandleShow} class="btn btn-outline-secondary" >Xem thêm
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true" style={{marginLeft: 'auto', width:'auto'}}></span>
                     </button>
                 </div>
@@ -126,7 +177,7 @@ function Infor(props){
                     </table>
                 </div>
                 <div class="col-md-12 col-sm-12" style={{textAlign:"center"}}>
-                    <button style={{width:"230px",marginTop:"30px", borderRadius:"30px"}} type="button" class="btn btn-danger"><h1>Đặt mua</h1></button>
+                    <button style={{width:"230px",marginTop:"30px", borderRadius:"30px"}} type="button" class="btn btn-danger" onClick={handleSubmit}><h1>Đặt mua</h1></button>
                 </div>
             </div>
             
