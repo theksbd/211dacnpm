@@ -80,7 +80,7 @@ export default class RenderEditItem extends Component{
 		<div class="col-md-8 col-sm-12" style={{margin:'auto'}} >
 		<Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
 		<div class ='row' style={{marginTop:'5px'}}>
-		<h4 class="text-center">Thông tin sản phâm</h4>
+		<h4 class="text-center">Thông tin sản phẩm</h4>
 			<div class="col-md-7 col-sm-12">
 				<Form.Group  controlId="validationCustom03" style={{margin:'0 0 2px'}}>
 				<Form.Label>Tên sản phẩm</Form.Label>
