@@ -59,7 +59,7 @@ function Cart(props) {
         });
     }
     return (
-        <div className="container" >
+        <div className="container" id='product-list' >
             <ToastContainer />
             <div class="col-md-12 col-sm-12 d-flex mt-3">
                 <div class="col-md-6 col-sm-6 ">
@@ -97,14 +97,14 @@ function Cart(props) {
                 </div>
             </div>
             <div style={{ marginTop: '30px'}} class="row-col-md-12 row-col-sm-12 d-flex ">
-                <p class="col-md-4 col-sm-4 " style={{ fontSize: '2em' }}>Nhập mã giảm giá:</p>
+                <p class="col-md-4 col-sm-4 h3">Nhập mã giảm giá:</p>
                 <input style={{}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
                 {/* <button style={{ height: '35px', marginLeft: '10px' }} type="button" class="btn btn-danger" onClick={HandleDiscount} >Áp dụng</button> */}
                 <button style={{ height: '35px', marginLeft: '10px'}} type="button" class="btn btn-danger col-md-2 col-sm-3" onClick={HandleDiscount} >Áp dụng</button>
             </div>
             <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
-                <p class="col-md-9 col-sm-9" style={{ fontSize: '2em' }}>Mã giảm giá:</p>
-                <p style={{ fontSize: '2em' }}>{
+                <p class="col-md-9 col-sm-9 h3" >Mã giảm giá:</p>
+                <p class="h3">{
                     check?
                         <p> {check}Đ </p>
                     :   <p> 0Đ </p>
@@ -113,8 +113,8 @@ function Cart(props) {
                  </p>
             </div>
             <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
-                <p class="col-md-9 col-sm-9" style={{ fontSize: '2em' }}>Tổng tiền:</p>
-                <p style={{ fontSize: '2em', color: 'red' }}>{productData.newPrice *counter -check}Đ</p>
+                <p class="col-md-9 col-sm-9 h3" >Tổng tiền:</p>
+                <p class="h3" style={{ color: 'red' }}>{productData.newPrice *counter -check}Đ</p>
             </div>
             <div style={{ marginTop: '30px', textAlign: 'center' }} class="col-md-11 col-sm-11">
                 <p style={{ fontSize: '2em', textAlign: 'center' }} class="col-md-12 col-sm-12 ">Nhập thông tin đặt mua</p>

@@ -74,7 +74,7 @@ export default class RenderEditItem extends Component{
 	render() {
 
 	return(
-		<div class='container-fluid'>
+		<div class='container-fluid' id='product-list'>
 		{/* <Header/> */}
 		<div class ='row' style={{backgroundColor:"#EAEAEA"}}>
 		<div class="col-md-8 col-sm-12" style={{margin:'auto'}} >

@@ -10,7 +10,7 @@ function OrderAdmin() {
         totalOrder: GetRandomNumber(1, 200),
         cancelOrder: GetRandomNumber(0, 18),
         totalProduct: 133,
-        importProduct: 5,
+        importProduct: GetRandomNumber(0,10),
         profit: GetRandomNumber(10000000, 500000000),
         deposit: GetRandomNumber(10000000, 80000000),
         totalComplaint: GetRandomNumber(0, 10),
@@ -121,7 +121,7 @@ function OrderAdmin() {
     }
 
     return (
-        <div className="container my-5">
+        <div className="my-5 container" id='product-list'>
             <h3 className="mt-3">Thời gian</h3>
             {/* <select className="form-control-lg mb-1">
                 {displayDate(dateInfo)};
@@ -144,44 +144,56 @@ function OrderAdmin() {
                 <Form>
                     <Row className="mb-5">
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
-                                        <i class="fas fa-file-invoice"></i> Tổng số hóa đơn
+                                    <div className="col-4 ms-2">
+                                        <i class="fas fa-file-invoice "></i> Tổng số hóa đơn
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-7 text-right">
                                         {dataOrder.totalOrder}
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-4 ms-2">
                                         <i class="fas fa-trash-alt"></i> Số hóa đơn hủy
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-7 text-right">
                                         {dataOrder.cancelOrder}
                                     </div>
                                 </div>
                             </div>
                         </Col>
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-4 ms-2">
                                         <i class="fas fa-mobile"></i> Số lượng mặt hàng
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-7 text-right">
                                         {dataOrder.totalProduct}
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="ownborder p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-4 ms-2">
                                         <i class="fas fa-file-import"></i> Số lượng hàng nhập
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-7 text-right">
                                         {dataOrder.importProduct}
                                     </div>
                                 </div>
@@ -190,44 +202,56 @@ function OrderAdmin() {
                     </Row>
                     <Row className="mb-5">
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-3 ms-2">
                                         <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-8 text-right">
                                         {dataOrder.profit}
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-3 ms-2">
                                         <i class="fas fa-cart-arrow-down"></i> Đặt cọc
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-8 text-right">
                                         {dataOrder.deposit}
                                     </div>
                                 </div>
                             </div>
                         </Col>
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-4 ms-2">
                                         <i class="fas fa-user-friends"></i> Số khách than phiền
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-7 text-right">
                                         {dataOrder.totalComplaint}
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
-                                    <div className="col-6">
+                                    <div className="col-3 ms-2">
                                         <i class="fab fa-product-hunt"></i> Hiệu suất
                                     </div>
-                                    <div className="col-6 text-right">
+                                    <div className="col-8 text-right">
                                         {dataOrder.performance}
                                     </div>
                                 </div>
@@ -253,7 +277,7 @@ function OrderAdmin() {
                             borderWidth: 3,
                             barPercentage: 0.5,
                             hoverBackgroundColor: '#f7a436',
-                            hoverBorderColor: '#8f8d8c'
+                            hoverBorderColor: '#8f8d8c',
                         }
                     ]
                 }}
@@ -267,6 +291,7 @@ function OrderAdmin() {
                             display: true,
                             position: 'bottom',
                             labels: {
+                                // This more specific font property overrides the global property
                                 font: {
                                     size: 18
                                 }
@@ -286,7 +311,7 @@ function OrderAdmin() {
                     }
                 }}
             />
-        </div>
+        </div >
     );
 }
 

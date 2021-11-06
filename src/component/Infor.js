@@ -56,7 +56,7 @@ function Infor(props) {
     }
     return (
 
-        <div className="container mt-5" >
+        <div className="container mt-5" id='product-list'>
             <ToastContainer />
             <div class="row" >
                 <div class="col-md-5 col-sm-12 " >
@@ -200,7 +200,7 @@ function Infor(props) {
                         </div>
                     </div>
                     <div class="d-flex">
-                        <div class="col-md-5 col-sm-5">
+                        <div class="col-md-5 col-sm-5 mt-2">
                             <h3>Giá niêm yết:</h3>
                         </div>
                         <div class="col-md-7 col-sm-7" >
@@ -208,7 +208,7 @@ function Infor(props) {
                         </div>
                     </div>
                     <div class="d-flex">
-                        <div class="col-md-5 col-sm-5">
+                        <div class="col-md-5 col-sm-5 mt-2">
                             <h3>Thành tiền:</h3>
                         </div>
                         <div class="col-md-7 col-sm-7" >
