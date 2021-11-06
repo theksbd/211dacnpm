@@ -71,7 +71,7 @@ export default function ProductList() {
   return (
     <div class='container-fluid'>
       <div class='row mx-5' id='product-list'>
-        <div class='row' style={{ marginTop: '2rem' }}>
+        <div class='row' style={{ marginTop: '0rem' }}>
           <div class='col-md-6 mt-5'>
             <Sort />
           </div>

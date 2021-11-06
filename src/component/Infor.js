@@ -3,10 +3,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Comment from './Comment';
 import { useLocation } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 
 function Infor(props) {
     const location = useLocation();
+    // const history = useHistory();
 
     
 
@@ -27,6 +29,7 @@ function Infor(props) {
             draggable: true,
             progress: undefined,
         });
+        // history.push('/Cart',productData.product)
     }
     return (
 

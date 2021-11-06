@@ -32,7 +32,7 @@ export default function Header() {
             });
             return
         }
-        resultSearch = (<div class='row ' style={{ marginTop: '6rem' }}>
+        resultSearch = (<div class='row ' style={{ marginTop: '6rem', marginBottom: '6rem' }}>
             {
                 productFound.map((product => {
                     return <ProductItem product={product} />

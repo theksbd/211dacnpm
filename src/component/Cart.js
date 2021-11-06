@@ -21,6 +21,7 @@ function Cart(props) {
         "pin": "4500 mAh",
         "OS": "Android 10"
     }
+    
     const [counter, setCounter] = useState(1)
     const HandleIncrese = () => {
         setCounter(counter + 1)
