@@ -73,7 +73,7 @@ function Cart(props) {
                     <p style={{ textAlign: 'right', fontSize: '1.5em' }}>Giỏ hàng của bạn</p>
                 </div>
             </div>
-            <div class="col-md-11 col-sm-11  row" style={{ border: '2px solid #C4C4C4', borderRadius: '12px' }}>
+            <div class="col-md-12 col-sm-12  row" style={{ border: '2px solid #C4C4C4', borderRadius: '12px' }}>
                 <div class="col-md-4 col-sm-4">
                     <img style={{ marginLeft: "2px", display: 'block', maxWidth: '100%', height: 'auto' }}
                         //src="https://cdn.hoanghamobile.com/i/preview/Uploads/2021/09/15/image-removebg-preview-15.png"
@@ -88,20 +88,21 @@ function Cart(props) {
                     <h3>Khuyến mãi:</h3>
                     <h5>- Tặng mã giảm giá 1,000,000đ khi mua các sản phẩm khác tại cửa hàng</h5>
                     <h5>- Bảo hành 12 tháng</h5>
-                    <div class="btn-group d-flex col-md-5 col-sm-12 mb-3" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-danger">Xóa khỏi giỏ</button>
+                    <div class="btn-group d-flex col-md-12 col-sm-12 mb-3" role="group" aria-label="Basic example" style={{maxWidth:'300px'}}>
+                        <button style={{height:'40px'}} type="button" class="btn btn-outline-danger">Xóa khỏi giỏ</button>
                         <button style={{height:'40px', marginLeft:'-36px'}}type="button" class="btn btn-outline-secondary" onClick={HandleDecrese}>-</button>
                         <input style={{height:'40px', width: '40px', marginLeft:'-36px'}} class="form-control" type="text" id="fname" name="fname" value={counter} required />
                         <button style={{height:'40px'}}type="button" class="btn btn-outline-secondary" onClick={HandleIncrese}>+</button>
                     </div>
                 </div>
             </div>
-            <div style={{ marginTop: '30px' }} class="row-col-md-11 row-col-sm-11 d-flex ">
+            <div style={{ marginTop: '30px'}} class="row-col-md-12 row-col-sm-12 d-flex ">
                 <p class="col-md-4 col-sm-4 " style={{ fontSize: '2em' }}>Nhập mã giảm giá:</p>
-                <input style={{maxWidth:'530px'}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
-                <button style={{ height: '35px', marginLeft: '10px' ,width: '100px'}} type="button" class="btn btn-danger" onClick={HandleDiscount} >Áp dụng</button>
+                <input style={{}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
+                {/* <button style={{ height: '35px', marginLeft: '10px' }} type="button" class="btn btn-danger" onClick={HandleDiscount} >Áp dụng</button> */}
+                <button style={{ height: '35px', marginLeft: '10px'}} type="button" class="btn btn-danger col-md-2 col-sm-3" onClick={HandleDiscount} >Áp dụng</button>
             </div>
-            <div style={{ marginTop: '30px' }} class="row-col-md-11 row-col-sm-11 d-flex">
+            <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
                 <p class="col-md-9 col-sm-9" style={{ fontSize: '2em' }}>Mã giảm giá:</p>
                 <p style={{ fontSize: '2em' }}>{
                     check?
@@ -111,7 +112,7 @@ function Cart(props) {
                 
                  </p>
             </div>
-            <div style={{ marginTop: '30px' }} class="row-col-md-11 row-col-sm-11 d-flex">
+            <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
                 <p class="col-md-9 col-sm-9" style={{ fontSize: '2em' }}>Tổng tiền:</p>
                 <p style={{ fontSize: '2em', color: 'red' }}>{productData.newPrice *counter -check}Đ</p>
             </div>
