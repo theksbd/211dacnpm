@@ -121,7 +121,7 @@ function OrderAdmin() {
     }
 
     return (
-        <div>
+        <div className="mb-5">
             <h3 className="mt-3">Thời gian</h3>
             {/* <select className="form-control-lg mb-1">
                 {displayDate(dateInfo)};
