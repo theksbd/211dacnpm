@@ -1,10 +1,13 @@
 import React, { useState, Fragment, Alert } from 'react';
-import Header from './Header'
-import Footer from './Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Comment from './Comment';
+import { useLocation } from "react-router-dom";
+
 
 function Infor(props) {
+    //const location = useLocation();
+
     const productData =
     {
         "productName": "Samsung Galaxy Note 20 Ultra 5G",
@@ -40,11 +43,21 @@ function Infor(props) {
             progress: undefined,
         });
     }
+
+    const [counter, setCounter] = useState(1)
+    const HandleIncrese = () => {
+        setCounter(counter + 1)
+    }
+    const HandleDecrese = () => {
+        if (counter > 0) {
+            setCounter(counter - 1)
+        }
+    }
     return (
 
         <div className="container mt-5" >
             <ToastContainer />
-            <div class="d-flex" >
+            <div class="row" >
                 <div class="col-md-5 col-sm-12 " >
                     <div class="d-flex" style={{ height: 'auto', width: 'auto' }}>
                         <div style={{ display: 'block', marginTop: 'auto', marginBottom: 'auto' }}>
@@ -140,8 +153,23 @@ function Infor(props) {
                                     : null
                             }
                         </table>
-                        <button type="button" onClick={HandleShow} class="btn btn-outline-secondary mb-3" >Xem thêm
-                            <span class="glyphicon glyphicon-menu-down " aria-hidden="true" style={{ marginLeft: 'auto', width: 'auto' }}></span>
+                        <button type="button" onClick={HandleShow} class="btn btn-outline-secondary mb-3" >
+                            {
+                            show ? 
+                            <div>
+                            Ẩn bớt
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                            </svg>
+                            </div>  
+                            :
+                            <div>
+                            Xem thêm
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                            </svg>
+                            </div>
+                            }
                         </button>
                     </div>
                 </div>
@@ -161,8 +189,13 @@ function Infor(props) {
                         <div class="col-md-5 col-sm-5">
                             <h3>Số lượng đặt mua:</h3>
                         </div>
-                        <div class="col-md-7 col-sm-7" >
+                        {/* <div class="col-md-7 col-sm-7" >
                             <h3><input style={{ maxWidth: '50px' }} class="form-control" type="text" id="fname" name="fname" required /></h3>
+                        </div> */}
+                        <div class="btn-group d-flex row-col-md-5 row-col-sm-5" role="group" aria-label="Basic example">
+                            <button style={{height:'40px'}} type="button" class="btn btn-outline-secondary" onClick={HandleDecrese}>-</button>
+                            <input style={{height:'40px', width: '40px', marginLeft:'-36px'}} class="form-control " type="text" id="fname" name="fname" value={counter} required />
+                            <button style={{height:'40px'}} type="button" class="btn btn-outline-secondary" onClick={HandleIncrese}>+</button>
                         </div>
                     </div>
                     <div class="d-flex">
@@ -170,7 +203,7 @@ function Infor(props) {
                             <h3>Giá niêm yết:</h3>
                         </div>
                         <div class="col-md-7 col-sm-7" >
-                            <h4 style={{ lineHeight: "50px" }}>{productData.newPrice} * 1 = {productData.newPrice}</h4>
+                            <h4 style={{ lineHeight: "50px" }}>{productData.newPrice} * {counter} = { productData.newPrice * counter}</h4>
                         </div>
                     </div>
                     <div class="d-flex">
@@ -178,14 +211,14 @@ function Infor(props) {
                             <h3>Thành tiền:</h3>
                         </div>
                         <div class="col-md-7 col-sm-7" >
-                            <h4 style={{ lineHeight: "50px" }}>{productData.newPrice}</h4>
+                            <h4 style={{ lineHeight: "50px" }}>{ productData.newPrice * counter}</h4>
                         </div>
                     </div>
                     <div style={{ textAlign: "center" }}>
-                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary">{productData.specifications.rom1} <br /> {productData.newPrice} Đ</button>
-                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary">{productData.specifications.rom2} <br /> {productData.newPrice} Đ</button>
-                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary">{productData.specifications.rom3} <br /> {productData.newPrice} Đ</button>
-                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary">{productData.specifications.rom4} <br /> {productData.newPrice} Đ</button>
+                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary mb-3">{productData.specifications.rom1} <br /> {productData.newPrice}Đ</button>
+                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary mb-3">{productData.specifications.rom2} <br /> {productData.newPrice}Đ</button>
+                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary mb-3">{productData.specifications.rom3} <br /> {productData.newPrice}Đ</button>
+                        <button type="button" style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', width: "100px", marginLeft: "20px" }} class="btn btn-outline-secondary mb-3">{productData.specifications.rom4} <br /> {productData.newPrice}Đ</button>
                     </div>
                     <div class="col-md-10 col-sm-12" style={{ marginTop: "30px" }}>
                         <table >
@@ -206,22 +239,20 @@ function Infor(props) {
                 </div>
 
             </div>
-            <div style={{ textAlign: "center" }}>
-                <h3>Đánh giá và nhận xét</h3>
-                <div class="d-flex justify-content-center">
-                    <div class="content text-center">
-                        <div class="ratings"> <h3><span class="product-rating">4.6</span><span>/5</span></h3>
-                            <div class="stars" style={{ fontSize: "18px", color: "#28a745" }}> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                            <div class="rating-text"> <span><h3>46 ratings & 15 reviews</h3></span> </div>
+            <div class="mt-5 text-center w-50 shadow" style={{ textAlign: "center", margin:"auto" }}>
+                    <h3 class="pt-2">Đánh giá và nhận xét</h3>
+                    <div class="d-flex justify-content-center">
+                        <div class="content text-center">
+                            <div class="ratings"> <h3><span class="product-rating">4.6</span><span>/5</span></h3>
+                                <div class="stars" style={{ fontSize: "18px", color: "#28a745" }}> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                <div class="rating-text pt-2"> <span><h3>46 ratings & 15 reviews</h3></span> </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div >
-                    <button style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', textAlign: "center", width: "500px" }} type="button" class="btn btn-outline-secondary mb-3"><h2> Xem tất cả đánh giá </h2>
-                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true" style={{ marginLeft: 'auto', width: 'auto' }}></span>
-                    </button>
-                </div>
-
+            </div>
+            <div class="mb-5">
+                {/* <button style={{ border: '0.5px solid #C4C4C4', borderRadius: '12px', textAlign: "center", width: "500px" }} type="button" class="btn btn-outline-secondary mb-3"><h2> Xem tất cả đánh giá </h2></button> */}
+                <Comment />
             </div>
         </div>
 
