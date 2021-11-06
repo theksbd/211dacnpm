@@ -10,7 +10,7 @@ function OrderAdmin() {
         totalOrder: GetRandomNumber(1, 200),
         cancelOrder: GetRandomNumber(0, 18),
         totalProduct: 133,
-        importProduct: 5,
+        importProduct: GetRandomNumber(0,10),
         profit: GetRandomNumber(10000000, 500000000),
         deposit: GetRandomNumber(10000000, 80000000),
         totalComplaint: GetRandomNumber(0, 10),
@@ -144,7 +144,10 @@ function OrderAdmin() {
                 <Form>
                     <Row className="mb-5">
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-file-invoice"></i> Tổng số hóa đơn
@@ -154,7 +157,10 @@ function OrderAdmin() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-trash-alt"></i> Số hóa đơn hủy
@@ -166,7 +172,10 @@ function OrderAdmin() {
                             </div>
                         </Col>
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-mobile"></i> Số lượng mặt hàng
@@ -176,7 +185,10 @@ function OrderAdmin() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="ownborder p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-file-import"></i> Số lượng hàng nhập
@@ -190,7 +202,10 @@ function OrderAdmin() {
                     </Row>
                     <Row className="mb-5">
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
@@ -200,7 +215,10 @@ function OrderAdmin() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-cart-arrow-down"></i> Đặt cọc
@@ -212,7 +230,10 @@ function OrderAdmin() {
                             </div>
                         </Col>
                         <Col>
-                            <div className="ownborder p-lg-3 bg-content font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                backgroundColor: "#C4C4C4", borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fas fa-user-friends"></i> Số khách than phiền
@@ -222,7 +243,10 @@ function OrderAdmin() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold">
+                            <div className="p-lg-3 font-weight-bold" style={{
+                                borderStyle: "solid",
+                                borderWidth: "2px"
+                            }}>
                                 <div className="row">
                                     <div className="col-6">
                                         <i class="fab fa-product-hunt"></i> Hiệu suất
@@ -267,6 +291,7 @@ function OrderAdmin() {
                             display: true,
                             position: 'bottom',
                             labels: {
+                                // This more specific font property overrides the global property
                                 font: {
                                     size: 18
                                 }
@@ -286,7 +311,7 @@ function OrderAdmin() {
                     }
                 }}
             />
-        </div>
+        </div >
     );
 }
 
