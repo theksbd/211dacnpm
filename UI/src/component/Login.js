@@ -3,6 +3,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+const axios = require('axios')
+
 const userAccountData = [
     {
         "account": "tienminh0801",
@@ -21,36 +23,34 @@ export default function Login() {
 
 
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        for (let userAccount of userAccountData) {
-            if (userAccount.account == account && userAccount.password == pw) {
-                // accountDataSend = accountDataSend.concat({
-                //     "account": account,
-                //     "password": pw
-                // }) 
-                // console.log(accountDataSend)
-                window.location.href = "/Admin"
-                return
-            } // send request login
+
+        const respon = await axios.post('http://localhost:8080/login', {
+            "acc": account,
+            "pass": pw
+        })
+
+        if (respon.data === 'Accept') {
+            window.location.href = "/Admin"
         }
-        // e.preventDefault();
-        // alert("Tài khoản hoặc mật khẩu không đúng")
-        toast.error('Mật khẩu hoặc tài khoản không đúng', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+        else {
+            toast.error('Mật khẩu hoặc tài khoản không đúng', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
     }
 
     return (
         <div>
             <div className="container-md container-xs container-xl text-center" style={{ width: "30%", minWidth: "350px", paddingTop: "150px", paddingBottom: "200px" }} >
-                <form>
+                <form method="post">
                     <p className="display-5 mb-5 fw-normal text-center ">Log in</p>
                     <div className="form-floating mb-2">
                         <input type="account" className="form-control" id="floatingInput" placeholder="name@example.com"

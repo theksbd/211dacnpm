@@ -1,11 +1,24 @@
 import React, { useState, Fragment } from 'react';
-import productData from '../../Data/Data'
 import ProductItem from './ProductItem'
+import productData from '../../Data/Data'
+
+const axios = require('axios')
+
+let data = []
+
+axios.get('http://localhost:8080/products/comprehension')
+  .then(response => {
+    data = response.data
+    console.log(data)
+  })
+  .catch(error => console.log(error))
 
 
 
 
 export default function ProductList() {
+
+
 
   const [index, setIndex] = useState(8)
 
@@ -30,6 +43,8 @@ export default function ProductList() {
   }
 
   function ButtonMore() {
+
+
     return (
       <div class='row mb-5 d-flex justify-content-center'>
         <button type="button" class="btn btn-secondary w-25"
@@ -76,7 +91,7 @@ export default function ProductList() {
             <Sort />
           </div>
         </div>
-          <RenderProduct />
+        <RenderProduct />
       </div>
     </div>
   );
