@@ -11,11 +11,10 @@ class AddItem extends Component{
 		  textType: "",
 		  textCost: "",
 		  textColor: "",
+		  txtBattery:"",
 		  txtMemory:"",
+		  txtRom: "",
 		  textDiscount: "",
-		  textInfor: "",
-		  textSpeFeatures: "",
-		  textRelaPro: "",
 		  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
 		  image1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
 		  image2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
@@ -107,51 +106,45 @@ class AddItem extends Component{
 					Phần này không được để trống.
 				</Form.Control.Feedback>
 				</Form.Group>
+
+				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
+				<Form.Label>Nhập dung lượng pin</Form.Label>
+				<Form.Control type="text" placeholder="Nhập dung lượng pin" style={{borderRadius:'9px'}}  name="txtBattery" value={this.state.txtBattery} onChange={this.handleInputChange}/>
+				{/* <Form.Control.Feedback type="invalid">
+					Phần này không được để trống.
+				</Form.Control.Feedback> */}
+				</Form.Group>
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Dung lượng bộ nhớ</Form.Label>
-				<Form.Control type="text" placeholder="Nhập dung lượng bộ nhớ" style={{borderRadius:'9px'}} required name="txtMemory" value={this.state.txtMemory} onChange={this.handleInputChange}/>
+				<Form.Control type="text" placeholder="Nhập dung lượng bộ nhớ" style={{borderRadius:'9px'}} required name="txtRom" value={this.state.txtRom} onChange={this.handleInputChange}/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
 				</Form.Group>
 				
+
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Thông tin ưu đãi</Form.Label>
-				<Form.Control type="text" placeholder="Nhập các thông tin ưu đãi đặc biệt" style={{borderRadius:'9px'}}  name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange}/>
+				<Form.Label>Nhập dung lượng ram</Form.Label>
+				<Form.Control type="text" placeholder="Nhập dung lượng ram" style={{borderRadius:'9px'}}  name="txtMemory" value={this.state.txtMemory} onChange={this.handleInputChange}/>
 				{/* <Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback> */}
 				</Form.Group>
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Mô tả chi tiết</Form.Label>
-				<Form.Control type="text" placeholder="Nhập các mô tả chi tiết" style={{borderRadius:'9px'}} required name="textInfor" value={this.state.textInfor} onChange={this.handleInputChange}/>
-				<Form.Control.Feedback type="invalid">
+				<Form.Label>Thông tin khuyễn mãi</Form.Label>
+				<Form.Control type="text" placeholder="Nhập thông tin khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
+				{/* <Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
-				</Form.Control.Feedback>
+				</Form.Control.Feedback> */}
 				</Form.Group>
 				
-				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Các tính  năng đặc biệt</Form.Label>
-				<Form.Control type="text" placeholder="Nhập các tính năng đặc biệt khác của sản phẩm" style={{borderRadius:'9px'}} name="textSpeFeatures" value={this.state.textSpeFeatures} onChange={this.handleInputChange} />
-				{/* <Form.Control.Feedback type="invalid">
-					Phần này không được để trống.
-				</Form.Control.Feedback> */}
-				</Form.Group>
-			
-				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Các sản phẩm liên quan</Form.Label>
-				<Form.Control type="text" placeholder="Nhập các dòng sản phẩm liên quan" style={{borderRadius:'9px'}} name="textRelaPro" value={this.state.textRelaPro} onChange={this.handleInputChange} />
-				{/* <Form.Control.Feedback type="invalid">
-					Phần này không được để trống.
-				</Form.Control.Feedback> */}
-				</Form.Group>
 		
 			</div>
 			<div class="col-md-5 col-sm-12 " style={{marginTop:'25px'}}>
 				<div class ='row'>
-				<div class="col-md-10 col-sm-12 " style={{margin:'auto', boder:"1px groove #F57E7E"}}>
+				<div class="col-md-9 col-sm-9 " style={{margin:'auto', boder:"1px groove #F57E7E"}}>
 				<input type="file" style={{display:'none'}} accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" 
 				onChange={this.imageHandler} id="chosefile"
           			ref={fileInput => this.fileInput=fileInput}/>
@@ -159,24 +152,32 @@ class AddItem extends Component{
 				</div>
 				</div>
 				<div class ='row mt-3'>
-				<div class="col-md-6 col-sm-6">
-				<img class="img-fluid" src={this.state.image1} name ="image1" onClick={this.indexImage}/>
-				</div>
-				<div class="col-md-6 col-sm-6">
-				<img class="img-fluid" src={this.state.image2} name ="image2" onClick={this.indexImage}/>
+				<div class="col-md-11 col-sm-11 " style={{margin:'auto'}}>
+					<div class ='row'>
+						<div class="col-md-6 col-6">
+						<img class="img-fluid" src={this.state.image1} name ="image1" onClick={this.indexImage}/>
+						</div>
+						<div class="col-md-6 col-6">
+						<img class="img-fluid" src={this.state.image2} name ="image2" onClick={this.indexImage}/>
+						</div>
+					</div>
 				</div>
 				</div>
 				<div class ='row mt-3'>
-				<div class="col-md-6 col-sm-6">
-				<img class="img-fluid" src={this.state.image3} name ="image3" onClick={this.indexImage}/>
-				</div>
-				<div class="col-md-6 col-sm-6">
-				<img class="img-fluid" src={this.state.image4} name ="image4" onClick={this.indexImage}/>
+				<div class="col-md-11 col-sm-11 " style={{margin:'auto'}}>
+					<div class ='row'>
+						<div class="col-md-6 col-6">
+						<img class="img-fluid" src={this.state.image3} name ="image3" onClick={this.indexImage}/>
+						</div>
+						<div class="col-md-6 col-6">
+						<img class="img-fluid" src={this.state.image4} name ="image4" onClick={this.indexImage}/>
+						</div>
+					</div>
 				</div>
 				</div>
 			</div>
 		</div>
-		<div class="d-flex justify-content-end container mt-3">
+		<div class="d-flex justify-content-end container mt-5">
 		<Button type="submit" variant="success">Thêm sản phẩm</Button>
 		<button type="button" class="btn btn-success"  onClick={()=>{window.location.href = "/managerItem"}}>Hủy</button>
 		</div>
