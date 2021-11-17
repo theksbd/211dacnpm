@@ -17,38 +17,14 @@ Memory.get_all = function(result){
 	});
 }
 
-Memory.create = function(data, result){
-	db.query('INSERT INTO memory  SET ?', data, function(err,book){
-		if(err){
-			result(null);
-		}
-		else{
-			result({...data});
-		}
-	})
-
+Memory.create = function(data){
+	db.query('INSERT INTO memory  SET ?', data);
 }
 
-Memory.remove = function([Id_pro,Id], result){
-	db.query('DELETE FROM memory WHERE Id_Product=? AND Id=?', [Id_pro,Id], function(err,book){
-		if(err){
-			result(null);
-			console.log(err)
-		}
-		else{
-			console.log("delete successfully")
-			result(null);
-		}
-	})
+Memory.remove = function(Id_pro){
+	db.query('DELETE FROM memory WHERE Id_Product=?', Id_pro)
 }
-Memory.update = function( [data,Id_pro,Id], result){
-	db.query('UPDATE discountCode  SET ? WHERE Id_Product=? AND Id=?', [data,Id_pro,Id], function(err,book){
-		if(err){
-			result(null);
-		}
-		else{
-			result({...data});
-		}
-	})
+Memory.update = function( [data,Id_pro,Id]){
+	db.query('UPDATE memory  SET ? WHERE Id_Product=? AND Id=?', [data,Id_pro,Id])
 }
 module.exports = Memory;

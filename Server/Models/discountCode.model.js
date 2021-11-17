@@ -16,37 +16,15 @@ Discount.get_all = function(result){
 }
 
 Discount.create = function(data, result){
-	db.query('INSERT INTO discountCode  SET ?', data, function(err,book){
-		if(err){
-			result(null);
-		}
-		else{
-			result({...data});
-		}
-	})
+	db.query('INSERT INTO discountCode  SET ?', data)
 
 }
 
-Discount.remove = function([Id_pro,Id_dis], result){
-	db.query('DELETE FROM discountCode WHERE Id_Product=? AND Id_Discount=?', [Id_pro,Id_dis], function(err,book){
-		if(err){
-			result(null);
-			console.log(err)
-		}
-		else{
-			console.log("delete successfully")
-			result(null);
-		}
-	})
+Discount.remove = function(Id_pro, result){
+	db.query('DELETE FROM discountCode WHERE Id_Product=?', Id_pro)
 }
-Discount.update = function([data,Id_pro,Id_dis], result){
-	db.query('UPDATE discountCode  SET ? WHERE Id_Product=? AND Id_Discount=?', [data,Id_pro,Id_dis], function(err,book){
-		if(err){
-			result(null);
-		}
-		else{
-			result({...data});
-		}
-	})
+Discount.update = function([data,Id_pro,Id_dis]){
+	
+	db.query('UPDATE discountCode  SET ? WHERE Id_Product=? AND Id_Discount=?', [data,Id_pro,Id_dis])
 }
 module.exports = Discount;

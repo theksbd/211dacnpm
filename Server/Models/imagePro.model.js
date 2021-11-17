@@ -15,39 +15,27 @@ ImgProduct.get_all = function(result){
 	});
 }
 
-ImgProduct.create = function(data, result){
-	console.log(data)
-	db.query('INSERT INTO ImageProduct  SET ?', data, function(err,book){
-		if(err){
-			result(null);
-		}
-		else{
-			result({...data});
-		}
-	})
+// ImgProduct.create = function(data, result){
+// 	console.log(data)
+// 	db.query('INSERT INTO ImageProduct  SET ?', data, function(err,book){
+// 		if(err){
+// 			result(null);
+// 		}
+// 		else{
+// 			result({...data});
+// 		}
+// 	})
+
+// }
+ImgProduct.create = function(data){
+	// console.log(data)
+	db.query('INSERT INTO ImageProduct  SET ?', data)
 
 }
-
-ImgProduct.remove = function([Id_pro,Id], result){
-	db.query('DELETE FROM ImageProduct WHERE Id_Product=? AND Id=?', [Id_pro,Id], function(err,book){
-		if(err){
-			result(null);
-			console.log(err)
-		}
-		else{
-			console.log("delete successfully")
-			result(null);
-		}
-	})
+ImgProduct.remove = function(Id_pro, result){
+	db.query('DELETE FROM ImageProduct WHERE Id_Product=?', Id_pro)
 }
-ImgProduct.update = function([data,Id_pro,Id], result){
-	db.query('UPDATE ImageProduct  SET ? WHERE Id_Product=? AND Id=?', [data,Id_pro,Id], function(err,book){
-		if(err){
-			result(null);
-		}
-		else{
-			result({...data});
-		}
-	})
+ImgProduct.update = function([data,Id_pro,Id]){
+	db.query('UPDATE ImageProduct  SET ? WHERE Id_Product=? AND Id=?', [data,Id_pro,Id])
 }
 module.exports = ImgProduct;
