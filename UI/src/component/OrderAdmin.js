@@ -1,41 +1,35 @@
 import { React, useState } from 'react'
 import Calendar from 'react-calendar'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
 import 'react-calendar/dist/Calendar.css';
 import { Row, Col, Form } from 'react-bootstrap'
 
-function OrderAdmin() {
+export default function OrderAdmin() {
+
+    const formartter = new Intl.NumberFormat('en');
 
     const dataOrder = {
         totalOrder: GetRandomNumber(1, 200),
-        cancelOrder: GetRandomNumber(0, 18),
+        cancelOrder: GetRandomNumber(0, 20),
         totalProduct: 133,
-        importProduct: GetRandomNumber(0,10),
+        importProduct: GetRandomNumber(0, 10),
         profit: GetRandomNumber(10000000, 500000000),
         deposit: GetRandomNumber(10000000, 80000000),
         totalComplaint: GetRandomNumber(0, 10),
         performance: GetRandomNumber(30, 100)
     };
 
-    const [date, setDate] = useState(new Date());
-    let yesterday = new Date();
-    let farday = new Date();
+    const [date, setDate] = useState(new Date()); // current day
+    let firstDate = new Date(); // firstDate is yesterday of date
+    let secondDate = new Date(); // secondDate is yesterday of firstDate
+    let thirdDate = new Date(); // and so on ...
+    let fourthDate = new Date();
 
     const [showCalendar, setShowCalendar] = useState(true);
 
     function GetRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
-    // function numToString(num) {
-    //     let n = num.toSring();
-    //     for (let i = n.length - 1, count = 0; i >= 0; i--, count++) {
-    //         if (count % 3 === 0) {
-    //             n = n.slice(0, i) + "," + n.slice(i);
-    //         }
-    //     }
-    //     return n;
-    // }
 
     function onChange(date) {
         setDate(date);
@@ -51,19 +45,16 @@ function OrderAdmin() {
         if (date.getDate() == 1 && date.getMonth() == 1) {
             yesterday.setFullYear(date.getFullYear() - 1);
             yesterday.setMonth(date.getMonth() - 1);
-            yesterday.setDate(date.getDate() - 1);
         }
-        // else if (date.getMonth() == 1) {
-        //     yesterday.setDate(date.getDate() - 1);
-        // }
-        else
-            yesterday.setDate(date.getDate() - 1);
+        yesterday.setDate(date.getDate() - 1);
         return yesterday;
     }
 
 
-    yesterday = GetPreviousDate(date);
-    farday = GetPreviousDate(yesterday);
+    firstDate = GetPreviousDate(date);
+    secondDate = GetPreviousDate(firstDate);
+    thirdDate = GetPreviousDate(secondDate);
+    fourthDate = GetPreviousDate(thirdDate);
 
     function GetDate(date) {
         let dayOfWeek = date.getDay();
@@ -108,13 +99,21 @@ function OrderAdmin() {
     dateInfo = GetDate(date);
     dateInfo[0] = getDayOfWeek(dateInfo[0]);
 
-    let yesterdayInfo = [dayOfWeek, day, month, year];
-    yesterdayInfo = GetDate(yesterday);
-    yesterdayInfo[0] = getDayOfWeek(yesterdayInfo[0]);
+    let firstdateInfo = [dayOfWeek, day, month, year];
+    firstdateInfo = GetDate(firstDate);
+    firstdateInfo[0] = getDayOfWeek(firstdateInfo[0]);
 
-    let fardayInfo = [dayOfWeek, day, month, year];
-    fardayInfo = GetDate(farday);
-    fardayInfo[0] = getDayOfWeek(fardayInfo[0]);
+    let seconddateInfo = [dayOfWeek, day, month, year];
+    seconddateInfo = GetDate(secondDate);
+    seconddateInfo[0] = getDayOfWeek(seconddateInfo[0]);
+
+    let thirddateInfo = [dayOfWeek, day, month, year];
+    thirddateInfo = GetDate(thirdDate);
+    thirddateInfo[0] = getDayOfWeek(thirddateInfo[0]);
+
+    let fourthdateInfo = [dayOfWeek, day, month, year];
+    fourthdateInfo = GetDate(fourthDate);
+    fourthdateInfo[0] = getDayOfWeek(fourthdateInfo[0]);
 
     function GetStringDate(date) {
         return date[0] + " - " + date[1] + "/" + date[2] + "/" + date[3];
@@ -185,7 +184,7 @@ function OrderAdmin() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ownborder p-lg-3 font-weight-bold" style={{
+                            <div className="p-lg-3 font-weight-bold" style={{
                                 borderStyle: "solid",
                                 borderWidth: "2px"
                             }}>
@@ -211,7 +210,7 @@ function OrderAdmin() {
                                         <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
                                     </div>
                                     <div className="col-8 text-right">
-                                        {dataOrder.profit}
+                                        {formartter.format(dataOrder.profit)}
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +223,7 @@ function OrderAdmin() {
                                         <i class="fas fa-cart-arrow-down"></i> Đặt cọc
                                     </div>
                                     <div className="col-8 text-right">
-                                        {dataOrder.deposit}
+                                        {formartter.format(dataOrder.deposit)}
                                     </div>
                                 </div>
                             </div>
@@ -260,25 +259,64 @@ function OrderAdmin() {
                     </Row>
                 </Form>
             </div>
-            <div className="row">
 
-            </div>
+            {/* <center>
+                <input type="radio" value="Bar Chart"/>Bar Chart &nbsp;&nbsp;
+                <input type="radio" value="Line Chart"/>Line Chart &nbsp;&nbsp;
+            </center> */}
 
+            {/* <center>
+                <select className="custom-select"
+                    onChange={(e) => {
+                        const selectedChart = e.target.value;
+                        setChartState(selectedChart);
+                    }}
+                >
+                    <option value="BarChart">Bar Chart</option>
+                    <option value="LineChart">Line Chart</option>
+                </select>
+            </center>
+
+            {chartState === "BarChart" ? <Bar /> : <Line />} */}
 
             <Bar
                 data={{
-                    labels: [GetStringDate(fardayInfo), GetStringDate(yesterdayInfo), GetStringDate(dateInfo)],
+                    labels: [GetStringDate(fourthdateInfo), GetStringDate(thirddateInfo),
+                    GetStringDate(seconddateInfo), GetStringDate(firstdateInfo), GetStringDate(dateInfo)],
                     datasets: [
                         {
                             label: 'Số đơn hàng',
-                            data: [GetRandomNumber(1, 100), GetRandomNumber(1, 100), GetRandomNumber(1, 100)],
+                            data: [GetRandomNumber(1, 200), GetRandomNumber(1, 200), GetRandomNumber(1, 200),
+                            GetRandomNumber(1, 200), dataOrder.totalOrder],
                             backgroundColor: '#f73600',
                             borderColor: 'black',
                             borderWidth: 3,
                             barPercentage: 0.5,
                             hoverBackgroundColor: '#f7a436',
-                            hoverBorderColor: '#8f8d8c',
-                        }
+                            hoverBorderColor: '#8f8d8c'
+                        },
+                        {
+                            label: 'Doanh thu',
+                            data: [GetRandomNumber(10000000, 500000000), GetRandomNumber(10000000, 500000000),
+                            GetRandomNumber(10000000, 500000000), GetRandomNumber(10000000, 500000000), dataOrder.profit],
+                            backgroundColor: '#2980b9',
+                            borderColor: 'black',
+                            borderWidth: 3,
+                            barPercentage: 0.5,
+                            hoverBackgroundColor: '#b3ccff',
+                            hoverBorderColor: '#34495e'
+                        },
+                        {
+                            label: 'Số hóa đơn hủy',
+                            data: [GetRandomNumber(0, 20), GetRandomNumber(0, 20),
+                            GetRandomNumber(0, 20), GetRandomNumber(0, 20), dataOrder.cancelOrder],
+                            backgroundColor: '#16a085',
+                            borderColor: 'black',
+                            borderWidth: 3,
+                            barPercentage: 0.5,
+                            hoverBackgroundColor: '#2ecc71',
+                            hoverBorderColor: '#34495e'
+                        },
                     ]
                 }}
 
@@ -299,7 +337,7 @@ function OrderAdmin() {
                         },
                         title: {
                             display: true,
-                            text: 'Số đơn hàng trong ngày',
+                            text: 'Dữ liệu thống kê trong ngày',
                             padding: {
                                 top: 10,
                                 bottom: 30
@@ -314,5 +352,3 @@ function OrderAdmin() {
         </div >
     );
 }
-
-export default OrderAdmin;
