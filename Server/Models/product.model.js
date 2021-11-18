@@ -41,9 +41,25 @@ Product.getAllProduct = (result) => {
     });
 };
 
+Product.getAllDiscountCode = (result) => {
+    let query = "SELECT product.Product_Name, discountCode.Id_Discount, discountCode.Price \
+    FROM `product` JOIN `discountCode`\
+    WHERE product.Id = discountCode.Id_Product";
+
+    mySql.query(query, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err);
+            return;
+        }
+
+        console.log("products: ", res);
+        result(res)
+    });
+};
 
 Product.getCompreAllProduct = (result) => {
-    let query = ' SELECT product.Product_Name, product.DisplaySize, product.Discount,\
+    let query = ' SELECT product.Product_Name, product.DisplaySize, product.Discount, product.Color, product.battery, product.Os, product.chip, product.InStock, product.Product_Type,\
     imageproduct.Url, memory.Rom_Capacity, memory.ramCapacity, memory.Price \
     FROM `product` JOIN `memory` JOIN `imageproduct` \
     WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product'
