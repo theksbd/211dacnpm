@@ -16,8 +16,7 @@ function ProductItem(props) {
                     maxWidth: '302px'
                 }}
                 onClick={() => {
-                    // history.push('/Infor',props.product)
-                    window.location.href = '/Infor' //+ 123
+                    history.push('/Infor',props.product)
                     }}>
                 <img src={props.product.Url} className="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
                 <div className="card-body">
