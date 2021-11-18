@@ -8,26 +8,30 @@ export default function OrderAdmin() {
 
     const formartter = new Intl.NumberFormat('en');
 
-    const dataOrder = {
-        totalOrder: GetRandomNumber(1, 200),
-        cancelOrder: GetRandomNumber(0, 20),
-        totalProduct: 133,
-        importProduct: GetRandomNumber(0, 10),
-        profit: GetRandomNumber(10000000, 500000000),
-        deposit: GetRandomNumber(10000000, 80000000),
-        totalComplaint: GetRandomNumber(0, 10),
-        performance: GetRandomNumber(30, 100)
-    };
-
     const [date, setDate] = useState(new Date()); // current day
     let firstDate = new Date(); // firstDate is yesterday of date
     let secondDate = new Date(); // secondDate is yesterday of firstDate
     let thirdDate = new Date(); // and so on ...
     let fourthDate = new Date();
 
+    const dataOrder = {
+        totalOrder: GetRandomNumber(date, 1, 200),
+        cancelOrder: GetRandomNumber(date, 0, 20),
+        totalProduct: 133,
+        importProduct: GetRandomNumber(date, 0, 10),
+        profit: GetRandomNumber(date, 10000000, 500000000),
+        deposit: GetRandomNumber(date, 10000000, 80000000),
+        totalComplaint: GetRandomNumber(date, 0, 10),
+        performance: GetRandomNumber(date, 30, 100)
+    };
+
     const [showCalendar, setShowCalendar] = useState(true);
 
-    function GetRandomNumber(min, max) {
+    function GetRandomNumber(date, min, max) {
+        let currDate = new Date();
+        if (date.getTime() > currDate.getTime()) {
+            return 0;
+        }
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
@@ -260,25 +264,6 @@ export default function OrderAdmin() {
                 </Form>
             </div>
 
-            {/* <center>
-                <input type="radio" value="Bar Chart"/>Bar Chart &nbsp;&nbsp;
-                <input type="radio" value="Line Chart"/>Line Chart &nbsp;&nbsp;
-            </center> */}
-
-            {/* <center>
-                <select className="custom-select"
-                    onChange={(e) => {
-                        const selectedChart = e.target.value;
-                        setChartState(selectedChart);
-                    }}
-                >
-                    <option value="BarChart">Bar Chart</option>
-                    <option value="LineChart">Line Chart</option>
-                </select>
-            </center>
-
-            {chartState === "BarChart" ? <Bar /> : <Line />} */}
-
             <Bar
                 data={{
                     labels: [GetStringDate(fourthdateInfo), GetStringDate(thirddateInfo),
@@ -286,8 +271,8 @@ export default function OrderAdmin() {
                     datasets: [
                         {
                             label: 'Số đơn hàng',
-                            data: [GetRandomNumber(1, 200), GetRandomNumber(1, 200), GetRandomNumber(1, 200),
-                            GetRandomNumber(1, 200), dataOrder.totalOrder],
+                            data: [GetRandomNumber(fourthDate, 1, 200), GetRandomNumber(thirdDate, 1, 200),
+                            GetRandomNumber(secondDate, 1, 200), GetRandomNumber(firstDate, 1, 200), dataOrder.totalOrder],
                             backgroundColor: '#f73600',
                             borderColor: 'black',
                             borderWidth: 3,
@@ -297,8 +282,9 @@ export default function OrderAdmin() {
                         },
                         {
                             label: 'Doanh thu',
-                            data: [GetRandomNumber(10000000, 500000000), GetRandomNumber(10000000, 500000000),
-                            GetRandomNumber(10000000, 500000000), GetRandomNumber(10000000, 500000000), dataOrder.profit],
+                            data: [GetRandomNumber(fourthDate, 10000000, 500000000), GetRandomNumber(thirdDate, 10000000, 500000000),
+                            GetRandomNumber(secondDate, 10000000, 500000000), GetRandomNumber(firstDate, 10000000, 500000000), 
+                            dataOrder.profit],
                             backgroundColor: '#2980b9',
                             borderColor: 'black',
                             borderWidth: 3,
@@ -308,8 +294,8 @@ export default function OrderAdmin() {
                         },
                         {
                             label: 'Số hóa đơn hủy',
-                            data: [GetRandomNumber(0, 20), GetRandomNumber(0, 20),
-                            GetRandomNumber(0, 20), GetRandomNumber(0, 20), dataOrder.cancelOrder],
+                            data: [GetRandomNumber(fourthDate, 0, 20), GetRandomNumber(thirdDate, 0, 20),
+                            GetRandomNumber(secondDate, 0, 20), GetRandomNumber(firstDate, 0, 20), dataOrder.cancelOrder],
                             backgroundColor: '#16a085',
                             borderColor: 'black',
                             borderWidth: 3,
