@@ -1,18 +1,27 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom'
 import productData from '../Data/Data'
 import ProductItem from '../component/HomePage/ProductItem'
+import axios from 'axios';
 
 
 export default function Admin() {
   
   const [index, setIndex] = useState(8)
 
-  const [data, setData] = useState(productData)
+  const [data, setData] = useState([])
 
   const [increase, setIncrease] = useState(false)
 
   const [disabledButton, setDisabledButton] = useState(false)
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/products/comprehension')
+      .then(response => {
+        setData(response.data)
+      })
+      .catch(error => console.log(error))
+  }, [])
 
   function Sort() {
     return <button type="button" class="btn btn-success" onClick={() => handleSort()}>Sắp xếp</button>

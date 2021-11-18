@@ -27,7 +27,7 @@ function ProductItem(props) {
                             {props.product.DisplaySize} inches
                         </div>
                         <div className='col-md col-lg col-xl m-2 rounded' style={{ backgroundColor: '#C4C4C4', maxWidth: '62px' }}>
-                            {props.product.ramCapacity}GB
+                            {props.product.Ram_Capacity}GB
                         </div>
                         <div className='col-md col-lg col-xl m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4', maxWidth: '72px' }}>
                             {props.product.Rom_Capacity}GB

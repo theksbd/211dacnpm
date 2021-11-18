@@ -43,7 +43,7 @@ Product.getAllProduct = (result) => {
 
 Product.getByWord = (result,req) => {
     let query = "SELECT product.Product_Name, product.DisplaySize, product.Discount,\
-    imageproduct.Url, memory.Rom_Capacity, memory.ramCapacity, memory.Price \
+    imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \
     FROM `product` JOIN `memory` JOIN `imageproduct` \
     WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product AND product.Product_Name REGEXP ?";
 
@@ -65,7 +65,7 @@ Product.getByWord = (result,req) => {
 
 Product.getCompreAllProduct = (result) => {
     let query = ' SELECT product.Product_Name, product.DisplaySize, product.Discount,\
-    imageproduct.Url, memory.Rom_Capacity, memory.ramCapacity, memory.Price \
+    imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \
     FROM `product` JOIN `memory` JOIN `imageproduct` \
     WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product'
     mySql.query(query, (err, res) => {
