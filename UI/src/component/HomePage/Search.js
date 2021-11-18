@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import ProductItem from './ProductItem'
 import productData from '../../Data/Data'
+import { useLocation } from 'react-router-dom';
 
 const axios = require('axios')
 
@@ -12,6 +13,7 @@ const axios = require('axios')
 
 export default function ProductList() {
 
+  const location = useLocation().state
 
   const [index, setIndex] = useState(8)
 
@@ -21,12 +23,8 @@ export default function ProductList() {
 
   const [disabledButton, setDisabledButton] = useState(false)
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/products/comprehension')
-      .then(response => {
-        setData(response.data)
-      })
-      .catch(error => console.log(error))
+  useEffect(() => {    
+    setData(location)
   }, [])
 
   function Sort() {

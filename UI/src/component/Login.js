@@ -5,15 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const axios = require('axios')
 
-const userAccountData = [
-    {
-        "account": "tienminh0801",
-        "password": "0123456789"
-    }
-]
-
-
-let accountDataSend = []
 
 
 
@@ -32,6 +23,7 @@ export default function Login() {
         })
 
         if (respon.data === 'Accept') {
+            localStorage.setItem('isAdmin', true)
             window.location.href = "/Admin"
         }
         else {
@@ -63,14 +55,8 @@ export default function Login() {
                         <label for="floatingPassword">Password</label>
                     </div>
                     {/* {userAccountData.} */}
-                    <div className="form-check mx-2 mt-3 mb-3" style={{ maxWidth: "150px" }}>
-                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                        <label className="form-check-label" for="flexCheckDefault">
-                            Remember me
-                        </label>
-                    </div>
-                    <div class="d-flex">
-                        <button className="w-75 btn btn-lg btn-primary mb-5" type="submit" onClick={handleSubmit}>Log in</button>
+                    <div class="d-flex mt-5" > 
+                        <button className="w-75 btn btn-lg btn-primary mb-5" style={{margin : 'auto'}} type="submit" onClick={handleSubmit}>Log in</button>
                     </div>
                 </form>
                 <ToastContainer />

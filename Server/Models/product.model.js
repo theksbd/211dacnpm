@@ -36,7 +36,28 @@ Product.getAllProduct = (result) => {
             return;
         }
 
-        console.log("products: ", res);
+        console.log("getAllProduct: ", res);
+        result(res)
+    });
+};
+
+Product.getByWord = (result,req) => {
+    let query = "SELECT product.Product_Name, product.DisplaySize, product.Discount,\
+    imageproduct.Url, memory.Rom_Capacity, memory.ramCapacity, memory.Price \
+    FROM `product` JOIN `memory` JOIN `imageproduct` \
+    WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product AND product.Product_Name REGEXP ?";
+
+    console.log(req.params.id)
+    let keyWord = `.*${req.params.id}.*`
+
+    mySql.query(query, keyWord, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err);
+            return;
+        }
+
+        console.log("getByWord: ", res);
         result(res)
     });
 };
@@ -54,7 +75,7 @@ Product.getCompreAllProduct = (result) => {
             return;
         }
 
-        console.log("products: ", res);
+        console.log("getCompreAllProduct: ", res);
         result(res)
     });
 }

@@ -6,6 +6,12 @@ exports.getAll = (req, res) => {
     Product.getAllProduct(result)
 }
 
+exports.getByWord = (req, res) => {
+    const result = data => res.send(data)
+
+    Product.getByWord(result,req)
+}
+
 exports.getCompreAllProduct = (req, res) => {
     const result = data => res.send(data)
 
