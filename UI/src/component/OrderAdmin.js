@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import Calendar from 'react-calendar'
 import { Bar, Line } from 'react-chartjs-2'
-import 'react-calendar/dist/Calendar.css';
+import 'react-calendar/dist/Calendar.css'
 import { Row, Col, Form } from 'react-bootstrap'
 
 export default function OrderAdmin() {
@@ -14,12 +14,14 @@ export default function OrderAdmin() {
     let thirdDate = new Date(); // and so on ...
     let fourthDate = new Date();
 
+    let currDate = new Date();
+
     const dataOrder = {
         totalOrder: GetRandomNumber(date, 1, 200),
         cancelOrder: GetRandomNumber(date, 0, 20),
         totalProduct: 133,
         importProduct: GetRandomNumber(date, 0, 10),
-        profit: GetRandomNumber(date, 10000000, 500000000),
+        profit: GetRandomNumber(date, 10000000, 200000000),
         deposit: GetRandomNumber(date, 10000000, 80000000),
         totalComplaint: GetRandomNumber(date, 0, 10),
         performance: GetRandomNumber(date, 30, 100)
@@ -28,7 +30,7 @@ export default function OrderAdmin() {
     const [showCalendar, setShowCalendar] = useState(true);
 
     function GetRandomNumber(date, min, max) {
-        let currDate = new Date();
+        // let currDate = new Date();
         if (date.getTime() > currDate.getTime()) {
             return 0;
         }
@@ -184,7 +186,7 @@ export default function OrderAdmin() {
                                         <i class="fas fa-mobile"></i> Số lượng mặt hàng
                                     </div>
                                     <div className="col-7 text-right">
-                                        {dataOrder.totalProduct}
+                                        {date.getTime() > currDate.getTime() ? 0:  dataOrder.totalProduct}
                                     </div>
                                 </div>
                             </div>
@@ -282,8 +284,8 @@ export default function OrderAdmin() {
                         },
                         {
                             label: 'Doanh thu',
-                            data: [GetRandomNumber(fourthDate, 10000000, 500000000), GetRandomNumber(thirdDate, 10000000, 500000000),
-                            GetRandomNumber(secondDate, 10000000, 500000000), GetRandomNumber(firstDate, 10000000, 500000000), 
+                            data: [GetRandomNumber(fourthDate, 10000000, 200000000), GetRandomNumber(thirdDate, 10000000, 200000000),
+                            GetRandomNumber(secondDate, 10000000, 200000000), GetRandomNumber(firstDate, 10000000, 200000000), 
                             dataOrder.profit],
                             backgroundColor: '#2980b9',
                             borderColor: 'black',
