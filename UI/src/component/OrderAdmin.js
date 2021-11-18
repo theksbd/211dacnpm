@@ -24,7 +24,7 @@ export default function OrderAdmin() {
         profit: GetRandomNumber(date, 10000000, 200000000),
         deposit: GetRandomNumber(date, 10000000, 80000000),
         totalComplaint: GetRandomNumber(date, 0, 10),
-        performance: GetRandomNumber(date, 30, 100)
+        performance: 100
     };
 
     const [showCalendar, setShowCalendar] = useState(true);
@@ -36,6 +36,17 @@ export default function OrderAdmin() {
         }
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+    function setPerformance(performance) {
+        if (date.getTime() > currDate.getTime())
+            return 0;
+        if (dataOrder.totalComplaint > 0) {
+            performance -= dataOrder.totalComplaint * 2;
+            return performance;
+        }
+    }
+
+    dataOrder.performance = setPerformance(dataOrder.performance);
 
     function onChange(date) {
         setDate(date);
@@ -186,7 +197,7 @@ export default function OrderAdmin() {
                                         <i class="fas fa-mobile"></i> Số lượng mặt hàng
                                     </div>
                                     <div className="col-7 text-right">
-                                        {date.getTime() > currDate.getTime() ? 0:  dataOrder.totalProduct}
+                                        {date.getTime() > currDate.getTime() ? 0 : dataOrder.totalProduct}
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +296,7 @@ export default function OrderAdmin() {
                         {
                             label: 'Doanh thu',
                             data: [GetRandomNumber(fourthDate, 10000000, 200000000), GetRandomNumber(thirdDate, 10000000, 200000000),
-                            GetRandomNumber(secondDate, 10000000, 200000000), GetRandomNumber(firstDate, 10000000, 200000000), 
+                            GetRandomNumber(secondDate, 10000000, 200000000), GetRandomNumber(firstDate, 10000000, 200000000),
                             dataOrder.profit],
                             backgroundColor: '#2980b9',
                             borderColor: 'black',
