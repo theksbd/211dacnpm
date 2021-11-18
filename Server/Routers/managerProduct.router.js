@@ -4,4 +4,5 @@ module.exports = function(router){
 	router.get('/product/list', Product.get_list);
 	router.delete('/product/delete', Product.remove);
 	router.put('/product/update', Product.update);
+	router.get('/product/detail', Product.detail);
 };

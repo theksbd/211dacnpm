@@ -15,6 +15,15 @@ ImgProduct.get_all = function(result){
 	});
 }
 
+ImgProduct.getById = function(id, result){
+	db.query("SELECT Id,Url FROM ImageProduct WHERE Id_Product= ?",id, function(err,book){
+		if(err || book.length==0) {
+			result(null);
+		}
+		else result(book);
+	});
+}
+
 // ImgProduct.create = function(data, result){
 // 	console.log(data)
 // 	db.query('INSERT INTO ImageProduct  SET ?', data, function(err,book){

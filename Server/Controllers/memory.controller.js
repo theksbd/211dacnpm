@@ -14,6 +14,8 @@ exports.add = function(req, res){
 	});
 }
 
+
+
 exports.remove = function(req, res){
 	var id =req.param.id;
 	Memory.remove(id, function(response){

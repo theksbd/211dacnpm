@@ -1,7 +1,7 @@
 import './pages/EditItem.css'
 import React, {Component} from 'react'
 import {Form, Button } from 'react-bootstrap'
-
+import axios from 'axios';
 export default class RenderEditItem extends Component{
 	constructor(props) {
 		super(props);
@@ -10,28 +10,31 @@ export default class RenderEditItem extends Component{
 		this.url=""
 		this.state = {
 		  validated: false,
-		  textName: this.props.productData.productName,
-		  textType: this.props.productData.productName.split(' ')[0],
-		  textCost: this.props.productData.newPrice,
-		  textColor: "",
-		  txtBattery:"",
-		  txtMemory: this.props.productData.specifications.ram,
-		  txtRom: "",
-		  txtOs:"", 
-		  txtDisplaySize:"", 
-		  txtChip:"", 
-		  txtInStock:"",
-		  textDiscount: "",
+		  id: this.props.productData.id,
+		  textName: this.props.productData.textName,
+		  textType: this.props.productData.textType,
+		  textColor: this.props.productData.textColor,
+		  txtBattery:this.props.productData.txtBattery,
+		  txtMemory: this.props.productData.txtMemory,
+		  txtRom: this.props.productData.txtRom,
+		  txtOs: this.props.productData.txtOs,
+		  txtDisplaySize: this.props.productData.txtDisplaySize, 
+		  txtChip: this.props.productData.txtChip,
+		  txtInStock: this.props.productData.txtInStock,
+		  textDiscount: this.props.productData.textDiscount,
 		  image: this.props.productData.image,
-		  image1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
-		  image2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
-		  image3: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
-		  image4: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU"
+		  image1: this.props.productData.image1,
+		  image2: this.props.productData.image2,
+		  image3: this.props.productData.image3,
+		  image4: this.props.productData.image4,
+		  Id_Discount : this.props.productData.Id_Discount,
+		  Price :this.props.productData.Price,
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.imageHandler = this.imageHandler.bind(this);
 		this.indexImage = this.indexImage.bind(this);
+		this.remove = this.remove.bind(this);
 	      }
 		  
 		handleSubmit = (event) => {
@@ -41,11 +44,9 @@ export default class RenderEditItem extends Component{
 			event.stopPropagation();
 		      }  
 		      this.setState({validated: true});
-		// var content = "Name: "+ this.state.textName;
-		// console.log(content)
 		};
 	    
-	      	handleInputChange(event) {
+	    handleInputChange(event) {
 			const target = event.target;
 			const value = target.value;
 			const name = target.name;
@@ -63,10 +64,6 @@ export default class RenderEditItem extends Component{
 			});
 			}
 			reader.readAsDataURL(file)
-			// const reader = window.URL.createObjectURL(e.target.files[0])
-			// console.log("click")
-			// this.setState({[indexImage] : reader})
-			// console.log(e.target.files[0])
 		  };
 		indexImage=(e)=>{
 			document.getElementById("chosefile").click()
@@ -77,6 +74,22 @@ export default class RenderEditItem extends Component{
 			this.index= name;
 		  document.getElementById("openmodal").click()
 	  	}
+		// remove= async()=>{
+		// 	try {
+		// 		const res = await axios.get('http://localhost:8080/product/delete'
+		// 		,
+		// 		{ 
+		// 		  params:{
+		// 			id: this.id
+		// 		  }
+		// 		}
+		// 		)
+		// 		console.log(res, 'nguyenthucquan')
+		// 		window.location.href = "/managerItem";
+		// 	  } catch (error) {
+		// 		console.log(error.message)
+		// 	  }
+		// }
 	render() {
 
 	return(
@@ -177,11 +190,26 @@ export default class RenderEditItem extends Component{
 				</Form.Group>
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Thông tin khuyễn mãi</Form.Label>
-				<Form.Control type="text" placeholder="Nhập thông tin khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
-				{/* <Form.Control.Feedback type="invalid">
-					Phần này không được để trống.
-				</Form.Control.Feedback> */}
+				<Form.Label>Khuyễn mãi</Form.Label>
+				<Form.Control type="text" placeholder="Khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
+				</Form.Group>
+				
+				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
+				<Form.Label>Thông tin mã giảm giá</Form.Label>
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+					<div class="input-group mb-3">
+						<span class="input-group-text">Code</span>
+						<input type="text" class="form-control" name="Id_Discount" value={this.state.Id_Discount} onChange={this.handleInputChange}/>
+					</div>
+					</div>
+					<div class="col-md-6 col-sm-6">
+					<div class="input-group mb-3">
+						<span class="input-group-text">Giá</span>
+						<input type="text" class="form-control" name="Price" value={this.state.Price} onChange={this.handleInputChange}/>
+					</div>
+					</div>
+				</div>
 				</Form.Group>
 
 			</div>
@@ -221,34 +249,34 @@ export default class RenderEditItem extends Component{
 				</div>
 			</div>
 		</div>
-		<div class="d-flex justify-content-center container mt-5">
-		<button type="button" class="btn btn-success" name='remove' data-bs-toggle="modal" data-bs-target="#myModal">Xóa sản phẩm</button>
+		<div class="d-flex justify-content-end container mt-5">
+		{/* <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" onClick={this.remove}>Xóa sản phẩm</button> */}
 		<Button type="submit" variant="success">Lưu thay đổi</Button>
-		<button type="button" class="btn btn-success" name='remove' onClick={()=>{window.location.href = "/managerItem"}}>Hủy</button>
+		<button type="button" class="btn btn-success" onClick={()=>{window.location.href = "/managerItem"}}>Hủy</button>
 		</div>
 		</Form>
-		<div class="modal" id="myModal">
+		{/* <div class="modal" id="myModal">
 			<div class="modal-dialog">
 			<div class="modal-content">
 	
-			{/* <!-- Modal Header --> */}
+
 			<div class="modal-header">
 				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
 	
-			{/* <!-- Modal body --> */}
+			
 			<div class="modal-body">
 				Bạn có muốn xóa sản phẩm này.
 			</div>
 	
-			{/* <!-- Modal footer --> */}
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={()=>{window.location.href = "/managerItem"}} >OK</button>
 			</div>
 	
 			</div>
 			</div>
-		</div>
+		</div> */}
 		{/* <!-- The Modal2 --> */}
 		<div class="modal fade" id="myModal2">
 			<div class="modal-dialog">

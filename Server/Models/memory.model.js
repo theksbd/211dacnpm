@@ -21,6 +21,15 @@ Memory.create = function(data){
 	db.query('INSERT INTO memory  SET ?', data);
 }
 
+Memory.getById = function(id, result){
+	db.query("SELECT Id,Rom_Capacity, Ram_Capacity, Price FROM memory WHERE Id_Product= ?",id, function(err,book){
+		if(err || book.length==0) {
+			result(null);
+		}
+		else result(book);
+	});
+}
+
 Memory.remove = function(Id_pro){
 	db.query('DELETE FROM memory WHERE Id_Product=?', Id_pro)
 }

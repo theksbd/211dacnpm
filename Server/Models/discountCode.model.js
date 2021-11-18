@@ -20,6 +20,15 @@ Discount.create = function(data, result){
 
 }
 
+Discount.getById = function(id, result){
+	db.query("SELECT Id_Discount, Price FROM discountCode WHERE Id_Product=?",id, function(err,book){
+		if(err || book.length==0) {
+			result(null);
+		}
+		else result(book[0]);
+	});
+}
+
 Discount.remove = function(Id_pro, result){
 	db.query('DELETE FROM discountCode WHERE Id_Product=?', Id_pro)
 }

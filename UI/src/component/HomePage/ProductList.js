@@ -6,12 +6,12 @@ const axios = require('axios')
 
 let data = []
 
-axios.get('http://localhost:8080/products/comprehension')
-  .then(response => {
-    data = response.data
-    console.log(data)
-  })
-  .catch(error => console.log(error))
+// axios.get('http://localhost:8080/products/comprehension')
+//   .then(response => {
+//     data = response.data
+//     console.log(data)
+//   })
+//   .catch(error => console.log(error))
 
 
 

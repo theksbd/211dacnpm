@@ -23,7 +23,7 @@ Product.get_all = function(result){
 }
 
 Product.getById = function(id, result){
-	db.query("SELECT * FROM book Product id= ?",id, function(err,book){
+	db.query("SELECT * FROM Product WHERE id= ?",id, function(err,book){
 		if(err || book.length==0) {
 			result(null);
 		}

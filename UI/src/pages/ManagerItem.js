@@ -1,55 +1,104 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment,useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom'
 import './ManagerItem.css'
-import productData from '../Data/Data'
 import { useHistory } from "react-router-dom";
-
+import axios from 'axios'
 export default function ManagerItem() {
   
   const history = useHistory();
-
-  const [index, setIndex] = useState(8)
+  const [dele, setDele] = useState(false)
+  const [productData, setProductData] = useState()
   
-  const [data, setData] = useState(productData)
+  useEffect(()=>{
+    const getData = async ()=>{
+      try {
+        const res = await axios.get('http://localhost:8080/product/list')
+        setProductData(res.data)
+        //console.log(res.data)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+    getData()
+  },[dele])
   
-  const [increase, setIncrease] = useState(false)
-  
-  const [disabledButton, setDisabledButton] = useState(false)
-  // let navigate = useNavigate();
-  function ProductItem(props) {
-    return (
-      <div class="col-md-3 col-lg col-xl my-5">
-        <div class="card shadow"
-          style={{
-            width: '100%',
-            border: '0.5px solid #C4C4C4', borderRadius: '12px', cursor: 'pointer',
-            '&:hover': {
-              transform: 'scale(1.1)',
-            }
-          }}
-            onClick={() => history.push('/editItem',props.product)}
-          >
-          <img src={props.product.image} class="card-img-top " alt="..." style={{ width: '90%', borderRadius: '10%' }} />
-          <div class="card-body">
-            <h5 class="card-title" style={{minHeight:'48px'}}>{props.product.productName}</h5>
-            <div class='row' style={{ paddingRight: '16px', paddingLeft: '4px' }}>
-              <div class='col-md col-lg col-xl float-start m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4', width: '100%' }}>
-                {props.product.specifications.screen} inches
-              </div>
-              {/* <div class='col-md m-2 rounded' style={{ backgroundColor: '#C4C4C4' }}>
-                {props.product.specifications.ram}GB
-              </div> */}
-              <div class='col-md col-lg col-xl m-2 rounded text-center' style={{ backgroundColor: '#C4C4C4' }}>
-                {props.product.specifications.rom}GB
-              </div>
+  async function remove (e){
+    try {
+      const res = await axios.delete('http://localhost:8080/product/delete'
+      ,
+      { 
+        params:{
+        id: parseInt(e.target.name)
+        }
+      }
+      )
+      setDele(!dele)
+      } catch (error) {
+      console.log(error.message)
+      }
+  }
+ 
+  function ProductItem(props){
+    return(
+      <>
+        <tr>
+          <td>{props.item.Id}</td>
+          <td>{props.item.Product_Type}</td>
+          <td>{props.item.Product_Name}</td>
+          <td>{props.item.Color}</td>
+          <td>{props.item.Os}</td>
+          <td>{props.item.battery}</td>
+          <td>{props.item.DisplaySize}</td>
+          <td>{props.item.chip}</td>
+          <td>{props.item.InStock}</td>
+          <td>{props.item.Discount}</td>
+          <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-success" name ={props.item.Id} >Sửa</button>
+            <button type="button" class="btn btn-danger" name ={props.item.Id} onClick={remove}>Xóa</button>
             </div>
-            <p class="text-danger h1">{props.product.newPrice}</p>
-            <p class="text-muted h3">{props.product.oldPrice}</p>
-          </div>
-        </div>
-      </div>
+          </td>
+        </tr>
+      </>
     )
   }
+  
+  function ListItem() {
+    return <Fragment>{
+      productData && productData.map((item) => {
+      return (
+        <ProductItem item={item} />
+      )
+    })}
+    </Fragment>
+  }
+  function RenderProduct() {
+    return <Fragment>
+      <div class="table-responsive mt-3 mb-5">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr class="table-primary">
+              <th>Id</th>
+              <th>Hãng</th>
+              <th>Tên</th>
+              <th>Màu</th>
+              <th>Hệ điều hành</th>
+              <th>Battery</th>
+              <th>DisplaySize</th>
+              <th>Chip</th>
+              <th>Số lượng</th>
+              <th>Giảm giá</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+           <ListItem/>
+          </tbody>
+        </table>
+      </div>
+    </Fragment>
+  }
+
   function AddItem(){
     return(
       <button type="button" class="btn btn-outline-success" onClick={()=>{
@@ -57,31 +106,6 @@ export default function ManagerItem() {
       }}>
         Thêm sản phẩm
       </button>
-    )
-  }
-  // này là component 
-  function Sort() {
-    return <button type="button" class="btn btn-success" onClick={() => handleSort()}>Sắp xếp</button>
-  }
-
-
-  function handleSort() {
-    setData(productData.slice().sort((a, b) => {
-      if (!increase) return a.newPrice - b.newPrice
-      else return -(a.newPrice - b.newPrice)
-    }))
-
-    setIncrease(!increase)
-  }
-
-  function ButtonMore() {
-    return (
-      <div class='row mb-5 d-flex justify-content-center'>
-        <button type="button" class="btn btn-secondary w-25"
-          onClick={handleClickMore} disabled={disabledButton}>
-          <span> Xem thêm</span>
-        </button>
-      </div>
     )
   }
 
@@ -102,45 +126,26 @@ export default function ManagerItem() {
       )
   }
 
-  function handleClickMore() {
 
-    setIndex(n => n + 8)
-
-    if (index + 8 >= productData.length) {
-      // setIndex(index - 8)
-      setDisabledButton(!disabledButton)
-    }
-    // else setIndex(index + 8)
-    // console.log('Index : ' + index + ' and Len :' + productData.length)
-    // console.log(nameBtnMore)
-  }
-
-
-
-  function RenderProduct() {
-    // ReactDOM.render(<ProductItem product={productData[0]} />,listProduct)
-    return <Fragment>{data.slice(0, index).map((product) => {
-      return (
-        <ProductItem product={product} />
-      )
-    })}
-      <ButtonMore />
-      
-    </Fragment>
-  }
 
 
   return (
-    <div class='container-fluid'>
-      <div class="d-flex justify-content-end container mt-3">
-          <Sort/>
+    <div class='container mt-3'>
+      <div class="row">
+      <div class='col-md-6 col-sm-6 col-12 mt-2'>
+        <h4>Danh sách sản phẩm</h4>
+      </div>
+      <div class='col-md-6 col-sm-6 col-12 mt-2'>
+      <div class="d-flex justify-content-end container">
           <AddItem/>
           <BtnMode/>
         
       </div>
-      <div class='row mx-5' id='product-list'>
-        <RenderProduct />
       </div>
+      </div>
+      {/* <div class='row mx-5' id='product-list'> */}
+        <RenderProduct />
+      {/* </div> */}
     </div>
   );
 }
