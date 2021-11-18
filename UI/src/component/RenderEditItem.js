@@ -2,6 +2,7 @@ import './pages/EditItem.css'
 import React, {Component} from 'react'
 import {Form, Button } from 'react-bootstrap'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 export default class RenderEditItem extends Component{
 	constructor(props) {
 		super(props);
@@ -32,9 +33,9 @@ export default class RenderEditItem extends Component{
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.imageHandler = this.imageHandler.bind(this);
-		this.indexImage = this.indexImage.bind(this);
-		this.remove = this.remove.bind(this);
+		// this.imageHandler = this.imageHandler.bind(this);
+		// this.indexImage = this.indexImage.bind(this);
+		// this.remove = this.remove.bind(this);
 	      }
 		  
 		handleSubmit = (event) => {
@@ -44,6 +45,77 @@ export default class RenderEditItem extends Component{
 			event.stopPropagation();
 		      }  
 		      this.setState({validated: true});
+			  let txtMemory = this.state.txtMemory;
+			   axios.put('http://localhost:8080/product/update', {
+				product:{
+					Id: this.state.id,
+					Product_Type: this.state.textType,
+					Product_Name: this.state.textName,
+					Color: this.state.textColor,
+					Discount: parseInt(this.state.textDiscount),
+					battery: this.state.txtBattery,
+					Os: this.state.txtOs,
+					DisplaySize: this.state.txtDisplaySize, 
+					chip: this.state.txtChip,
+					InStock: parseInt(this.state.txtInStock)
+				},
+				image:[
+					{
+						Id : 1,
+						Url : this.state.image
+					},
+					{
+						Id : 2,
+						Url : this.state.image1
+					},
+					{
+						Id : 3,
+						Url : this.state.image2
+					},
+					{
+						Id : 4,
+						Url : this.state.image3
+					},
+
+					{
+						Id : 5,
+						Url : this.state.image4
+					}
+
+				],
+				discountCode:[
+					{
+						Id_Discount : this.state.Id_Discount,
+						Price : parseInt(this.state.Price)
+					}
+				],
+				// 512 - 20000000, 128 - 15000000
+				memory: this.state.txtRom.split(', ').map(function(rom,index){
+					let arr = rom.split(' - ');
+					return {
+						Id : index+1,
+						Rom_Capacity: parseInt(arr[0]),
+						Ram_Capacity : parseInt(txtMemory),
+						Price : parseInt(arr[1])
+					}
+				})
+			  }) 
+			  .then(function (response) {
+				console.log(response);
+				toast.success('Thay đổi thành công :)', {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+				setTimeout(()=>{window.location.href = "/managerItem"},600)
+			  })
+			  .catch(function (error) {
+				console.log(error);
+			  });
 		};
 	    
 	    handleInputChange(event) {
@@ -54,20 +126,20 @@ export default class RenderEditItem extends Component{
 			[name]: value
 			});
 	     	 };
-		imageHandler = (e) => {
-			var indexImage =this.index;
-			let reader = new FileReader();
-			let file = e.target.files[0];
-			reader.onloadend = () => {
-			this.setState({
-				[indexImage]: reader.result
-			});
-			}
-			reader.readAsDataURL(file)
-		  };
-		indexImage=(e)=>{
-			document.getElementById("chosefile").click()
-		}
+		// imageHandler = (e) => {
+		// 	var indexImage =this.index;
+		// 	let reader = new FileReader();
+		// 	let file = e.target.files[0];
+		// 	reader.onloadend = () => {
+		// 	this.setState({
+		// 		[indexImage]: reader.result
+		// 	});
+		// 	}
+		// 	reader.readAsDataURL(file)
+		//   };
+		// indexImage=(e)=>{
+		// 	document.getElementById("chosefile").click()
+		// }
 		On_click=(e)=>{
 			const target = e.target;
 			const name = target.name;
@@ -97,7 +169,7 @@ export default class RenderEditItem extends Component{
 		{/* <Header/> */}
 		<div class ='row' style={{backgroundColor:"#EAEAEA"}}>
 		<div class="col-md-8 col-sm-12" style={{margin:'auto'}} >
-		<Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+		<Form noValidate validated={this.state.validated} >
 		<div class ='row' style={{marginTop:'5px'}}>
 		<h4 class="text-center">Thông tin sản phẩm</h4>
 			<div class="col-md-7 col-sm-12">
@@ -117,13 +189,6 @@ export default class RenderEditItem extends Component{
 				</Form.Control.Feedback>
 				</Form.Group>
 				
-				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Giá</Form.Label>
-				<Form.Control type="text" placeholder="Nhập giá của sản phẩm" style={{borderRadius:'9px'}}required name="textCost" value={this.state.textCost} onChange={this.handleInputChange}/>
-				<Form.Control.Feedback type="invalid">
-				Phần này không được để trống.
-				</Form.Control.Feedback>
-				</Form.Group>
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Màu</Form.Label>
@@ -216,9 +281,9 @@ export default class RenderEditItem extends Component{
 			<div class="col-md-5 col-sm-12 " style={{marginTop:'25px'}}>
 				<div class ='row'>
 				<div class="col-md-9 col-sm-9 " style={{margin:'auto', boder:"1px groove #F57E7E"}}>
-				<input type="file" style={{display:'none'}} accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" 
+				{/* <input type="file" style={{display:'none'}} accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" 
 				onChange={this.imageHandler} id="chosefile"
-          			ref={fileInput => this.fileInput=fileInput}/>
+          			ref={fileInput => this.fileInput=fileInput}/> */}
 					  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal2" id="openmodal" style={{display:'none'}}>Open modal</button>
 				<img class="img-fluid" src={this.state.image} name ="image" onClick={this.On_click}/>
 				</div>
@@ -251,7 +316,7 @@ export default class RenderEditItem extends Component{
 		</div>
 		<div class="d-flex justify-content-end container mt-5">
 		{/* <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" onClick={this.remove}>Xóa sản phẩm</button> */}
-		<Button type="submit" variant="success">Lưu thay đổi</Button>
+		<Button type="button" variant="success" onClick={this.handleSubmit}>Lưu thay đổi</Button>
 		<button type="button" class="btn btn-success" onClick={()=>{window.location.href = "/managerItem"}}>Hủy</button>
 		</div>
 		</Form>
@@ -295,7 +360,7 @@ export default class RenderEditItem extends Component{
 
 				{/* <!-- Modal footer --> */}
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" onClick={this.indexImage} data-bs-dismiss="modal">Chọn file</button>
+					{/* <button type="button" class="btn btn-primary" onClick={this.indexImage} data-bs-dismiss="modal">Chọn file</button> */}
 					<button type="button" class="btn btn-success" onClick={(e)=>{
 						const indexImage =this.index;
 							if(this.url!=''){

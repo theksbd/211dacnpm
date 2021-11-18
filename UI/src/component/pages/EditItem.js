@@ -54,7 +54,7 @@ function EditItem(){
 			image1: product.image[1].Url,
 			image2: product.image[2].Url,
 			image3: product.image[3].Url,
-			image4: product.image[0].Url,
+			image4: product.image[4].Url,
 			
 			Id_Discount : null,
 			Price : null
@@ -63,18 +63,17 @@ function EditItem(){
 			  productData.Id_Discount = product.discountCode.Id_Discount;
 			  productData.Price = product.discountCode.Price
 		  }
-		  console.log(productData)
+		//   console.log(productData)
 	}
 
-	function _render() {
-			if(productData){
-				return(
-					<RenderEditItem productData={productData}/>
-				)
-			}
+	if(productData){
+		return(
+			<RenderEditItem productData={productData}/>
+		)
 	}
-	return (
-		<_render/>
-	)
+	else{
+			return <></>
+		}
+		
 }
 export default EditItem;
