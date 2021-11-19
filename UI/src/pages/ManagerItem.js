@@ -14,7 +14,6 @@ export default function ManagerItem() {
       try {
         const res = await axios.get('http://localhost:8080/product/list')
         setProductData(res.data)
-        //console.log(res.data)
       } catch (error) {
         console.log(error.message)
       }
@@ -24,7 +23,7 @@ export default function ManagerItem() {
   
   async function remove (e){
     try {
-      const res = await axios.delete('http://localhost:8080/product/delete'
+      await axios.delete('http://localhost:8080/product/delete'
       ,
       { 
         params:{
@@ -54,7 +53,7 @@ export default function ManagerItem() {
           <td>{props.item.Discount}</td>
           <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-success" name ={props.item.Id} >Sửa</button>
+            <button type="button" class="btn btn-success" onClick={()=>history.push('/editItem',props.item.Id)}>Sửa</button>
             <button type="button" class="btn btn-danger" name ={props.item.Id} onClick={remove}>Xóa</button>
             </div>
           </td>
@@ -125,10 +124,6 @@ export default function ManagerItem() {
       </div>
       )
   }
-
-
-
-
   return (
     <div class='container mt-3'>
       <div class="row">
@@ -143,11 +138,10 @@ export default function ManagerItem() {
       </div>
       </div>
       </div>
-      {/* <div class='row mx-5' id='product-list'> */}
         <RenderProduct />
-      {/* </div> */}
     </div>
-  );
+  )
+
 }
 
 

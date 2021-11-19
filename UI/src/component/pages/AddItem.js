@@ -1,9 +1,8 @@
 import './EditItem.css'
 import React, {Component} from 'react'
 import {Form, Button } from 'react-bootstrap'
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 class AddItem extends Component{
 	constructor(props) {
 		super(props);
@@ -22,7 +21,7 @@ class AddItem extends Component{
 		  txtDisplaySize:"", 
 		  txtChip:"", 
 		  txtInStock:"",
-		  textDiscount: "",
+		  textDiscount: "0",
 		  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
 		  image1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
 		  image2: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU",
@@ -34,8 +33,8 @@ class AddItem extends Component{
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.imageHandler = this.imageHandler.bind(this);
-		this.indexImage = this.indexImage.bind(this);
+		// this.imageHandler = this.imageHandler.bind(this);
+		// this.indexImage = this.indexImage.bind(this);
 		// this.test = this.test.bind(this);
 	      }
 		  
@@ -47,6 +46,7 @@ class AddItem extends Component{
 		      }  
 		      this.setState({validated: true});
 			let txtMemory = this.state.txtMemory;
+			console.log(this.state.image,"quan")
 			  axios.post('http://localhost:8080/product/add', {
 				product:{
 					Product_Type: this.state.textType,
@@ -111,12 +111,11 @@ class AddItem extends Component{
 					draggable: true,
 					progress: undefined,
 				});
+				setTimeout(()=>{window.location.href = "/managerItem"},600)
 			  })
 			  .catch(function (error) {
 				console.log(error);
 			  });
-			
-			
 		};
 
 	    handleInputChange(event) {
@@ -127,20 +126,21 @@ class AddItem extends Component{
 			[name]: value
 			});
 	     	 };
-		imageHandler = (e) => {
-			var indexImage =this.index;
-			let reader = new FileReader();
-			let file = e.target.files[0];
-			reader.onloadend = () => {
-			this.setState({
-				[indexImage]: reader.result
-			});
-			}
-			reader.readAsDataURL(file)
-		  };
-		indexImage=(e)=>{
-			document.getElementById("chosefile").click()
-		}
+		// imageHandler = (e) => {
+		// 	var indexImage =this.index;
+		// 	let reader = new FileReader();
+		// 	let file = e.target.files[0];
+		// 	console.log(e,"file")
+		// 	reader.onloadend = () => {
+		// 	this.setState({
+		// 		[indexImage]: reader.result
+		// 	});
+		// 	}
+		// 	reader.readAsDataURL(file)
+		//   };
+		// indexImage=(e)=>{
+		// 	document.getElementById("chosefile").click()
+		// }
 		On_click=(e)=>{
 			const target = e.target;
 			const name = target.name;
@@ -174,15 +174,7 @@ class AddItem extends Component{
 					Phần này không được để trống.
 				</Form.Control.Feedback>
 				</Form.Group>
-				
-				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Giá</Form.Label>
-				<Form.Control type="text" placeholder="Nhập giá của sản phẩm" style={{borderRadius:'9px'}}required name="textCost" value={this.state.textCost} onChange={this.handleInputChange}/>
-				<Form.Control.Feedback type="invalid">
-				Phần này không được để trống.
-				</Form.Control.Feedback>
-				</Form.Group>
-				
+
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Màu</Form.Label>
 				<Form.Control type="text" placeholder="Nhập màu 1, màu 2,.." style={{borderRadius:'9px'}} required name="textColor" value={this.state.textColor} onChange={this.handleInputChange}/>
@@ -248,11 +240,6 @@ class AddItem extends Component{
 				</Form.Group>
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Khuyễn mãi</Form.Label>
-				<Form.Control type="text" placeholder="Khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
-				</Form.Group>
-
-				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Thông tin mã giảm giá</Form.Label>
 				<div class="row">
 					<div class="col-md-6 col-sm-6">
@@ -272,9 +259,9 @@ class AddItem extends Component{
 		
 			</div>
 			<div class="col-md-5 col-sm-12 " style={{marginTop:'30px'}}>
-				<input type="file" style={{display:'none'}} accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" 
+				{/* <input type="file" style={{display:'none'}} accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" 
 				onChange={this.imageHandler} id="chosefile"
-          			ref={fileInput => this.fileInput=fileInput}/>
+          			ref={fileInput => this.fileInput=fileInput}/> */}
 				<button type="button" data-bs-toggle="modal" data-bs-target="#myModal" id="openmodal" style={{display:'none'}}>Open modal</button>
 				<div class ='row'>
 				<div class="col-md-9 col-sm-9 col-9 " style={{margin:'auto'}}>
@@ -330,7 +317,7 @@ class AddItem extends Component{
 
 			{/* <!-- Modal footer --> */}
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onClick={this.indexImage} data-bs-dismiss="modal">Chọn file</button>
+				{/* <button type="button" class="btn btn-primary" onClick={this.indexImage} data-bs-dismiss="modal">Chọn file</button> */}
 				<button type="button" class="btn btn-success" onClick={(e)=>{
 					const indexImage =this.index;
 						if(this.url!==''){
