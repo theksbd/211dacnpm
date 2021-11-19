@@ -1,6 +1,8 @@
-import { React, useState } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import Calendar from 'react-calendar'
+import { useHistory } from "react-router-dom"
 import { Bar, Line } from 'react-chartjs-2'
+import axios from 'axios'
 import 'react-calendar/dist/Calendar.css'
 import { Row, Col, Form } from 'react-bootstrap'
 
@@ -27,7 +29,7 @@ export default function OrderAdmin() {
         performance: 100
     };
 
-    const [showCalendar, setShowCalendar] = useState(true);
+    //const [showCalendar, setShowCalendar] = useState(true);
 
     function GetRandomNumber(date, min, max) {
         // let currDate = new Date();
@@ -40,8 +42,8 @@ export default function OrderAdmin() {
     function setPerformance(performance) {
         if (date.getTime() > currDate.getTime())
             return 0;
-        if (dataOrder.totalComplaint > 0) {
-            performance -= dataOrder.totalComplaint * 2;
+        if (dataOrder.cancelOrder > 0) {
+            performance -= dataOrder.cancelOrder * 2;
             return performance;
         }
     }
@@ -136,146 +138,227 @@ export default function OrderAdmin() {
         return date[0] + " - " + date[1] + "/" + date[2] + "/" + date[3];
     }
 
+    const history = useHistory();
+    const [dele, setDele] = useState(false)
+    const [customerData, setCustomerData] = useState()
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const res = await axios.get('http://localhost:8080/cart/list')
+                setCustomerData(res.data)
+                //console.log(res.data)
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+        getData()
+    }, [dele])
+
+    async function remove(e) {
+        try {
+            const res = await axios.delete('http://localhost:8080/cart/delete'
+                ,
+                {
+                    params: {
+                        id: parseInt(e.target.name)
+                    }
+                }
+            )
+            setDele(!dele)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    function handleBuyDate(strBuyDate) {
+        let buyYear = strBuyDate.slice(0, 4);
+        buyYear = Number(buyYear);
+        let buyMonth = strBuyDate.slice(5, 7);
+        buyMonth = Number(buyMonth);
+        let buyDay = strBuyDate.slice(8, 10);
+        buyDay = Number(buyDay);
+        buyDay += 1;
+
+        if (buyDay === 32) {
+            if (buyMonth === 12) {
+                buyMonth = 1;
+                buyYear += 1;
+            }
+            else {
+                buyMonth += 1;
+            }
+            buyDay = 1;
+        }
+        else if (buyDay === 31) {
+            if (buyMonth === 4 || buyMonth === 6 || buyMonth === 9 || buyMonth === 11) {
+                buyDay = 1;
+                buyMonth += 1;
+            }
+        }
+
+        return [buyDay, buyMonth, buyYear];
+    }
+
+    function CustomerList(props) {
+        // let strBuyDate = props.item.Buy_Time;
+        // let buyYear = strBuyDate.slice(0, 4);
+        // buyYear = Number(buyYear);
+        // let buyMonth = strBuyDate.slice(5, 7);
+        // buyMonth = Number(buyMonth);
+        // let buyDay = strBuyDate.slice(8, 10);
+        // buyDay = Number(buyDay);
+        // buyDay += 1;
+
+        let buyDate = new Date();
+        let buyDay, buyMonth, buyYear;
+        let buyDateInfo = [buyDay, buyMonth, buyYear];
+        buyDateInfo = handleBuyDate(props.item.Buy_Time);
+        buyDate.setDate(buyDateInfo[0]);
+        buyDate.setMonth(buyDateInfo[1]);
+        buyDate.setFullYear(buyDateInfo[2]);
+        // buyDate.setDate(buyDay);
+        // buyDate.setMonth(buyMonth);
+        // buyDate.setFullYear(buyYear);
+        return (
+            <>
+                <tr>
+                    <td>{props.item.Id_Cart}</td>
+                    <td>{props.item.Name_Client}</td>
+                    <td>{props.item.Address_Client}</td>
+                    <td>{props.item.Phone_Client}</td>
+                    <td>{props.item.Email_Client}</td>
+                    <td>{props.item.Pay_Method}</td>
+                    <td>{buyDate.getDate()}/{buyDate.getMonth()}/{buyDate.getFullYear()}</td>
+                </tr>
+            </>
+        );
+    }
+
+    function ListCustomer() {
+        return <Fragment>{
+            customerData && customerData.map((item) => {
+                return (
+                    <CustomerList item={item} />
+                )
+            })}
+        </Fragment>
+    }
+
+    function RenderCustomer() {
+        return <Fragment>
+            <div class="table-responsive mt-3 mb-5">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="table-primary">
+                            <th>Giỏ hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Địa chỉ khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Ngày mua</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ListCustomer />
+                    </tbody>
+                </table>
+            </div>
+        </Fragment>
+    }
+
+    // function CalculateTotalOrder() {
+    //     customerData.Buy_Time
+    //     return <Fragment>{
+    //         customerData && customerData.map((item) => {
+    //             return (
+    //                 <CustomerList item={item} />
+    //             )
+    //         })}
+    //     </Fragment>
+    // }
+
+    // function CalculateProfit() {
+
+    // }
+
     return (
-        <div className="my-5 container" id='product-list'>
-            <h3 className="mt-3">Thời gian</h3>
-            {/* <select className="form-control-lg mb-1">
-                {displayDate(dateInfo)};
-                {displayDate(yesterdayInfo)};
-                {displayDate(fardayInfo)};
-            </select> */}
-            <div className="mb-3">
-                <button className="btn-primary col-sm-1" onClick={() => setShowCalendar(true)}>
-                    <i class="far fa-clock"></i> Hiện
-                </button>
-                <button className="btn-warning col-sm-1" onClick={() => setShowCalendar(false)}>
-                    <i class="fas fa-stopwatch"></i> Ẩn
-                </button>
-            </div>
-            {showCalendar ? <div className="mb-3">  <Calendar onChange={onChange} value={date} /> </div> : null}
+        <div className="my-5 container">
+            <div className="row">
+                <div className="col-6">
+                    <h3 className="mt-3">Thời gian</h3>
+                    {/* <div className="mb-3">
+                        <button className="btn-primary col-sm-1" onClick={() => setShowCalendar(true)}>
+                            <i class="far fa-clock"></i> Hiện
+                        </button>
+                        <button className="btn-warning col-sm-1" onClick={() => setShowCalendar(false)}>
+                            <i class="fas fa-stopwatch"></i> Ẩn
+                        </button>
+                    </div>
+                    {showCalendar ? <div className="mb-5">  <Calendar onChange={onChange} value={date} /> </div> : null} */}
+                    <div className="mb-5">  <Calendar onChange={onChange} value={date} /> </div>
+                    {console.log(date)}
+                </div>
+                <div className="col-6 mt-5">
+                    <div className="p-lg-3 font-weight-bold" style={{
+                        backgroundColor: "#C4C4C4", borderStyle: "solid",
+                        borderWidth: "2px"
+                    }}>
+                        <div className="row">
+                            <div className="col-4 ms-2">
+                                <i class="fas fa-file-invoice "></i> Tổng số hóa đơn
+                            </div>
+                            <div className="col-7 text-right">
+                                {dataOrder.totalOrder}
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="p-lg-3 font-weight-bold" style={{
+                        borderStyle: "solid",
+                        borderWidth: "2px"
+                    }}>
+                        <div className="row">
+                            <div className="col-4 ms-2">
+                                <i class="fas fa-trash-alt"></i> Số hóa đơn hủy
+                            </div>
+                            <div className="col-7 text-right">
+                                {dataOrder.cancelOrder}
+                            </div>
+                        </div>
+                    </div> */}
+                    <div className="p-lg-3 font-weight-bold" style={{
+                        // backgroundColor: "#C4C4C4", 
+                        borderStyle: "solid",
+                        borderWidth: "2px"
+                    }}>
+                        <div className="row">
+                            <div className="col-4 ms-2">
+                                <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
+                            </div>
+                            <div className="col-7 text-right">
+                                {formartter.format(dataOrder.profit)}
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="p-lg-3 font-weight-bold" style={{
+                        borderStyle: "solid",
+                        borderWidth: "2px"
+                    }}>
+                        <div className="row">
+                            <div className="col-4 ms-2">
+                                <i class="fab fa-product-hunt"></i> Hiệu suất
+                            </div>
+                            <div className="col-7 text-right">
+                                {dataOrder.performance}
+                            </div>
+                        </div>
+                    </div> */}
+                </div>
 
-            {console.log(date)}
-
-            <div className="row mb-3 mt-5">
-                <Form>
-                    <Row className="mb-5">
-                        <Col>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                backgroundColor: "#C4C4C4", borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-4 ms-2">
-                                        <i class="fas fa-file-invoice "></i> Tổng số hóa đơn
-                                    </div>
-                                    <div className="col-7 text-right">
-                                        {dataOrder.totalOrder}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-4 ms-2">
-                                        <i class="fas fa-trash-alt"></i> Số hóa đơn hủy
-                                    </div>
-                                    <div className="col-7 text-right">
-                                        {dataOrder.cancelOrder}
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                backgroundColor: "#C4C4C4", borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-4 ms-2">
-                                        <i class="fas fa-mobile"></i> Số lượng mặt hàng
-                                    </div>
-                                    <div className="col-7 text-right">
-                                        {date.getTime() > currDate.getTime() ? 0 : dataOrder.totalProduct}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-4 ms-2">
-                                        <i class="fas fa-file-import"></i> Số lượng hàng nhập
-                                    </div>
-                                    <div className="col-7 text-right">
-                                        {dataOrder.importProduct}
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row className="mb-5">
-                        <Col>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                backgroundColor: "#C4C4C4", borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-3 ms-2">
-                                        <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
-                                    </div>
-                                    <div className="col-8 text-right">
-                                        {formartter.format(dataOrder.profit)}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-3 ms-2">
-                                        <i class="fas fa-cart-arrow-down"></i> Đặt cọc
-                                    </div>
-                                    <div className="col-8 text-right">
-                                        {formartter.format(dataOrder.deposit)}
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                backgroundColor: "#C4C4C4", borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-4 ms-2">
-                                        <i class="fas fa-user-friends"></i> Số khách than phiền
-                                    </div>
-                                    <div className="col-7 text-right">
-                                        {dataOrder.totalComplaint}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-lg-3 font-weight-bold" style={{
-                                borderStyle: "solid",
-                                borderWidth: "2px"
-                            }}>
-                                <div className="row">
-                                    <div className="col-3 ms-2">
-                                        <i class="fab fa-product-hunt"></i> Hiệu suất
-                                    </div>
-                                    <div className="col-8 text-right">
-                                        {dataOrder.performance}
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Form>
             </div>
+
+            <RenderCustomer className="mt-5" />
 
             <Bar
                 data={{
@@ -305,17 +388,17 @@ export default function OrderAdmin() {
                             hoverBackgroundColor: '#b3ccff',
                             hoverBorderColor: '#34495e'
                         },
-                        {
-                            label: 'Số hóa đơn hủy',
-                            data: [GetRandomNumber(fourthDate, 0, 20), GetRandomNumber(thirdDate, 0, 20),
-                            GetRandomNumber(secondDate, 0, 20), GetRandomNumber(firstDate, 0, 20), dataOrder.cancelOrder],
-                            backgroundColor: '#16a085',
-                            borderColor: 'black',
-                            borderWidth: 3,
-                            barPercentage: 0.5,
-                            hoverBackgroundColor: '#2ecc71',
-                            hoverBorderColor: '#34495e'
-                        },
+                        // {
+                        //     label: 'Số hóa đơn hủy',
+                        //     data: [GetRandomNumber(fourthDate, 0, 20), GetRandomNumber(thirdDate, 0, 20),
+                        //     GetRandomNumber(secondDate, 0, 20), GetRandomNumber(firstDate, 0, 20), dataOrder.cancelOrder],
+                        //     backgroundColor: '#16a085',
+                        //     borderColor: 'black',
+                        //     borderWidth: 3,
+                        //     barPercentage: 0.5,
+                        //     hoverBackgroundColor: '#2ecc71',
+                        //     hoverBorderColor: '#34495e'
+                        // },
                     ]
                 }}
 
