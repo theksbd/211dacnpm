@@ -3,6 +3,7 @@ import React, { useState, Fragment,useEffect } from 'react';
 import './ManagerItem.css'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
+import { toast } from 'react-toastify';
 export default function ManagerItem() {
   
   const history = useHistory();
@@ -32,6 +33,15 @@ export default function ManagerItem() {
       }
       )
       setDele(!dele)
+      toast.success('Xóa sản phẩm thành công :)', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       } catch (error) {
       console.log(error.message)
       }

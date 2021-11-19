@@ -33,89 +33,106 @@ export default class RenderEditItem extends Component{
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		// this.imageHandler = this.imageHandler.bind(this);
-		// this.indexImage = this.indexImage.bind(this);
-		// this.remove = this.remove.bind(this);
+
 	      }
 		  
 		handleSubmit = (event) => {
 		      const form = event.currentTarget;
 		      if (form.checkValidity() === false) {
-			event.preventDefault();
-			event.stopPropagation();
+				event.preventDefault();
+				event.stopPropagation();
 		      }  
 		      this.setState({validated: true});
-			  let txtMemory = this.state.txtMemory;
-			   axios.put('http://localhost:8080/product/update', {
-				product:{
-					Id: this.state.id,
-					Product_Type: this.state.textType,
-					Product_Name: this.state.textName,
-					Color: this.state.textColor,
-					Discount: parseInt(this.state.textDiscount),
-					battery: this.state.txtBattery,
-					Os: this.state.txtOs,
-					DisplaySize: this.state.txtDisplaySize, 
-					chip: this.state.txtChip,
-					InStock: parseInt(this.state.txtInStock)
-				},
-				image:[
-					{
-						Id : 1,
-						Url : this.state.image
-					},
-					{
-						Id : 2,
-						Url : this.state.image1
-					},
-					{
-						Id : 3,
-						Url : this.state.image2
-					},
-					{
-						Id : 4,
-						Url : this.state.image3
-					},
+			  if(this.state.textName&&this.state.textType&&this.state.textColor&&this.state.txtBattery&&this.state.txtMemory&&this.state.txtOs&&this.state.txtRom&&this.state.txtDisplaySize&&this.state.txtChip&&this.state.txtInStock){
+				let txtMemory = this.state.txtMemory;
+				let tableMemory; 
+					if(this.state.txtRom.split(', ').length==0){
+						let arr = this.state.txtRom.split(' - ');
+						tableMemory = {
+							Id : 1,
+							Rom_Capacity: parseInt(arr[0]),
+							Ram_Capacity : parseInt(txtMemory),
+							Price : parseInt(arr[1])
+						}
+					}else{
+						
+						tableMemory = this.state.txtRom.split(', ').map(function(rom,index){
+							let arr = rom.split(' - ');
+							if(parseInt(arr[0])){
+								return {
+									Id : index+1,
+									Rom_Capacity: parseInt(arr[0]),
+									Ram_Capacity : parseInt(txtMemory),
+									Price : parseInt(arr[1])
+								}
+							}
+							return ;
+						})
 
-					{
-						Id : 5,
-						Url : this.state.image4
 					}
+				axios.put('http://localhost:8080/product/update', {
+					product:{
+						Id: this.state.id,
+						Product_Type: this.state.textType,
+						Product_Name: this.state.textName,
+						Color: this.state.textColor,
+						Discount: parseInt(this.state.textDiscount),
+						battery: this.state.txtBattery,
+						Os: this.state.txtOs,
+						DisplaySize: this.state.txtDisplaySize, 
+						chip: this.state.txtChip,
+						InStock: parseInt(this.state.txtInStock)
+					},
+					image:[
+						{
+							Id : 1,
+							Url : this.state.image
+						},
+						{
+							Id : 2,
+							Url : this.state.image1
+						},
+						{
+							Id : 3,
+							Url : this.state.image2
+						},
+						{
+							Id : 4,
+							Url : this.state.image3
+						},
 
-				],
-				discountCode:[
-					{
-						Id_Discount : this.state.Id_Discount,
-						Price : parseInt(this.state.Price)
-					}
-				],
-				// 512 - 20000000, 128 - 15000000
-				memory: this.state.txtRom.split(', ').map(function(rom,index){
-					let arr = rom.split(' - ');
-					return {
-						Id : index+1,
-						Rom_Capacity: parseInt(arr[0]),
-						Ram_Capacity : parseInt(txtMemory),
-						Price : parseInt(arr[1])
-					}
+						{
+							Id : 5,
+							Url : this.state.image4
+						}
+
+					],
+					discountCode:[
+						{
+							Id_Discount : this.state.Id_Discount,
+							Price :(this.state.Price) ? parseInt(this.state.Price): ""
+						}
+					],
+					// 512 - 20000000, 128 - 15000000
+					memory: tableMemory
+				}) 
+				.then(function (response) {
+					console.log(response);
+					toast.success('Thay đổi thành công :)', {
+						position: "top-right",
+						autoClose: 600,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
+					setTimeout(()=>{window.location.href = "/managerItem"},600)
 				})
-			  }) 
-			  .then(function (response) {
-				console.log(response);
-				toast.success('Thay đổi thành công :)', {
-					position: "top-right",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
+				.catch(function (error) {
+					console.log(error);
 				});
-				setTimeout(()=>{window.location.href = "/managerItem"},600)
-			  })
-			  .catch(function (error) {
-				console.log(error);
-			  });
+			}
 		};
 	    
 	    handleInputChange(event) {
@@ -125,43 +142,14 @@ export default class RenderEditItem extends Component{
 			this.setState({
 			[name]: value
 			});
-	     	 };
-		// imageHandler = (e) => {
-		// 	var indexImage =this.index;
-		// 	let reader = new FileReader();
-		// 	let file = e.target.files[0];
-		// 	reader.onloadend = () => {
-		// 	this.setState({
-		// 		[indexImage]: reader.result
-		// 	});
-		// 	}
-		// 	reader.readAsDataURL(file)
-		//   };
-		// indexImage=(e)=>{
-		// 	document.getElementById("chosefile").click()
-		// }
+	    };
+
 		On_click=(e)=>{
 			const target = e.target;
 			const name = target.name;
 			this.index= name;
 		  document.getElementById("openmodal").click()
 	  	}
-		// remove= async()=>{
-		// 	try {
-		// 		const res = await axios.get('http://localhost:8080/product/delete'
-		// 		,
-		// 		{ 
-		// 		  params:{
-		// 			id: this.id
-		// 		  }
-		// 		}
-		// 		)
-		// 		console.log(res, 'nguyenthucquan')
-		// 		window.location.href = "/managerItem";
-		// 	  } catch (error) {
-		// 		console.log(error.message)
-		// 	  }
-		// }
 	render() {
 
 	return(
@@ -192,7 +180,7 @@ export default class RenderEditItem extends Component{
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Màu</Form.Label>
-				<Form.Control type="text" placeholder="Nhập màu 1, màu 2,.." style={{borderRadius:'9px'}} required name="textColor" value={this.state.textColor} onChange={this.handleInputChange}/>
+				<Form.Control type="text" placeholder="Nhập màu 1, màu 2,.." style={{borderRadius:'9px'}} required name="textColor" value={this.state.textColor} onChange={this.handleInputChange} required/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
@@ -200,15 +188,15 @@ export default class RenderEditItem extends Component{
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Nhập dung lượng pin</Form.Label>
-				<Form.Control type="text" placeholder="Nhập dung lượng pin" style={{borderRadius:'9px'}}  name="txtBattery" value={this.state.txtBattery} onChange={this.handleInputChange}/>
-				{/* <Form.Control.Feedback type="invalid">
+				<Form.Control type="text" placeholder="Nhập dung lượng pin" style={{borderRadius:'9px'}}  name="txtBattery" value={this.state.txtBattery} onChange={this.handleInputChange} required/>
+				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
-				</Form.Control.Feedback> */}
+				</Form.Control.Feedback>
 				</Form.Group>
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Dung lượng bộ nhớ</Form.Label>
-				<Form.Control type="text" placeholder="Nhập dung lượng bộ nhớ" style={{borderRadius:'9px'}} required name="txtRom" value={this.state.txtRom} onChange={this.handleInputChange}/>
+				<Form.Label>Dung lượng bộ nhớ - Giá</Form.Label>
+				<Form.Control type="text" placeholder="Nhập dung lượng bộ nhớ - Giá" style={{borderRadius:'9px'}} required name="txtRom" value={this.state.txtRom} onChange={this.handleInputChange} required/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
@@ -216,15 +204,15 @@ export default class RenderEditItem extends Component{
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Nhập dung lượng ram</Form.Label>
-				<Form.Control type="text" placeholder="Nhập dung lượng ram" style={{borderRadius:'9px'}}  name="txtMemory" value={this.state.txtMemory} onChange={this.handleInputChange}/>
-				{/* <Form.Control.Feedback type="invalid">
+				<Form.Control type="text" placeholder="Nhập dung lượng ram" style={{borderRadius:'9px'}}  name="txtMemory" value={this.state.txtMemory} onChange={this.handleInputChange} required/>
+				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
-				</Form.Control.Feedback> */}
+				</Form.Control.Feedback>
 				</Form.Group>
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Hệ điều hành</Form.Label>
-				<Form.Control type="text" placeholder="Nhập hệ điều hành" style={{borderRadius:'9px'}} required name="txtOs" value={this.state.txtOs} onChange={this.handleInputChange}/>
+				<Form.Control type="text" placeholder="Nhập hệ điều hành" style={{borderRadius:'9px'}} required name="txtOs" value={this.state.txtOs} onChange={this.handleInputChange} required/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
@@ -232,7 +220,7 @@ export default class RenderEditItem extends Component{
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Kích thước màn hình</Form.Label>
-				<Form.Control type="text" placeholder="Nhập kích thước màn hình" style={{borderRadius:'9px'}} required name="txtDisplaySize" value={this.state.txtDisplaySize} onChange={this.handleInputChange}/>
+				<Form.Control type="text" placeholder="Nhập kích thước màn hình" style={{borderRadius:'9px'}} required name="txtDisplaySize" value={this.state.txtDisplaySize} onChange={this.handleInputChange} required/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
@@ -240,7 +228,7 @@ export default class RenderEditItem extends Component{
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Chip</Form.Label>
-				<Form.Control type="text" placeholder="Nhập chip" style={{borderRadius:'9px'}} required name="txtChip" value={this.state.txtChip} onChange={this.handleInputChange}/>
+				<Form.Control type="text" placeholder="Nhập chip" style={{borderRadius:'9px'}} required name="txtChip" value={this.state.txtChip} onChange={this.handleInputChange} required/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
@@ -248,7 +236,7 @@ export default class RenderEditItem extends Component{
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Số lượng</Form.Label>
-				<Form.Control type="text" placeholder="Nhập số lượng" style={{borderRadius:'9px'}} required name="txtInStock" value={this.state.txtInStock} onChange={this.handleInputChange}/>
+				<Form.Control type="text" placeholder="Nhập số lượng" style={{borderRadius:'9px'}} required name="txtInStock" value={this.state.txtInStock} onChange={this.handleInputChange} required/>
 				<Form.Control.Feedback type="invalid">
 					Phần này không được để trống.
 				</Form.Control.Feedback>
@@ -256,7 +244,7 @@ export default class RenderEditItem extends Component{
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
 				<Form.Label>Khuyễn mãi</Form.Label>
-				<Form.Control type="text" placeholder="Khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
+				<Form.Control type="number" placeholder="Khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
 				</Form.Group>
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
@@ -320,28 +308,6 @@ export default class RenderEditItem extends Component{
 		<button type="button" class="btn btn-success" onClick={()=>{window.location.href = "/managerItem"}}>Hủy</button>
 		</div>
 		</Form>
-		{/* <div class="modal" id="myModal">
-			<div class="modal-dialog">
-			<div class="modal-content">
-	
-
-			<div class="modal-header">
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-			</div>
-	
-			
-			<div class="modal-body">
-				Bạn có muốn xóa sản phẩm này.
-			</div>
-	
-			
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={()=>{window.location.href = "/managerItem"}} >OK</button>
-			</div>
-	
-			</div>
-			</div>
-		</div> */}
 		{/* <!-- The Modal2 --> */}
 		<div class="modal fade" id="myModal2">
 			<div class="modal-dialog">
@@ -368,7 +334,7 @@ export default class RenderEditItem extends Component{
 				{/* <!-- Modal footer --> */}
 				<div class="modal-footer">
 					{/* <button type="button" class="btn btn-primary" onClick={this.indexImage} data-bs-dismiss="modal">Chọn file</button> */}
-					<button type="button" class="btn btn-success" onClick={(e)=>{
+					<button type="button" class="btn btn-success" id="OKButton" onClick={(e)=>{
 						const indexImage =this.index;
 							if(this.url!=''){
 							const url = this.url;

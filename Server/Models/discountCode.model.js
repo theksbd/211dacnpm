@@ -7,7 +7,7 @@ const Discount = function (discount) {
 }
 
 Discount.get_all = function(result){
-	db.query("SELECT * FROM discountCode", function(err,book){
+	db.query("SELECT * FROM discountcode", function(err,book){
 		if(err) {
 			result(null);
 		}
@@ -16,12 +16,12 @@ Discount.get_all = function(result){
 }
 
 Discount.create = function(data, result){
-	db.query('INSERT INTO discountCode  SET ?', data)
+	db.query('INSERT INTO discountcode  SET ?', data)
 
 }
 
 Discount.getById = function(id, result){
-	db.query("SELECT Id_Discount, Price FROM discountCode WHERE Id_Product=?",id, function(err,book){
+	db.query("SELECT Id_Discount, Price FROM discountcode WHERE Id_Product=?",id, function(err,book){
 		if(err || book.length==0) {
 			result(null);
 		}
@@ -30,10 +30,18 @@ Discount.getById = function(id, result){
 }
 
 Discount.remove = function(Id_pro, result){
-	db.query('DELETE FROM discountCode WHERE Id_Product=?', Id_pro)
+	db.query('DELETE FROM discountcode WHERE Id_Product=?', Id_pro)
 }
 Discount.update = function([data,Id_pro,Id_dis]){
-	
-	db.query('UPDATE discountCode  SET ? WHERE Id_Product=? AND Id_Discount=?', [data,Id_pro,Id_dis])
+	db.query("SELECT * FROM discountcode WHERE Id_Product=?",Id_pro, function(err,book){
+		if(book.length==0) {
+			data.Id_Product=Id_pro;
+			Discount.create(data)
+		}
+		else{
+
+			db.query('UPDATE discountcode  SET ? WHERE Id_Product=? AND Id_Discount=?', [data,Id_pro,Id_dis])
+		}
+	});
 }
 module.exports = Discount;
