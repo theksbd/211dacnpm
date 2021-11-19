@@ -255,8 +255,8 @@ export default class RenderEditItem extends Component{
 				</Form.Group>
 
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>
-				<Form.Label>Khuyễn mãi</Form.Label>
-				<Form.Control type="text" placeholder="Khuyễn mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
+				<Form.Label>Khuyến mãi</Form.Label>
+				<Form.Control type="text" placeholder="Khuyến mãi" style={{borderRadius:'9px'}} name="textDiscount" value={this.state.textDiscount} onChange={this.handleInputChange} />
 				</Form.Group>
 				
 				<Form.Group  controlId="validationCustom03"style={{margin:'10px 0 2px'}}>

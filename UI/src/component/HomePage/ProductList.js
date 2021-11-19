@@ -13,7 +13,6 @@ const axios = require('axios')
 export default function ProductList() {
 
 
-  const [index, setIndex] = useState(8)
 
   const [data, setData] = useState([])
 
@@ -28,6 +27,9 @@ export default function ProductList() {
       })
       .catch(error => console.log(error))
   }, [])
+
+  const [index, setIndex] = useState(8)
+
 
   function Sort() {
     return <button type="button" class="btn btn-success" onClick={() => handleSort()}>Sắp xếp</button>
@@ -61,9 +63,12 @@ export default function ProductList() {
 
   function handleClickMore() {
 
+    console.log(index)
+
     setIndex(n => n + 8)
 
     if (index + 8 >= data.length) {
+      console.log(data)
       // setIndex(index - 8)
       setDisabledButton(!disabledButton)
     }
