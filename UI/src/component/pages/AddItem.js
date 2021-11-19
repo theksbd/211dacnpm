@@ -157,7 +157,7 @@ class AddItem extends Component{
 		<div class="col-md-8 col-sm-12" style={{margin:'auto'}} >
 		<Form noValidate validated={this.state.validated}>
 		<div class ='row' style={{marginTop:'5px'}}>
-		<h4 class="text-center">Thông tin sản phâm</h4>
+		<h4 class="text-center">Thông tin sản phẩm</h4>
 			<div class="col-md-7 col-sm-12">
 				<Form.Group  controlId="validationCustom03" style={{margin:'0 0 2px'}}>
 				<Form.Label>Tên sản phẩm</Form.Label>
@@ -264,7 +264,7 @@ class AddItem extends Component{
           			ref={fileInput => this.fileInput=fileInput}/> */}
 				<button type="button" data-bs-toggle="modal" data-bs-target="#myModal" id="openmodal" style={{display:'none'}}>Open modal</button>
 				<div class ='row'>
-				<div class="col-md-9 col-sm-9 col-9 " style={{margin:'auto'}}>
+				<div class="col-md-9 col-sm-9 col-9 mw-100" style={{margin:'auto'}}>
 					<img class="img-fluid" src={this.state.image} name ="image" onClick={this.On_click}/>
 				</div>
 				</div>
@@ -312,7 +312,15 @@ class AddItem extends Component{
 
 			{/* <!-- Modal body --> */}
 			<div class="modal-body">
-				<input type="text" class="form-control" placeholder="Đường dẫn hình ảnh" name="url" onChange={(e)=>{this.url= e.target.value}}/>
+				<input type="text" class="form-control" placeholder="Đường dẫn hình ảnh" name="url" 
+				// onChange={(e)=>{this.url= e.target.value}}
+				onKeyUp={(even) => {
+					if (even.key === "Enter") {
+						even.preventDefault();
+						document.getElementById('OKButton').click()
+					}
+					else this.url= even.target.value
+				}}/>
 			</div>
 
 			{/* <!-- Modal footer --> */}
@@ -326,7 +334,7 @@ class AddItem extends Component{
 							});
 						}
 					}} 
-				data-bs-dismiss="modal">OK</button>
+				data-bs-dismiss="modal" id='OKButton'>OK</button>
 				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 			</div>
 

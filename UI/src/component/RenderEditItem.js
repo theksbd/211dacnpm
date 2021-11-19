@@ -355,7 +355,14 @@ export default class RenderEditItem extends Component{
 
 				{/* <!-- Modal body --> */}
 				<div class="modal-body">
-					<input type="text" class="form-control" placeholder="Đường dẫn hình ảnh" name="url"onChange={(e)=>{this.url= e.target.value}}/>
+					<input type="text" class="form-control" placeholder="Đường dẫn hình ảnh" name="url" 
+					onKeyUp={(even) => {
+						if (even.key === "Enter") {
+							even.preventDefault();
+							document.getElementById('OKButton').click()
+						}
+						else this.url= even.target.value
+					}}/>
 				</div>
 
 				{/* <!-- Modal footer --> */}
