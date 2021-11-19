@@ -3,28 +3,103 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
+import Card from 'react-bootstrap/Card'
 function Cart(props) {
-    const location = useLocation();
+
+
+    let incart = true
+
+    let temp={
+        "state":{
+            Quantity: 1,
+            Product_Name: '',
+            Price: 0,
+            Url: ''
+        }
+    }
+    let location = useLocation();
+    if(!location.state){
+        location=temp
+        incart = false
+    }
     console.log(location);
-    // const productData =
-    // {
-    //     "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    //     "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    //     "specifications": {
-    //         "screen": 6.9,
-    //         "ram": 12,
-    //         "rom1": "128 GB",
-    //         "rom2": "256 GB",
-    //         "rom3": "512 GB",
-    //         "rom4": "1 TB"
-    //     },
-    //     "newPrice": 20490000,
-    //     "oldPrice": 32990000,
-    //     "chip": "Exynos 990",
-    //     "pin": "4500 mAh",
-    //     "OS": "Android 10"
-    // }
+    const [discount, setDiscount] = useState('')
+    const [check, setCheck] = useState(0)
+    const [counter, setCounter] = useState(location.state.Quantity)
+    const HandleDiscount = () => {
+        setCheck(0);
+        for (var i = 0; i < data.length; i++){
+            console.log(data[i].Id_Discount)
+            console.log(discount)
+            console.log(data[i].Product_Name)
+            console.log(location.state.Product_Name)
+            temp = JSON.parse(localStorage.getItem('cart'))
+            if (data[i].Id_Discount == discount && (data[i].Product_Name == location.state.Product_Name|| data[i].Product_Name == temp.belongtocart[0].productname )){
+                setCheck(data[i].Price);
+                return 
+            }
+            else {
+                setDiscount(0);
+                
+            }
+        }
+    }
+
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState(0)
+    const [address, setAddress] = useState('')
+    const [email, setEmail] = useState('')
+    const [paymethod, setPayMethod] = useState('')
+    
+    let info = {
+        "name" : name,
+        "phone" : phone,
+        "address": address,
+        "email": email,
+        "paymethod":paymethod,
+        "buytime":'',
+        "belongtocart": [{
+            "productname": location.state.Product_Name,
+            "price": location.state.Price,
+            "url": location.state.Url,
+            "quantity": counter
+        }]
+    }
+    if (incart) {
+        localStorage.setItem('cart',JSON.stringify(info))
+    }
+    if(localStorage.getItem('cart')!== null){
+        info = JSON.parse(localStorage.getItem('cart'))
+        incart=true
+    }
+    else{
+        incart =false
+    }
+    const HandleIncrese = () => {
+        setCounter(counter + 1)
+        info.belongtocart[0].quantity = counter
+        localStorage.setItem('cart',JSON.stringify(info))
+        
+        
+    }
+    const HandleDecrese = () => {
+        if (counter > 1) {
+            
+            setCounter(counter - 1)
+            info.belongtocart[0].quantity = counter
+            localStorage.setItem('cart',JSON.stringify(info))
+        }
+    }
+    const HandleDelete = () => {
+        incart = false
+        
+        location =''
+        localStorage.removeItem('cart');
+    }
+    console.log(incart)
+    console.log(info)
     const [data,setdata]=useState([])
+   
     useEffect(()=>{
       const getData = async ()=>{
         try {
@@ -37,58 +112,10 @@ function Cart(props) {
       }
       getData()
     },[])
+
     console.log(data)
+    //console.log(info.belongtocart[0])
 
-
-    // const discountcode ={
-    //     "discount1":1000000,
-    //     "discount2":2000000,
-    // }
-    const [discount, setDiscount] = useState('')
-    const [check, setCheck] = useState(0)
-    const [counter, setCounter] = useState(location.state.Quantity)
-    const HandleDiscount = () => {
-        setCheck(0);
-        for (var i = 0; i < data.length; i++){
-            console.log(data[i].Id_Discount)
-            console.log(discount)
-            if (data[i].Id_Discount == discount && data[i].Product_Name == location.state.Product_Name){
-                setCheck(data[i].Price);
-                return 
-            }
-            else {
-                setDiscount(0);
-                
-            }
-        }
-    }
-    const HandleIncrese = () => {
-        setCounter(counter + 1)
-    }
-    const HandleDecrese = () => {
-        if (counter > 1) {
-            setCounter(counter - 1)
-        }
-    }
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState(0)
-    const [address, setAddress] = useState('')
-    const [email, setEmail] = useState('')
-    const [paymethod, setPayMethod] = useState('')
-    let info = {
-        name : name,
-        phone : phone,
-        address: address,
-        email: email,
-        paymethod:paymethod,
-        buytime:'',
-        belongtocart: [{
-            productname: location.state.Product_Name,
-            quantity: counter
-        }]
-    }
-    
-    console.log(info)
     function handleSubmit() {
         if(name!=='' && phone !== '' && email !== '' && paymethod !== '' && address !== '') {
             toast.success('Đặt hàng thành công', {
@@ -102,8 +129,10 @@ function Cart(props) {
             });
         }
     }
+
     return (
         <div className="container" id='product-list' >
+            
             <ToastContainer />
             <div class="col-md-12 col-sm-12 d-flex mt-3">
                 <div class="col-md-6 col-sm-6 ">
@@ -117,29 +146,38 @@ function Cart(props) {
                     <p style={{ textAlign: 'right', fontSize: '1.5em' }}>Giỏ hàng của bạn</p>
                 </div>
             </div>
+
+
+            {
+                incart==true?
+            <div>
             <div class="col-md-12 col-sm-12  row" style={{ border: '2px solid #C4C4C4', borderRadius: '12px' }}>
                 <div class="col-md-4 col-sm-4">
                     <img style={{ marginLeft: "2px", display: 'block', maxWidth: '100%', height: 'auto' }}
                         //src="https://cdn.hoanghamobile.com/i/preview/Uploads/2021/09/15/image-removebg-preview-15.png"
-                        src={location.state.Url}
+                        src={info.belongtocart[0].url}
                         alt="new"
                         class="card-img-top "
                     />
                 </div>
                 <div class="col-md-8 col-sm-8">
-                    <h2 style={{ textAlign: 'center' }}>{location.state.Product_Name}</h2>
-                    <h3 style={{ color: 'red' }}>{location.state.Price} Đ</h3>
+                    <h2 style={{ textAlign: 'center' }}>{info.belongtocart[0].productname}</h2>
+                    <h3 style={{ color: 'red' }}>{info.belongtocart[0].price} Đ</h3>
                     <h3>Khuyến mãi:</h3>
                     <h5>- Tặng mã giảm giá 1,000,000đ khi mua các sản phẩm khác tại cửa hàng</h5>
                     <h5>- Bảo hành 12 tháng</h5>
                     <div class="btn-group d-flex col-md-12 col-sm-12 mb-3" role="group" aria-label="Basic example" style={{maxWidth:'300px'}}>
-                        <button style={{height:'40px'}} type="button" class="btn btn-outline-danger">Xóa khỏi giỏ</button>
+                        <a id="delete" href="#" ><button style={{height:'40px'}} type="button"  class="btn btn-outline-danger" onClick={HandleDelete}> Xóa khỏi giỏ </button></a>
                         <button style={{height:'40px', marginLeft:'-36px'}}type="button" class="btn btn-outline-secondary" onClick={HandleDecrese}>-</button>
                         <input style={{height:'40px', width: '40px', marginLeft:'-36px'}} class="form-control" type="text" id="fname" name="fname" value={counter} required />
                         <button style={{height:'40px'}}type="button" class="btn btn-outline-secondary" onClick={HandleIncrese}>+</button>
                     </div>
                 </div>
             </div>
+            
+
+
+
             <div style={{ marginTop: '30px'}} class="row-col-md-12 row-col-sm-12 d-flex ">
                 <p class="col-md-4 col-sm-4 h3">Nhập mã giảm giá:</p>
                 <input style={{}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
@@ -159,7 +197,7 @@ function Cart(props) {
  
             <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
                 <p class="col-md-9 col-sm-9 h3" >Tổng tiền:</p>
-                <p class="h3" style={{ color: 'red' }}>{location.state.Price *counter -check}Đ</p>
+                <p class="h3" style={{ color: 'red' }}>{info.belongtocart[0].price *counter -check}Đ</p>
             </div>
 
 
@@ -187,10 +225,22 @@ function Cart(props) {
                 <button style={{ marginTop: "30px", borderRadius: "15px" }} type="submit" class="btn btn-danger" onClick={handleSubmit}><h1>Xác nhận đặt hàng</h1></button>
             </div>
             </form>
-
-  
+            </div>
+            : 
+            <div class="text-center my-5">
+                <Card>
+                    <Card.Body>
+                        <h2>Bạn chưa có sản phẩm nào trong giỏ hàng</h2>
+                    
+                    </Card.Body>
+                </Card>
+                
+            </div>
+            }
+                
           </div>      
     )
+    
 }
 
 

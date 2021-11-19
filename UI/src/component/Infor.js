@@ -42,7 +42,7 @@ function Infor(props) {
       getData()
     },[])
     //console.log(data)
-    localStorage.setItem('cart','data')
+    //localStorage.setItem('cart','data')
     console.log(location)
     let info={}
     let img=[]
