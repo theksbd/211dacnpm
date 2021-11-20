@@ -28,6 +28,8 @@ export default function ProductList() {
       .catch(error => console.log(error))
   }, [])
 
+  console.log(data)
+
   const [index, setIndex] = useState(8)
 
 
