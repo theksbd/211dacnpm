@@ -29,6 +29,7 @@ function EditItem(){
 		fetchData()
 	},[])
 	let productData;
+	let url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCzuDh9Fdpo9ntG5_YunFM2Wd_g_Kt4CyR8Q&usqp=CAU";
 	if(check){
 		productData={
 			id: product.product.Id,
@@ -48,13 +49,13 @@ function EditItem(){
 				return string
 			}).reduce((total,current)=>{
 				return total + current;
-			}),
+			}).slice( 0, -2),
 
-			image: product.image[0].Url,
-			image1: product.image[1].Url,
-			image2: product.image[2].Url,
-			image3: product.image[3].Url,
-			image4: product.image[4].Url,
+			image: product.image[0] ? product.image[0].Url : url,
+			image1: product.image[1] ? product.image[1].Url : url,
+			image2: product.image[2] ? product.image[2].Url : url,
+			image3: product.image[3] ? product.image[3].Url : url,
+			image4: product.image[4] ? product.image[4].Url : url,
 			
 			Id_Discount : null,
 			Price : null
@@ -63,7 +64,7 @@ function EditItem(){
 			  productData.Id_Discount = product.discountCode.Id_Discount;
 			  productData.Price = product.discountCode.Price
 		  }
-		//   console.log(productData)
+		//   console.log(product)
 	}
 
 	if(productData){

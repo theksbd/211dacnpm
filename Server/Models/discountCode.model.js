@@ -33,7 +33,15 @@ Discount.remove = function(Id_pro, result){
 	db.query('DELETE FROM discountcode WHERE Id_Product=?', Id_pro)
 }
 Discount.update = function([data,Id_pro,Id_dis]){
-	
-	db.query('UPDATE discountcode  SET ? WHERE Id_Product=? AND Id_Discount=?', [data,Id_pro,Id_dis])
+	db.query("SELECT * FROM discountcode WHERE Id_Product=?",Id_pro, function(err,book){
+		if(book.length==0) {
+			data.Id_Product=Id_pro;
+			Discount.create(data)
+		}
+		else{
+			console.log("Update :" , data,Id_pro )
+			db.query('UPDATE discountcode  SET ? WHERE Id_Product=?', [data,Id_pro])
+		}
+	});
 }
 module.exports = Discount;

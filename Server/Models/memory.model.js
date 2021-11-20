@@ -17,8 +17,8 @@ Memory.get_all = function(result){
 	});
 }
 
-Memory.create = function(data){
-	db.query('INSERT INTO memory  SET ?', data);
+Memory.create = function(data,result){
+	db.query('INSERT INTO memory  SET ?', data );
 }
 
 Memory.getById = function(id, result){
@@ -34,6 +34,15 @@ Memory.remove = function(Id_pro){
 	db.query('DELETE FROM memory WHERE Id_Product=?', Id_pro)
 }
 Memory.update = function( [data,Id_pro,Id]){
-	db.query('UPDATE memory  SET ? WHERE Id_Product=? AND Id=?', [data,Id_pro,Id])
+	db.query("SELECT Id,Rom_Capacity, Ram_Capacity, Price FROM memory WHERE Id_Product= ? AND ID=?",[Id_pro,Id], function(err,book){
+		if(book.length==0) {
+			data.Id_Product=Id_pro;
+			Memory.create(data)
+		}
+		else {
+			db.query('UPDATE memory  SET ? WHERE Id_Product=? AND Id=?', [data,Id_pro,Id])
+		}
+	});
+	
 }
 module.exports = Memory;

@@ -24,11 +24,11 @@ exports.add = function(req, res){
 			memory.Id_Product = response.Id;
 			Memory.create(memory)
 		})
-		discountCode[0].Id_Discount!=""&&discountCode.map((discountCode)=>{
+		discountCode[0].Id_Discount!=""&&discountCode[0].Price!=""&&discountCode.map((discountCode)=>{
 			discountCode.Id_Product = response.Id;
 			Discount.create(discountCode)
 		})
-		res.send({result: response});
+		res.send(response);
 	});
 }
 
@@ -74,21 +74,23 @@ exports.remove = function(req, res){
 
 exports.update = function(req, res){
 	var data =req.body;
-	var data =req.body;
+	console.log(data)
 	product = data.product;
 	image = data.image;
 	memory = data.memory;
-	discountCode = data.discountCode;
+	discountCode = data.discountCode[0];
 	Product.update([product,product.Id], function(response){
 		image.map((image)=>{
 			ImgProduct.update([image,product.Id,image.Id])
 		})
 		memory.map((memory)=>{
-			Memory.update([memory,product.Id,memory.Id])
+			memory&&Memory.update([memory,product.Id,memory.Id])
 		})
-		discountCode.map((discountCode)=>{
+		if(discountCode.Id_Discount==""||discountCode.Price==""){
+			Discount.remove(product.Id)
+		}else{
 			Discount.update([discountCode,product.Id,discountCode.Id_Discount])
-		})
+		}
 		res.send({result: response});
 	});
 }
