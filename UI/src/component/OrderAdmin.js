@@ -19,7 +19,7 @@ export default function OrderAdmin() {
     let currDate = new Date();
 
     const dataOrder = {
-         totalOrder: GetRandomNumber(date, 1, 200),
+         totalOrder: GetRandomNumber(date, 1, 80),
         // cancelOrder: GetRandomNumber(date, 0, 20),
         // totalProduct: 133,
         // importProduct: GetRandomNumber(date, 0, 10),
@@ -369,8 +369,8 @@ export default function OrderAdmin() {
                     datasets: [
                         {
                             label: 'Số đơn hàng',
-                            data: [GetRandomNumber(fourthDate, 1, 200), GetRandomNumber(thirdDate, 1, 200),
-                            GetRandomNumber(secondDate, 1, 200), GetRandomNumber(firstDate, 1, 200), dataOrder.totalOrder],
+                            data: [GetRandomNumber(fourthDate, 1, 80), GetRandomNumber(thirdDate, 1, 80),
+                            GetRandomNumber(secondDate, 1, 80), GetRandomNumber(firstDate, 1, 80), dataOrder.totalOrder],
                             backgroundColor: '#f73600',
                             borderColor: 'black',
                             borderWidth: 3,
