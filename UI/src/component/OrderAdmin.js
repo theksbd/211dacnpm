@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 import { Bar, Line } from 'react-chartjs-2'
 import axios from 'axios'
 import 'react-calendar/dist/Calendar.css'
-import { Row, Col, Form } from 'react-bootstrap'
+// import { Row, Col, Form } from 'react-bootstrap'
 
 export default function OrderAdmin() {
 
@@ -19,14 +19,14 @@ export default function OrderAdmin() {
     let currDate = new Date();
 
     const dataOrder = {
-        totalOrder: GetRandomNumber(date, 1, 200),
-        cancelOrder: GetRandomNumber(date, 0, 20),
-        totalProduct: 133,
-        importProduct: GetRandomNumber(date, 0, 10),
-        profit: GetRandomNumber(date, 10000000, 200000000),
-        deposit: GetRandomNumber(date, 10000000, 80000000),
-        totalComplaint: GetRandomNumber(date, 0, 10),
-        performance: 100
+         totalOrder: GetRandomNumber(date, 1, 200),
+        // cancelOrder: GetRandomNumber(date, 0, 20),
+        // totalProduct: 133,
+        // importProduct: GetRandomNumber(date, 0, 10),
+         profit: GetRandomNumber(date, 10000000, 200000000),
+        // deposit: GetRandomNumber(date, 10000000, 80000000),
+        // totalComplaint: GetRandomNumber(date, 0, 10),
+        // performance: 100
     };
 
     //const [showCalendar, setShowCalendar] = useState(true);
@@ -39,16 +39,16 @@ export default function OrderAdmin() {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    function setPerformance(performance) {
-        if (date.getTime() > currDate.getTime())
-            return 0;
-        if (dataOrder.cancelOrder > 0) {
-            performance -= dataOrder.cancelOrder * 2;
-            return performance;
-        }
-    }
+    // function setPerformance(performance) {
+    //     if (date.getTime() > currDate.getTime())
+    //         return 0;
+    //     if (dataOrder.cancelOrder > 0) {
+    //         performance -= dataOrder.cancelOrder * 2;
+    //         return performance;
+    //     }
+    // }
 
-    dataOrder.performance = setPerformance(dataOrder.performance);
+    // dataOrder.performance = setPerformance(dataOrder.performance);
 
     function onChange(date) {
         setDate(date);
@@ -171,34 +171,34 @@ export default function OrderAdmin() {
         }
     }
 
-    function handleBuyDate(strBuyDate) {
-        let buyYear = strBuyDate.slice(0, 4);
-        buyYear = Number(buyYear);
-        let buyMonth = strBuyDate.slice(5, 7);
-        buyMonth = Number(buyMonth);
-        let buyDay = strBuyDate.slice(8, 10);
-        buyDay = Number(buyDay);
-        buyDay += 1;
+    // function handleBuyDate(strBuyDate) {
+    //     let buyYear = strBuyDate.slice(0, 4);
+    //     buyYear = Number(buyYear);
+    //     let buyMonth = strBuyDate.slice(5, 7);
+    //     buyMonth = Number(buyMonth);
+    //     let buyDay = strBuyDate.slice(8, 10);
+    //     buyDay = Number(buyDay);
+    //     buyDay += 1;
 
-        if (buyDay === 32) {
-            if (buyMonth === 12) {
-                buyMonth = 1;
-                buyYear += 1;
-            }
-            else {
-                buyMonth += 1;
-            }
-            buyDay = 1;
-        }
-        else if (buyDay === 31) {
-            if (buyMonth === 4 || buyMonth === 6 || buyMonth === 9 || buyMonth === 11) {
-                buyDay = 1;
-                buyMonth += 1;
-            }
-        }
+    //     if (buyDay === 32) {
+    //         if (buyMonth === 12) {
+    //             buyMonth = 1;
+    //             buyYear += 1;
+    //         }
+    //         else {
+    //             buyMonth += 1;
+    //         }
+    //         buyDay = 1;
+    //     }
+    //     else if (buyDay === 31) {
+    //         if (buyMonth === 4 || buyMonth === 6 || buyMonth === 9 || buyMonth === 11) {
+    //             buyDay = 1;
+    //             buyMonth += 1;
+    //         }
+    //     }
 
-        return [buyDay, buyMonth, buyYear];
-    }
+    //     return [buyDay, buyMonth, buyYear];
+    // }
 
     function CustomerList(props) {
         // let strBuyDate = props.item.Buy_Time;
@@ -209,14 +209,15 @@ export default function OrderAdmin() {
         // let buyDay = strBuyDate.slice(8, 10);
         // buyDay = Number(buyDay);
         // buyDay += 1;
-
-        let buyDate = new Date();
-        let buyDay, buyMonth, buyYear;
-        let buyDateInfo = [buyDay, buyMonth, buyYear];
-        buyDateInfo = handleBuyDate(props.item.Buy_Time);
-        buyDate.setDate(buyDateInfo[0]);
-        buyDate.setMonth(buyDateInfo[1]);
-        buyDate.setFullYear(buyDateInfo[2]);
+        
+        let buyDate = (new Date(props.item.Buy_Time)).toLocaleDateString();
+        //let buyDate = new Date();
+        // let buyDay, buyMonth, buyYear;
+        // let buyDateInfo = [buyDay, buyMonth, buyYear];
+        // buyDateInfo = handleBuyDate(props.item.Buy_Time);
+        // buyDate.setDate(buyDateInfo[0]);
+        // buyDate.setMonth(buyDateInfo[1]);
+        // buyDate.setFullYear(buyDateInfo[2]);
         // buyDate.setDate(buyDay);
         // buyDate.setMonth(buyMonth);
         // buyDate.setFullYear(buyYear);
@@ -229,7 +230,8 @@ export default function OrderAdmin() {
                     <td>{props.item.Phone_Client}</td>
                     <td>{props.item.Email_Client}</td>
                     <td>{props.item.Pay_Method}</td>
-                    <td>{buyDate.getDate()}/{buyDate.getMonth()}/{buyDate.getFullYear()}</td>
+                    {/* <td>{buyDate.getDate()}/{buyDate.getMonth()}/{buyDate.getFullYear()}</td> */}
+                    <td>{buyDate}</td>
                 </tr>
             </>
         );
@@ -300,7 +302,7 @@ export default function OrderAdmin() {
                     <div className="mb-5">  <Calendar onChange={onChange} value={date} /> </div>
                     {console.log(date)}
                 </div>
-                <div className="col-6 mt-5">
+                <div className="col-6 mt-5 fw-bold">
                     <div className="p-lg-3 font-weight-bold" style={{
                         backgroundColor: "#C4C4C4", borderStyle: "solid",
                         borderWidth: "2px"
@@ -309,7 +311,7 @@ export default function OrderAdmin() {
                             <div className="col-4 ms-2">
                                 <i class="fas fa-file-invoice "></i> Tổng số hóa đơn
                             </div>
-                            <div className="col-7 text-right">
+                            <div className="col-7 text-end">
                                 {dataOrder.totalOrder}
                             </div>
                         </div>
@@ -336,7 +338,7 @@ export default function OrderAdmin() {
                             <div className="col-4 ms-2">
                                 <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
                             </div>
-                            <div className="col-7 text-right">
+                            <div className="col-7 text-end">
                                 {formartter.format(dataOrder.profit)}
                             </div>
                         </div>
@@ -358,7 +360,7 @@ export default function OrderAdmin() {
 
             </div>
 
-            <RenderCustomer className="mt-5" />
+            <RenderCustomer className="mt-5"/>
 
             <Bar
                 data={{
