@@ -19,15 +19,22 @@ export default function OrderAdmin() {
     let currDate = new Date();
 
     const dataOrder = {
-         totalOrder: GetRandomNumber(date, 1, 80),
+        totalOrder: GetRandomNumber(date, 1, 35),
         // cancelOrder: GetRandomNumber(date, 0, 20),
         // totalProduct: 133,
         // importProduct: GetRandomNumber(date, 0, 10),
-         profit: GetRandomNumber(date, 10000000, 200000000),
+        profit: GetRandomNumber(date, 10000000, 200000000)
         // deposit: GetRandomNumber(date, 10000000, 80000000),
         // totalComplaint: GetRandomNumber(date, 0, 10),
         // performance: 100
     };
+
+    const dataFake = {
+        totalOrder1: GetRandomNumber(firstDate, 1, 35),
+        totalOrder2: GetRandomNumber(secondDate, 1, 35),
+        totalOrder3: GetRandomNumber(thirdDate, 1, 35),
+        totalOrder4: GetRandomNumber(fourthDate, 1, 35)
+    }
 
     //const [showCalendar, setShowCalendar] = useState(true);
 
@@ -209,7 +216,7 @@ export default function OrderAdmin() {
         // let buyDay = strBuyDate.slice(8, 10);
         // buyDay = Number(buyDay);
         // buyDay += 1;
-        
+
         let buyDate = (new Date(props.item.Buy_Time)).toLocaleDateString();
         //let buyDate = new Date();
         // let buyDay, buyMonth, buyYear;
@@ -339,7 +346,7 @@ export default function OrderAdmin() {
                                 <i class="fas fa-money-bill-wave-alt"></i> Doanh thu
                             </div>
                             <div className="col-7 text-end">
-                                {formartter.format(dataOrder.profit)}
+                                {formartter.format(dataOrder.totalOrder * 21700000)}
                             </div>
                         </div>
                     </div>
@@ -360,7 +367,7 @@ export default function OrderAdmin() {
 
             </div>
 
-            <RenderCustomer className="mt-5"/>
+            <RenderCustomer className="mt-5" />
 
             <Bar
                 data={{
@@ -369,8 +376,8 @@ export default function OrderAdmin() {
                     datasets: [
                         {
                             label: 'Số đơn hàng',
-                            data: [GetRandomNumber(fourthDate, 1, 80), GetRandomNumber(thirdDate, 1, 80),
-                            GetRandomNumber(secondDate, 1, 80), GetRandomNumber(firstDate, 1, 80), dataOrder.totalOrder],
+                            data: [dataFake.totalOrder4, dataFake.totalOrder3,
+                            dataFake.totalOrder2, dataFake.totalOrder1, dataOrder.totalOrder],
                             backgroundColor: '#f73600',
                             borderColor: 'black',
                             borderWidth: 3,
@@ -380,9 +387,8 @@ export default function OrderAdmin() {
                         },
                         {
                             label: 'Doanh thu',
-                            data: [GetRandomNumber(fourthDate, 10000000, 200000000), GetRandomNumber(thirdDate, 10000000, 200000000),
-                            GetRandomNumber(secondDate, 10000000, 200000000), GetRandomNumber(firstDate, 10000000, 200000000),
-                            dataOrder.profit],
+                            data: [dataFake.totalOrder4 * 15000000, dataFake.totalOrder3 * 17000000,
+                            dataFake.totalOrder2 * 7800000, dataFake.totalOrder1 * 25300000, dataOrder.totalOrder * 21700000],
                             backgroundColor: '#2980b9',
                             borderColor: 'black',
                             borderWidth: 3,
