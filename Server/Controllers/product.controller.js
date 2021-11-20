@@ -18,6 +18,12 @@ exports.getAllDiscountCode = (req, res) => {
     Product.getAllDiscountCode(result)
 }
 
+exports.getCompreInforProduct = (req, res) => {
+    const result = data => res.send(data)
+
+    Product.getCompreInforProduct(result)
+}
+
 exports.getCompreAllProduct = (req, res) => {
     const result = data => res.send(data)
 

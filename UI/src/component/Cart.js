@@ -3,56 +3,33 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
+import Card from 'react-bootstrap/Card'
 function Cart(props) {
-    const location = useLocation();
-    console.log(location);
-    // const productData =
-    // {
-    //     "productName": "Samsung Galaxy Note 20 Ultra 5G",
-    //     "image": "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/image/300x/9df78eab33525d08d6e5fb8d27136e95/y/e/yellow_final_2.jpg",
-    //     "specifications": {
-    //         "screen": 6.9,
-    //         "ram": 12,
-    //         "rom1": "128 GB",
-    //         "rom2": "256 GB",
-    //         "rom3": "512 GB",
-    //         "rom4": "1 TB"
-    //     },
-    //     "newPrice": 20490000,
-    //     "oldPrice": 32990000,
-    //     "chip": "Exynos 990",
-    //     "pin": "4500 mAh",
-    //     "OS": "Android 10"
-    // }
-    const [data,setdata]=useState([])
-    useEffect(()=>{
-      const getData = async ()=>{
-        try {
-          const res = await axios.get('http://localhost:8080/products/discount') 
-          setdata(res.data)
-          console.log(res.data)
-        } catch (error) {
-          console.log(error.message)
+    const [reload, setReload] =useState(false)
+    let date = new Date().toLocaleDateString('zh-Hans-CN');
+    let incart = true
+    const [indexitem,setIndexitem] = useState(-1)
+    let temp={
+        "state":{
+            Quantity: 1,
+            Product_Name: '',
+            Price: 0,
+            Url: ''
         }
-      }
-      getData()
-    },[])
-    console.log(data)
-
-
-    // const discountcode ={
-    //     "discount1":1000000,
-    //     "discount2":2000000,
-    // }
+    }
+    let location = useLocation();
+    if(!location.state){
+        location=temp
+        incart = false
+    }
     const [discount, setDiscount] = useState('')
     const [check, setCheck] = useState(0)
     const [counter, setCounter] = useState(location.state.Quantity)
     const HandleDiscount = () => {
         setCheck(0);
         for (var i = 0; i < data.length; i++){
-            console.log(data[i].Id_Discount)
-            console.log(discount)
-            if (data[i].Id_Discount == discount && data[i].Product_Name == location.state.Product_Name){
+            temp = JSON.parse(localStorage.getItem('cart'))
+            if (data[i].Id_Discount == discount && (data[i].Product_Name == location.state.Product_Name|| data[i].Product_Name == temp.belongtocart[indexitem].productname )){
                 setCheck(data[i].Price);
                 return 
             }
@@ -62,33 +39,109 @@ function Cart(props) {
             }
         }
     }
-    const HandleIncrese = () => {
-        setCounter(counter + 1)
-    }
-    const HandleDecrese = () => {
-        if (counter > 1) {
-            setCounter(counter - 1)
-        }
-    }
+
     const [name, setName] = useState('')
     const [phone, setPhone] = useState(0)
     const [address, setAddress] = useState('')
     const [email, setEmail] = useState('')
     const [paymethod, setPayMethod] = useState('')
-    let info = {
-        name : name,
-        phone : phone,
-        address: address,
-        email: email,
-        paymethod:paymethod,
-        buytime:'',
-        belongtocart: [{
-            productname: location.state.Product_Name,
-            quantity: counter
-        }]
+    let infoitem = {
+        "id" : location.state.Id,
+        "productname": location.state.Product_Name,
+        "price": location.state.Price,
+        "url": location.state.Url,
+        "quantity": counter
     }
-    
-    console.log(info)
+    let info = {
+        "name" : name,
+        "phone" : phone,
+        "address": address,
+        "email": email,
+        "paymethod":paymethod,
+        "buytime": date,
+        "belongtocart": []
+    }
+    const [checklocal, setChecklocal] = useState(true)
+    if(localStorage.getItem('cart')!== null){
+        info = JSON.parse(localStorage.getItem('cart'))
+
+        incart=true
+    }
+
+    if (incart && checklocal) {
+        if (infoitem.price>0 && infoitem.quantity>0){
+        info.belongtocart.push(infoitem)
+        }
+        localStorage.setItem('cart',JSON.stringify(info))
+        setChecklocal(false)
+    }
+
+
+
+    if(localStorage.getItem('cart')!== null){
+        info = JSON.parse(localStorage.getItem('cart'))
+
+        incart=true
+    }
+
+    function HandleIncrese (index) {
+        var thisindex = 0
+        for (var i = 0; i < info.belongtocart.length; i++){
+            if(index == info.belongtocart[i]){
+                thisindex = i
+            }
+        }
+        info.belongtocart[thisindex].quantity +=1
+        localStorage.setItem('cart',JSON.stringify(info)) 
+        setReload(!reload)
+    }
+    function HandleDecrese (index) {
+            var thisindex = 0
+            for (var i = 0; i < info.belongtocart.length; i++){
+                if(index == info.belongtocart[i]){
+                    thisindex = i
+                }
+            }
+            if(info.belongtocart[thisindex].quantity >1){
+                info.belongtocart[thisindex].quantity -=1
+            }
+            localStorage.setItem('cart',JSON.stringify(info)) 
+            setReload(!reload)
+
+
+    }
+    function HandleDelete (index) {
+        var thisindex = 0
+        for (var i = 0; i < info.belongtocart.length; i++){
+            if(index == info.belongtocart[i]){
+                thisindex = i
+            }
+        }
+        if(info.belongtocart.length == 1){
+            incart = false 
+            location =''
+            localStorage.removeItem('cart');
+        }
+        else{
+            location =''
+            info.belongtocart.splice(thisindex,1)
+            localStorage.setItem('cart',JSON.stringify(info))
+        }
+        
+    }
+    const [data,setdata]=useState([])
+   
+    useEffect(()=>{
+      const getData = async ()=>{
+        try {
+          const res = await axios.get('http://localhost:8080/products/discount') 
+          setdata(res.data)
+        } catch (error) {
+        }
+      }
+      getData()
+    },[])
+
     function handleSubmit() {
         if(name!=='' && phone !== '' && email !== '' && paymethod !== '' && address !== '') {
             toast.success('Đặt hàng thành công', {
@@ -100,10 +153,65 @@ function Cart(props) {
                 draggable: true,
                 progress: undefined,
             });
+            info.name=name;
+            info.phone=phone;
+            info.email=email;
+            info.paymethod=paymethod;
+            info.address=address;
+            info.buytime=date;
+            localStorage.setItem('cart',JSON.stringify(info))
+            axios.post('http://localhost:8080/cart/add',{info})
         }
     }
+    function total(){
+        var sum = 0;
+        for(var i=0; i< info.belongtocart.length; i++){
+            sum+= info.belongtocart[i].price* info.belongtocart[i].quantity
+        }
+        sum -= check
+        return sum
+    }
+    function Renderitem() {
+        return <Fragment >{info.belongtocart.slice(0, info.belongtocart.length).map((index) => {
+            for (var i = 0; i < info.belongtocart.length; i++){
+                if(index === info.belongtocart[i]){
+                    setIndexitem(i)
+                }
+            }
+                return (
+                    <div class="col-md-12 col-sm-12 my-3 row" style={{ border: '2px solid #C4C4C4', borderRadius: '12px' }}>
+                        <div class="col-md-4 col-sm-4">
+                            <img style={{ marginLeft: "2px", display: 'block', maxWidth: '100%', height: 'auto' }}
+                                //src="https://cdn.hoanghamobile.com/i/preview/Uploads/2021/09/15/image-removebg-preview-15.png"
+                                src={index.url}
+                                alt="new"
+                                class="card-img-top "
+                            />
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            <h2 style={{ textAlign: 'center' }}>{index.productname}</h2>
+                            <h3 style={{ color: 'red' }}>{index.price} Đ</h3>
+                            <h3>Khuyến mãi:</h3>
+                            <h5>- Tặng mã giảm giá 1,000,000đ khi mua các sản phẩm khác tại cửa hàng</h5>
+                            <h5>- Bảo hành 12 tháng</h5>
+                            <div class="btn-group d-flex col-md-12 col-sm-12 mb-3" role="group" aria-label="Basic example" style={{maxWidth:'300px'}}>
+                                <a id="delete" href="#" ><button style={{height:'40px'}} type="button"  class="btn btn-outline-danger" onClick={() => HandleDelete(index)}> Xóa khỏi giỏ </button></a>
+                                <button style={{height:'40px', marginLeft:'-36px'}}type="button" class="btn btn-outline-secondary" onClick={() => HandleDecrese(index)}>-</button>
+                                <input style={{height:'40px', width: '40px', marginLeft:'-36px'}} class="form-control" type="text" id="fname" name="fname" value={index.quantity} required />
+                                <button style={{height:'40px'}}type="button" class="btn btn-outline-secondary" onClick={() => HandleIncrese(index)}>+</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            
+        })}
+        </Fragment>
+      }
+
+
     return (
         <div className="container" id='product-list' >
+            
             <ToastContainer />
             <div class="col-md-12 col-sm-12 d-flex mt-3">
                 <div class="col-md-6 col-sm-6 ">
@@ -117,29 +225,14 @@ function Cart(props) {
                     <p style={{ textAlign: 'right', fontSize: '1.5em' }}>Giỏ hàng của bạn</p>
                 </div>
             </div>
-            <div class="col-md-12 col-sm-12  row" style={{ border: '2px solid #C4C4C4', borderRadius: '12px' }}>
-                <div class="col-md-4 col-sm-4">
-                    <img style={{ marginLeft: "2px", display: 'block', maxWidth: '100%', height: 'auto' }}
-                        //src="https://cdn.hoanghamobile.com/i/preview/Uploads/2021/09/15/image-removebg-preview-15.png"
-                        src={location.state.Url}
-                        alt="new"
-                        class="card-img-top "
-                    />
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <h2 style={{ textAlign: 'center' }}>{location.state.Product_Name}</h2>
-                    <h3 style={{ color: 'red' }}>{location.state.Price} Đ</h3>
-                    <h3>Khuyến mãi:</h3>
-                    <h5>- Tặng mã giảm giá 1,000,000đ khi mua các sản phẩm khác tại cửa hàng</h5>
-                    <h5>- Bảo hành 12 tháng</h5>
-                    <div class="btn-group d-flex col-md-12 col-sm-12 mb-3" role="group" aria-label="Basic example" style={{maxWidth:'300px'}}>
-                        <button style={{height:'40px'}} type="button" class="btn btn-outline-danger">Xóa khỏi giỏ</button>
-                        <button style={{height:'40px', marginLeft:'-36px'}}type="button" class="btn btn-outline-secondary" onClick={HandleDecrese}>-</button>
-                        <input style={{height:'40px', width: '40px', marginLeft:'-36px'}} class="form-control" type="text" id="fname" name="fname" value={counter} required />
-                        <button style={{height:'40px'}}type="button" class="btn btn-outline-secondary" onClick={HandleIncrese}>+</button>
-                    </div>
-                </div>
-            </div>
+
+
+            {
+                incart==true?
+            <div>
+            <Renderitem/>
+            
+
             <div style={{ marginTop: '30px'}} class="row-col-md-12 row-col-sm-12 d-flex ">
                 <p class="col-md-4 col-sm-4 h3">Nhập mã giảm giá:</p>
                 <input style={{}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
@@ -159,7 +252,7 @@ function Cart(props) {
  
             <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
                 <p class="col-md-9 col-sm-9 h3" >Tổng tiền:</p>
-                <p class="h3" style={{ color: 'red' }}>{location.state.Price *counter -check}Đ</p>
+                <p class="h3" style={{ color: 'red' }}>{total()}Đ</p>
             </div>
 
 
@@ -187,10 +280,22 @@ function Cart(props) {
                 <button style={{ marginTop: "30px", borderRadius: "15px" }} type="submit" class="btn btn-danger" onClick={handleSubmit}><h1>Xác nhận đặt hàng</h1></button>
             </div>
             </form>
-
-  
+            </div>
+            : 
+            <div class="text-center my-5">
+                <Card>
+                    <Card.Body>
+                        <h2>Bạn chưa có sản phẩm nào trong giỏ hàng</h2>
+                    
+                    </Card.Body>
+                </Card>
+                
+            </div>
+            }
+                
           </div>      
     )
+    
 }
 
 

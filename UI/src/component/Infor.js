@@ -32,7 +32,7 @@ function Infor(props) {
     useEffect(()=>{
       const getData = async ()=>{
         try {
-          const res = await axios.get('http://localhost:8080/products/comprehension') 
+          const res = await axios.get('http://localhost:8080/products/getinfor') 
           setdata(res.data)
           //console.log(res.data)
         } catch (error) {
@@ -42,7 +42,7 @@ function Infor(props) {
       getData()
     },[])
     //console.log(data)
-    localStorage.setItem('cart','data')
+    //localStorage.setItem('cart','data')
     console.log(location)
     let info={}
     let img=[]
