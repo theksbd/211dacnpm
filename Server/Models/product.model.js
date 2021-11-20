@@ -45,7 +45,8 @@ Product.getByWord = (result,req) => {
     let query = "SELECT product.Product_Name, product.DisplaySize, product.Discount,\
     imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \
     FROM `product` JOIN `memory` JOIN `imageproduct` \
-    WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product AND product.Product_Name REGEXP ?";
+    WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product AND product.Product_Name REGEXP ?\
+    GROUP BY product.Product_Name";
 
     console.log(req.params.id)
     let keyWord = `.*${req.params.id}.*`
@@ -80,10 +81,11 @@ Product.getAllDiscountCode = (result) => {
 };
 
 Product.getCompreAllProduct = (result) => {
-    let query = ' SELECT product.Product_Name, product.DisplaySize, product.Discount, product.Color, product.battery, product.Os, product.chip, product.InStock, product.Product_Type,\
-    imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \
+    let query = 'SELECT product.Product_Name, product.DisplaySize,\
+    product.Discount, product.Color, product.battery, product.Os, product.chip,\
+    product.InStock, product.Product_Type, imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \
     FROM `product` JOIN `memory` JOIN `imageproduct` \
-    WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product LIMIT 1'
+    WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product GROUP BY product.Product_Name';
     mySql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);

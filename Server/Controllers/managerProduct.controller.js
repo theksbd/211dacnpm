@@ -24,7 +24,7 @@ exports.add = function(req, res){
 			memory.Id_Product = response.Id;
 			Memory.create(memory)
 		})
-		discountCode[0].Id_Discount != "" && discountCode.map((discountCode)=>{
+		discountCode[0].Id_Discount!=""&&discountCode.map((discountCode)=>{
 			discountCode.Id_Product = response.Id;
 			Discount.create(discountCode)
 		})
