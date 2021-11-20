@@ -79,6 +79,23 @@ Product.getAllDiscountCode = (result) => {
     });
 };
 
+Product.getCompreInforProduct = (result) => {
+    let query = ' SELECT product.Id, product.Product_Name, product.DisplaySize, product.Discount, product.Color, product.battery, product.Os, product.chip, product.InStock, product.Product_Type,\
+    imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \
+    FROM `product` JOIN `memory` JOIN `imageproduct` \
+    WHERE product.Id = memory.Id_Product AND product.Id = imageproduct.Id_Product'
+    mySql.query(query, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err);
+            return;
+        }
+
+        console.log("getCompreInforProduct: ", res);
+        result(res)
+    });
+}
+
 Product.getCompreAllProduct = (result) => {
     let query = ' SELECT product.Product_Name, product.DisplaySize, product.Discount, product.Color, product.battery, product.Os, product.chip, product.InStock, product.Product_Type,\
     imageproduct.Url, memory.Rom_Capacity, memory.Ram_Capacity, memory.Price \

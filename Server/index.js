@@ -17,6 +17,7 @@ require('./Routers/imagePro.router')(app);
 require('./Routers/memory.router')(app);
 require('./Routers/discountCode.router')(app);
 require('./Routers/managerProduct.router')(app);
+require('./Routers/cart.router')(app);
 app.get('/',(req,res) => {
     res.send("Hello DACNPM")
 })  
