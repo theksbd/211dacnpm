@@ -70,7 +70,20 @@ function Cart(props) {
 
     if (incart && checklocal) {
         if (infoitem.price>0 && infoitem.quantity>0){
-        info.belongtocart.push(infoitem)
+            let checkpush = true
+            let addquantity = -1
+            for(var i=0; i<info.belongtocart.length; i++){
+                if(info.belongtocart[i].price == infoitem.price && info.belongtocart[i].id == infoitem.id){
+                    checkpush = false
+                    addquantity = i
+                }
+            }
+            if (checkpush ==true){
+                info.belongtocart.push(infoitem)
+            }
+            else{
+                info.belongtocart[addquantity].quantity += infoitem.quantity
+            }
         }
         localStorage.setItem('cart',JSON.stringify(info))
         setChecklocal(false)
