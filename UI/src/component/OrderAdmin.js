@@ -36,6 +36,11 @@ export default function OrderAdmin() {
         totalOrder4: GetRandomNumber(fourthDate, 1, 35)
     }
 
+    let numOrder = [0, 0, 0, 0, 0];
+    let indexNumOrder = 0;
+    let tempBuyDate = "";
+    let countNumOrder = 0;
+
     //const [showCalendar, setShowCalendar] = useState(true);
 
     function GetRandomNumber(date, min, max) {
@@ -148,12 +153,26 @@ export default function OrderAdmin() {
     const history = useHistory();
     const [dele, setDele] = useState(false)
     const [customerData, setCustomerData] = useState()
+    const [priceData, setPriceData] = useState()
 
     useEffect(() => {
         const getData = async () => {
             try {
                 const res = await axios.get('http://localhost:8080/cart/list')
                 setCustomerData(res.data)
+                //console.log(res.data)
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+        getData()
+    }, [dele])
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const res = await axios.get('http://localhost:8080/cart/detail')
+                setPriceData(res.data)
                 //console.log(res.data)
             } catch (error) {
                 console.log(error.message)
@@ -178,59 +197,11 @@ export default function OrderAdmin() {
         }
     }
 
-    // function handleBuyDate(strBuyDate) {
-    //     let buyYear = strBuyDate.slice(0, 4);
-    //     buyYear = Number(buyYear);
-    //     let buyMonth = strBuyDate.slice(5, 7);
-    //     buyMonth = Number(buyMonth);
-    //     let buyDay = strBuyDate.slice(8, 10);
-    //     buyDay = Number(buyDay);
-    //     buyDay += 1;
-
-    //     if (buyDay === 32) {
-    //         if (buyMonth === 12) {
-    //             buyMonth = 1;
-    //             buyYear += 1;
-    //         }
-    //         else {
-    //             buyMonth += 1;
-    //         }
-    //         buyDay = 1;
-    //     }
-    //     else if (buyDay === 31) {
-    //         if (buyMonth === 4 || buyMonth === 6 || buyMonth === 9 || buyMonth === 11) {
-    //             buyDay = 1;
-    //             buyMonth += 1;
-    //         }
-    //     }
-
-    //     return [buyDay, buyMonth, buyYear];
-    // }
-
     function CustomerList(props) {
-        // let strBuyDate = props.item.Buy_Time;
-        // let buyYear = strBuyDate.slice(0, 4);
-        // buyYear = Number(buyYear);
-        // let buyMonth = strBuyDate.slice(5, 7);
-        // buyMonth = Number(buyMonth);
-        // let buyDay = strBuyDate.slice(8, 10);
-        // buyDay = Number(buyDay);
-        // buyDay += 1;
-
         let buyDate = (new Date(props.item.Buy_Time)).toLocaleDateString();
-        //let buyDate = new Date();
-        // let buyDay, buyMonth, buyYear;
-        // let buyDateInfo = [buyDay, buyMonth, buyYear];
-        // buyDateInfo = handleBuyDate(props.item.Buy_Time);
-        // buyDate.setDate(buyDateInfo[0]);
-        // buyDate.setMonth(buyDateInfo[1]);
-        // buyDate.setFullYear(buyDateInfo[2]);
-        // buyDate.setDate(buyDay);
-        // buyDate.setMonth(buyMonth);
-        // buyDate.setFullYear(buyYear);
         return (
             <>
-                <tr>
+                <tr className="text-center">
                     <td>{props.item.Id_Cart}</td>
                     <td>{props.item.Name_Client}</td>
                     <td>{props.item.Address_Client}</td>
@@ -259,7 +230,7 @@ export default function OrderAdmin() {
             <div class="table-responsive mt-3 mb-5">
                 <table class="table table-bordered table-hover">
                     <thead>
-                        <tr class="table-primary">
+                        <tr class="table-primary text-center">
                             <th>Giỏ hàng</th>
                             <th>Tên khách hàng</th>
                             <th>Địa chỉ khách hàng</th>
@@ -277,20 +248,36 @@ export default function OrderAdmin() {
         </Fragment>
     }
 
-    // function CalculateTotalOrder() {
-    //     customerData.Buy_Time
-    //     return <Fragment>{
-    //         customerData && customerData.map((item) => {
-    //             return (
-    //                 <CustomerList item={item} />
-    //             )
-    //         })}
-    //     </Fragment>
-    // }
+    function Test(props) {
+        if (tempBuyDate != "") {
+            if (props.item.Buy_Time != tempBuyDate) {
+                numOrder[indexNumOrder] = countNumOrder;
+                indexNumOrder += 1;
+                countNumOrder = 1;
+            }
+            else {
+                countNumOrder += 1;
+            }
+        }
+        tempBuyDate = props.item.Buy_Time;
+    }
+
+    function CalculateTotalOrder() {
+        return <Fragment>{
+            priceData && priceData.map((item) => {
+                return (
+                    <Test item={item} />
+                )
+            })
+        }
+        </Fragment>
+    }
 
     // function CalculateProfit() {
 
     // }
+
+    
 
     return (
         <div className="my-5 container">
@@ -310,7 +297,7 @@ export default function OrderAdmin() {
                     {console.log(date)}
                 </div>
                 <div className="col-6 mt-5 fw-bold">
-                    <div className="p-lg-3 font-weight-bold" style={{
+                    <div className="p-lg-3" style={{
                         backgroundColor: "#C4C4C4", borderStyle: "solid",
                         borderWidth: "2px"
                     }}>
@@ -320,6 +307,7 @@ export default function OrderAdmin() {
                             </div>
                             <div className="col-7 text-end">
                                 {dataOrder.totalOrder}
+                                {/* {numOrder[4]} */}
                             </div>
                         </div>
                     </div>
@@ -336,7 +324,7 @@ export default function OrderAdmin() {
                             </div>
                         </div>
                     </div> */}
-                    <div className="p-lg-3 font-weight-bold" style={{
+                    <div className="p-lg-3" style={{
                         // backgroundColor: "#C4C4C4", 
                         borderStyle: "solid",
                         borderWidth: "2px"
@@ -387,8 +375,8 @@ export default function OrderAdmin() {
                         },
                         {
                             label: 'Doanh thu',
-                            data: [dataFake.totalOrder4 * 15000000, dataFake.totalOrder3 * 17000000,
-                            dataFake.totalOrder2 * 7800000, dataFake.totalOrder1 * 25300000, dataOrder.totalOrder * 21700000],
+                            data: [dataFake.totalOrder4 * 25300000, dataFake.totalOrder3 * 15000000,
+                            dataFake.totalOrder2 * 12800000, dataFake.totalOrder1 * 17000000, dataOrder.totalOrder * 21700000],
                             backgroundColor: '#2980b9',
                             borderColor: 'black',
                             borderWidth: 3,
