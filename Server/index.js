@@ -15,6 +15,7 @@ app.use('/products',productRouter)
 app.use('/login',loginRouter)
 require('./Routers/managerProduct.router')(app);
 require('./Routers/cart.router')(app);
+require('./Routers/customer.router')(app);
 app.get('/',(req,res) => {
     res.send("Hello DACNPM")
 })  
