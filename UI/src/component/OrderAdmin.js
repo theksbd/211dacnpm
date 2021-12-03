@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import Calendar from 'react-calendar'
 import { useHistory } from "react-router-dom"
-import { Bar, Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import axios from 'axios'
 import 'react-calendar/dist/Calendar.css'
 // import { Row, Col, Form } from 'react-bootstrap'
@@ -29,18 +29,6 @@ export default function OrderAdmin() {
         // performance: 100
     };
 
-    const dataFake = {
-        totalOrder1: GetRandomNumber(firstDate, 1, 35),
-        totalOrder2: GetRandomNumber(secondDate, 1, 35),
-        totalOrder3: GetRandomNumber(thirdDate, 1, 35),
-        totalOrder4: GetRandomNumber(fourthDate, 1, 35)
-    }
-
-    let numOrder = [0, 0, 0, 0, 0];
-    let indexNumOrder = 0;
-    let tempBuyDate = "";
-    let countNumOrder = 0;
-
     //const [showCalendar, setShowCalendar] = useState(true);
 
     function GetRandomNumber(date, min, max) {
@@ -50,17 +38,6 @@ export default function OrderAdmin() {
         }
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
-    // function setPerformance(performance) {
-    //     if (date.getTime() > currDate.getTime())
-    //         return 0;
-    //     if (dataOrder.cancelOrder > 0) {
-    //         performance -= dataOrder.cancelOrder * 2;
-    //         return performance;
-    //     }
-    // }
-
-    // dataOrder.performance = setPerformance(dataOrder.performance);
 
     function onChange(date) {
         setDate(date);
@@ -150,6 +127,13 @@ export default function OrderAdmin() {
         return date[0] + " - " + date[1] + "/" + date[2] + "/" + date[3];
     }
 
+    const dataFake = {
+        totalOrder1: GetRandomNumber(firstDate, 1, 35),
+        totalOrder2: GetRandomNumber(secondDate, 1, 35),
+        totalOrder3: GetRandomNumber(thirdDate, 1, 35),
+        totalOrder4: GetRandomNumber(fourthDate, 1, 35)
+    }
+    
     const history = useHistory();
     const [dele, setDele] = useState(false)
     const [customerData, setCustomerData] = useState()
@@ -210,6 +194,7 @@ export default function OrderAdmin() {
                     <td>{props.item.Pay_Method}</td>
                     {/* <td>{buyDate.getDate()}/{buyDate.getMonth()}/{buyDate.getFullYear()}</td> */}
                     <td>{buyDate}</td>
+                    {/* <td>{CalculateTotalOrder}</td> */}
                 </tr>
             </>
         );
@@ -238,6 +223,7 @@ export default function OrderAdmin() {
                             <th>Email</th>
                             <th>Phương thức thanh toán</th>
                             <th>Ngày mua</th>
+                            {/* <th>Đơn giá</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -248,30 +234,31 @@ export default function OrderAdmin() {
         </Fragment>
     }
 
-    function Test(props) {
-        if (tempBuyDate != "") {
-            if (props.item.Buy_Time != tempBuyDate) {
-                numOrder[indexNumOrder] = countNumOrder;
-                indexNumOrder += 1;
-                countNumOrder = 1;
-            }
-            else {
-                countNumOrder += 1;
-            }
-        }
-        tempBuyDate = props.item.Buy_Time;
-    }
+    // function Test(props) {
+    //     if (tempBuyDate != "") {
+    //         if (props.item.Buy_Time != tempBuyDate) {
+    //             numOrder[indexNumOrder] = countNumOrder;
+    //             indexNumOrder += 1;
+    //             countNumOrder = 1;
+    //         }
+    //         else {
+    //             countNumOrder += 1;
+    //         }
+    //     }
+    //     tempBuyDate = props.item.Buy_Time;
+    // }
 
-    function CalculateTotalOrder() {
-        return <Fragment>{
-            priceData && priceData.map((item) => {
-                return (
-                    <Test item={item} />
-                )
-            })
-        }
-        </Fragment>
-    }
+    // function CalculateTotalOrder() {
+    //     return <Fragment>{
+    //         priceData && priceData.map((priceItem) => {
+    //             return (
+    //                 // <CustomerList item={priceItem} />
+    //                 priceItem
+    //             )
+    //         })
+    //     }
+    //     </Fragment>
+    // }
 
     // function CalculateProfit() {
 
@@ -311,19 +298,6 @@ export default function OrderAdmin() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="p-lg-3 font-weight-bold" style={{
-                        borderStyle: "solid",
-                        borderWidth: "2px"
-                    }}>
-                        <div className="row">
-                            <div className="col-4 ms-2">
-                                <i class="fas fa-trash-alt"></i> Số hóa đơn hủy
-                            </div>
-                            <div className="col-7 text-right">
-                                {dataOrder.cancelOrder}
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="p-lg-3" style={{
                         // backgroundColor: "#C4C4C4", 
                         borderStyle: "solid",
@@ -338,19 +312,6 @@ export default function OrderAdmin() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="p-lg-3 font-weight-bold" style={{
-                        borderStyle: "solid",
-                        borderWidth: "2px"
-                    }}>
-                        <div className="row">
-                            <div className="col-4 ms-2">
-                                <i class="fab fa-product-hunt"></i> Hiệu suất
-                            </div>
-                            <div className="col-7 text-right">
-                                {dataOrder.performance}
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
 
             </div>
@@ -368,8 +329,8 @@ export default function OrderAdmin() {
                             dataFake.totalOrder2, dataFake.totalOrder1, dataOrder.totalOrder],
                             backgroundColor: '#f73600',
                             borderColor: 'black',
-                            borderWidth: 3,
-                            barPercentage: 0.5,
+                            borderWidth: 2,
+                            barPercentage: 0.4,
                             hoverBackgroundColor: '#f7a436',
                             hoverBorderColor: '#8f8d8c'
                         },
@@ -379,8 +340,8 @@ export default function OrderAdmin() {
                             dataFake.totalOrder2 * 12800000, dataFake.totalOrder1 * 17000000, dataOrder.totalOrder * 21700000],
                             backgroundColor: '#2980b9',
                             borderColor: 'black',
-                            borderWidth: 3,
-                            barPercentage: 0.5,
+                            borderWidth: 2,
+                            barPercentage: 0.4,
                             hoverBackgroundColor: '#b3ccff',
                             hoverBorderColor: '#34495e'
                         },
