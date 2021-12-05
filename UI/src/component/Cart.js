@@ -90,7 +90,6 @@ function Cart(props) {
     }
 
 
-
     if(localStorage.getItem('cart')!== null){
         info = JSON.parse(localStorage.getItem('cart'))
 
@@ -248,12 +247,12 @@ function Cart(props) {
 
             <div style={{ marginTop: '30px'}} class="row-col-md-12 row-col-sm-12 d-flex ">
                 <p class="col-md-4 col-sm-4 h3">Nhập mã giảm giá:</p>
-                <input style={{}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
+                <input style={{maxWidth: '40%'}}class="form-control col-md-5 col-sm-5" type="text" id="fname" name="fname" required onChange={(event) => setDiscount(event.target.value)}/>
                 {/* <button style={{ height: '35px', marginLeft: '10px' }} type="button" class="btn btn-danger" onClick={HandleDiscount} >Áp dụng</button> */}
-                <button style={{ height: '35px', marginLeft: '10px'}} type="button" class="btn btn-danger col-md-2 col-sm-3" onClick={HandleDiscount} >Áp dụng</button>
+                <button style={{ marginLeft: '10px'}} type="button" class="btn btn-danger col-md-2 col-sm-3" onClick={HandleDiscount} >Áp dụng</button>
             </div>
             <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
-                <p class="col-md-9 col-sm-9 h3" >Mã giảm giá:</p>
+                <p class="col-9 h3" >Mã giảm giá:</p>
                 <p class="h3">{
                     check?
                         <p> {check}Đ </p>
@@ -264,7 +263,7 @@ function Cart(props) {
             </div>
  
             <div style={{ marginTop: '30px' }} class="row-col-md-12 row-col-sm-12 d-flex">
-                <p class="col-md-9 col-sm-9 h3" >Tổng tiền:</p>
+                <p class="col-9 h3" >Tổng tiền:</p>
                 <p class="h3" style={{ color: 'red' }}>{total()}Đ</p>
             </div>
 
@@ -273,23 +272,23 @@ function Cart(props) {
             <form class="row g-3 needs-validation" novalidate>
             <div style={{ marginTop: '30px', textAlign: 'center' }} class="col-md-11 col-sm-11">
                 <p style={{ fontSize: '2em', textAlign: 'center' }} class="col-md-12 col-sm-12 ">Nhập thông tin đặt mua</p>
-                <div className="d-flex" style={{ maxWidth : "1158px"}}>
+                <div className="d-flex" >
 
-                    <input type="text" class="form-control col-md-6 col-sm-6 mb-2" aria-describedby="emailHelp" placeholder="Họ và tên" required onChange={(event) => setName(event.target.value)}></input>
-                    <input style={{ marginLeft: '8px' }} type="number" class="form-control col-md-6 col-sm-6 mb-2" aria-describedby="emailHelp" placeholder="Số điện thoại" required onChange={(event) => setPhone(event.target.value)}></input>
+                    <input style={{ maxWidth : '49.7%'}} type="text" class="form-control col-md-6 col-sm-6 mb-2" aria-describedby="emailHelp" placeholder="Họ và tên" required onChange={(event) => setName(event.target.value)}></input>
+                    <input style={{ marginLeft: '8px', maxWidth : '49.7%' }} type="number" class="form-control col-md-6 col-sm-6 mb-2" aria-describedby="emailHelp" placeholder="Số điện thoại" required onChange={(event) => setPhone(event.target.value)}></input>
 
                 </div>
-                <div className="d-flex">
-                    <input type="text" class="form-control col-md-6 col-sm-6 mb-2" aria-describedby="emailHelp" placeholder="Địa chỉ nhận hàng" required onChange={(event) => setAddress(event.target.value)}></input>
-                    <input style={{ marginLeft: '8px' }} type="email" class="form-control col-md-6 col-sm-6 mb-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required onChange={(event) => setEmail(event.target.value)}></input>
+                <div className="d-flex" >
+                    <input style={{ maxWidth : '49.7%'}} type="text" class="form-control col-md-6 col-sm-6 mb-2" aria-describedby="emailHelp" placeholder="Địa chỉ nhận hàng" required onChange={(event) => setAddress(event.target.value)}></input>
+                    <input style={{ marginLeft: '8px', maxWidth : '49.7%' }} type="email" class="form-control col-md-6 col-sm-6 mb-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required onChange={(event) => setEmail(event.target.value)}></input>
                 </div>
-                <select id="inputState" class="form-control col-md-6 col-sm-6" style={{margin : "auto"}} required onChange={(event) => setPayMethod(event.target.value)}>
+                <select id="inputState" class="form-control col-12" style={{margin : "auto",maxWidth : '100%'}} required onChange={(event) => setPayMethod(event.target.value)}>
                     <option selected disabled value="">Hình thức thanh toán</option>
                     <option value="Thanh toán trực tiếp">Thanh toán trực tiếp</option>
                     <option value="Chuyển khoản">Chuyển khoản</option>
                 </select>
             </div>
-            <div class="col-md-12 col-sm-12 mb-5" style={{ textAlign: "center" }}>
+            <div class="col-12 mb-5" style={{ textAlign: "center" }}>
                 <button style={{ marginTop: "30px", borderRadius: "15px" }} type="submit" class="btn btn-danger" onClick={handleSubmit}><h1>Xác nhận đặt hàng</h1></button>
             </div>
             </form>
