@@ -1,7 +1,6 @@
 # Hướng dẫn khởi chạy ứng dụng
 
 ## Về phía Front End
-
 - Chuyển thư mục làm việc về thư mục  UI : cd UI
 - Cài đặt các package cần thiết : npm install
 - Khởi chạy Front End : npm start
@@ -15,3 +14,6 @@
 - Cài đặt Xampp tại [đây](https://www.apachefriends.org/download.html) 
 - Start MySql và tạo 1 database
 - Vào file ConnectMySql.js trong thư mục Config của thư mục Server và thay thế mật khẩu và tên database bằng mật khẩu và tên database đã tạo 
+
+## Video demo
+- Click vào [đây](https://youtu.be/1TtvfrVT1ns) để xem video trình bày demo về trang web.
